@@ -19,7 +19,7 @@ const HeroModule = () => {
             through innovation and creativity? Join us at the forefront of the
             revolution and be a part of something extraordinary. Welcome to
             ZBD's Bitcoin Hackathons, where brilliance meets the Lightning
-            Network!🚀
+            Network & Nostr!🚀
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <a
