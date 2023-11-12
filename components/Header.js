@@ -29,7 +29,7 @@ export default function Header() {
               height={32}
             />
           </Link>
-          <div>
+          {/* <div>
             {!loading && !session && (
               <ButtonPrimary
                 buttonText={"Log In"}
@@ -61,7 +61,7 @@ export default function Header() {
                 </span>
               </div>
             )}
-          </div>
+          </div> */}
         </nav>
       </header>
     </div>
