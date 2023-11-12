@@ -4,8 +4,6 @@ import ButtonPrimary from "@/components/ButtonPrimary";
 const CallToAction = ({ data }) => {
   return (
     <div className="relative isolate overflow-hidden py-24 sm:py-32">
-
-
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-4xl font-bold tracking-tight  sm:text-6xl">
@@ -24,9 +22,9 @@ const CallToAction = ({ data }) => {
             ))}
           </div>
         </div>
-        <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+        {/* <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
           <ButtonPrimary buttonText={"Get ZBD"} buttonLink={""} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
