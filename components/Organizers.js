@@ -13,7 +13,7 @@ function Organizers() {
       <div className='grid md:grid-cols-4 gap-10 md:grid-rows-4 mt-2 md:mt-5'>
         <div className="border border-purple-500 rounded-lg md:px-5 md:py-6 px-8 py-12">
           <Image
-            src="/organizer.jpg"
+            src="/Ellipse 1.jpg"
             width={80}
             height={80}
             alt="Picture of the author"

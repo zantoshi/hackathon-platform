@@ -3,11 +3,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import ButtonPrimary from "@/components/ButtonPrimary";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { X, Menu } from 'lucide-react'
+import { X, Menu } from 'lucide-react';
+import { motion, stagger } from "framer-motion"
 
 export default function Header() {
   const [click, setClick] = useState(false)
   const [gradient, setGradient] = useState("")
+
   const toggleNavbar = () => {
     setClick(!click)
     if (!click) {
@@ -20,19 +22,18 @@ export default function Header() {
   const handleResize = () => {
     if (window.innerWidth >= 768) {
       setGradient("");
-      setClick(false); // Cierra el menú si la pantalla es lo suficientemente grande
+      setClick(false);
     }
   };
 
   useEffect(() => {
-    // Agrega el listener del evento resize cuando el componente se monta
     window.addEventListener("resize", handleResize);
 
-    // Limpia el listener cuando el componente se desmonta
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
 
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -137,39 +138,49 @@ export default function Header() {
 
           </div>
         </nav>
-        {click && (
-          <div className="md:hidden fixed inset-x-0 top-1/4 transform -translate-y-1/2 z-20 pt-20" style={{ background: gradient }}>
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <ul className="flex flex-col items-center justify-center gap-3 font-bold text-lg">
-                <li>
-                  <Link className="hover:text-purple-500" href="/hackathons">
-                    Hackathons
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-purple-500"
-                    href="https://emeralize.app/marketplace"
-                  >
-                    Learn
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/organizers">
-                    Organizers
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/sponsor">
-                    Sponsor
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/contact">
-                    Contact
-                  </Link>
-                </li>
-                <li>
+        <motion.div
+          className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-36 pt-28 pb-20"
+          style={{ background: gradient }}
+          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: click ? 1 : 0 }}
+        >
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+            }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+          >
+            <motion.ul variants={stagger(0.1)} className="gap-3 font-bold text-lg flex flex-col items-center justify-center ">
+              <li>
+                <Link className="hover:text-purple-500" href="/hackathons">
+                  Hackathons
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="https://emeralize.app/marketplace">
+                  Learn
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/organizers">
+                  Organizers
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/sponsor">
+                  Sponsor
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/contact">
+                  Contact
+                </Link>
+              </li>
+              <li>
                   <div className="md:hidden mt-10">
                     {!loading && !session && (
                       <ButtonPrimary
@@ -204,12 +215,11 @@ export default function Header() {
                     )}
                   </div>
                 </li>
-              </ul>
+            </motion.ul>
 
-            </div>
-          </div>
-        )}
-
+            {/* Resto de tus elementos en el Navbar... */}
+          </motion.div>
+        </motion.div>
       </header>
     </div>
   );
