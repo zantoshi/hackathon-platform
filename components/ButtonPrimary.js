@@ -1,23 +1,29 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const ButtonPrimary = ({ buttonText, buttonLink = "#", functionCall = undefined }) => {
+const ButtonPrimary = ({
+  buttonText,
+  buttonLink = false,
+  functionCall = undefined,
+}) => {
   return (
-    <div>
-      <Link href={buttonLink} onClick={functionCall || undefined}>
-        <button className="w-15 md:w-30 bg-lime-400 hover:bg-lime-600 text-white border-solid border-2 border-black font-bold py-2 px-6 rounded-full">
+    <>
+      {buttonLink ? (
+        <Link href={buttonLink}>
+          <button className="w-15 md:w-30 border-1 bg-purple-500 border-purple-500 hover:bg-purple-700 text-white border-solid border-2 font-bold py-2 px-6 rounded-full">
+            <div className="flex justify-between align-middle">
+              <span className="mr-2 text-sm">{buttonText}</span>
+            </div>
+          </button>
+        </Link>
+      ) : (
+        <button className="w-15 md:w-30 border-1 bg-purple-500 border-purple-500 hover:bg-purple-700 text-white border-solid border-2 font-bold py-2 px-6 rounded-full">
           <div className="flex justify-between align-middle">
-            <span className="mr-2 text-black xl:text-lg lg:text-lg md:text-lg sm:text-sm xs:text-xs ">{buttonText}</span>
-            <ArrowRight
-              color="black"
-              size={28}
-              className="hidden sm:inline-block border-solid border-2 border-black bg-white hover:bg-gray-300 rounded-full"
-            />
+            <span className="mr-2 text-sm">{buttonText}</span>
           </div>
         </button>
-      </Link>
-    </div>
+      )}
+    </>
   );
 };
 
