@@ -4,20 +4,20 @@ import ButtonPrimary from "@/components/ButtonPrimary";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { X, Menu } from 'lucide-react';
-import { motion, stagger } from "framer-motion"
+import { motion, stagger, AnimatePresence } from "framer-motion"
 
 export default function Header() {
-  const [click, setClick] = useState(false)
-  const [gradient, setGradient] = useState("")
+  const [click, setClick] = useState(false);
+  const [gradient, setGradient] = useState("");
 
   const toggleNavbar = () => {
-    setClick(!click)
+    setClick(!click);
     if (!click) {
       setGradient("linear-gradient(to bottom right, #000000,#6E39A8)");
     } else {
       setGradient("");
     }
-  }
+  };
 
   const handleResize = () => {
     if (window.innerWidth >= 768) {
@@ -33,7 +33,6 @@ export default function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
 
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -137,89 +136,90 @@ export default function Header() {
             </button>
 
           </div>
-        </nav>
-        <motion.div
-          className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-36 pt-28 pb-20"
-          style={{ background: gradient }}
-          transition={{ duration: 0.5 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: click ? 1 : 0 }}
-        >
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
-            }}
-            style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-          >
-            <motion.ul variants={stagger(0.1)} className="gap-3 font-bold text-lg flex flex-col items-center justify-center ">
-              <li>
-                <Link className="hover:text-purple-500" href="/hackathons">
-                  Hackathons
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-purple-500" href="https://emeralize.app/marketplace">
-                  Learn
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-purple-500" href="/organizers">
-                  Organizers
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-purple-500" href="/sponsor">
-                  Sponsor
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-purple-500" href="/contact">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                  <div className="md:hidden mt-10">
-                    {!loading && !session && (
-                      <ButtonPrimary
-                        buttonText={"Log In"}
-                        functionCall={signInHandler}
-                      />
-                    )}
-                    {!loading && session?.user && (
-                      <div className="flex flex-row">
-                        <span>
-                          <Link href="/team">
-                            <Image
-                              src={session.user.image}
-                              alt="User Profile Image"
-                              className="h-12 w-12 rounded-full mr-2 inline-block"
-                              width={12}
-                              height={12}
-                            />
-                          </Link>
-                        </span>
-                        <span>
-                          {session.user.image && (
-                            <div className="align-middle px-5">
-                              <ButtonPrimary
-                                buttonText={"Log Out"}
-                                functionCall={signOutHandler}
+          {click && (<AnimatePresence>
+            <motion.div
+              className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 py-20"
+              style={{ background: gradient }}
+              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, }}
+              exit={{ opacity: 0, y: 50 }}
+              animate={{ opacity: click ? 1 : 0 }}
+            >
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+                }}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              >
+                <motion.ul variants={stagger(0.1)} className="gap-3 font-bold text-lg flex flex-col items-center justify-center ">
+                  <li>
+                    <Link className="hover:text-purple-500" href="/hackathons">
+                      Hackathons
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="https://emeralize.app/marketplace">
+                      Learn
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/organizers">
+                      Organizers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/sponsor">
+                      Sponsor
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/contact">
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <div className="md:hidden mt-10">
+                      {!loading && !session && (
+                        <ButtonPrimary
+                          buttonText={"Log In"}
+                          functionCall={signInHandler}
+                        />
+                      )}
+                      {!loading && session?.user && (
+                        <div className="flex flex-row">
+                          <span>
+                            <Link href="/team">
+                              <Image
+                                src={session.user.image}
+                                alt="User Profile Image"
+                                className="h-12 w-12 rounded-full mr-2 inline-block"
+                                width={12}
+                                height={12}
                               />
-                            </div>
-                          )}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </li>
-            </motion.ul>
-
-            {/* Resto de tus elementos en el Navbar... */}
-          </motion.div>
-        </motion.div>
+                            </Link>
+                          </span>
+                          <span>
+                            {session.user.image && (
+                              <div className="align-middle px-5">
+                                <ButtonPrimary
+                                  buttonText={"Log Out"}
+                                  functionCall={signOutHandler}
+                                />
+                              </div>
+                            )}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                </motion.ul>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>)}
+        </nav>
       </header>
     </div>
   );
