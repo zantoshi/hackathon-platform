@@ -2,6 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
@@ -151,18 +152,18 @@ model Project {
 }
 
 model Contact {
-  id        String @id @default(cuid())
-  name      String
-  email     String
-  company   String
-  comments  String
+  id       String @id @default(cuid())
+  name     String
+  email    String
+  company  String
+  comments String
 }
 
 model Sponsors {
-  id        String @id @default(cuid())
-  name      String
-  email     String
-  company   String
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  company String
 }
 
 enum Role {
