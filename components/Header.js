@@ -50,16 +50,49 @@ export default function Header() {
   return (
     <div>
       <header>
-        <nav className="flex flex-row p-4 mb-4 bg-black justify-between  ">
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              alt="ZBD Hackathon Logo"
-              width={300}
-              height={32}
-            />
-          </Link>
-          <div>
+        <nav className="flex flex-row align-middle p-4  text-white justify-between border-b-4 border-purple-400/[.20]">
+          <div className="flex flex-row space-x-4 z-50">
+            <Link href="/">
+              <Image
+                src="/logo.svg"
+                alt="Global Hackathon League Logo"
+                width={84}
+                height={42}
+              />
+            </Link>
+            <ul className="hidden md:flex flex-row space-x-6 items-center">
+              <li>
+                <Link className="hover:text-purple-500" href="/hackathons">
+                  Hackathons
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-purple-500"
+                  href="https://emeralize.app/marketplace"
+                >
+                  Learn
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/organizers">
+                  Organizers
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/sponsor">
+                  Sponsor
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-purple-500" href="/contact">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:block hidden">
             {!loading && !session && (
               <ButtonSecondary
                 buttonText={"Log In"}
@@ -91,6 +124,21 @@ export default function Header() {
                 </span>
               </div>
             )}
+          </div>
+          <div className="md:hidden flex items-center">
+            <button
+              className="inline-flex items-center justify-center rounded-md text-white md:text-white hover:text-white focus:ring-3 focus:ring-inset focus:ring-white z-50"
+              onClick={toggleNavbar}
+            >
+              {click ? (
+                <X
+                  className="bg-white border-none rounded-sm"
+                  color="#6E39A8"
+                />
+              ) : (
+                <Menu />
+              )}
+            </button>
           </div>
         </nav>
         {click && (
