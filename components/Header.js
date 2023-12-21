@@ -138,7 +138,7 @@ export default function Header() {
           </div>
           {click && (<AnimatePresence>
             <motion.div
-              className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 py-20"
+              className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 border-b-2  border-black py-20 shadow-lg "
               style={{ background: gradient }}
               transition={{ duration: 0.5 }}
               initial={{ opacity: 0, }}
