@@ -63,7 +63,7 @@ export default function HackathonDetail() {
                 </p>
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
-                  {!signedUp ? (
+                  {/* {!signedUp ? (
                     <ButtonPrimary
                       buttonText={"Register"}
                       buttonLink={`/hackathons/${id}/register`}
@@ -73,7 +73,15 @@ export default function HackathonDetail() {
                       buttonText={"Submit Project"}
                       buttonLink={`/hackathons/${id}/submit`}
                     />
-                  )}
+                  )} */}
+                  <ButtonPrimary
+                    buttonText={"Register"}
+                    buttonLink={`/hackathons/${id}/register`}
+                  />
+                  <ButtonPrimary
+                    buttonText={"Submit Project"}
+                    buttonLink={`/hackathons/${id}/submit`}
+                  />
                 </div>
               </div>
             </div>
