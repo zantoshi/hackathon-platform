@@ -89,6 +89,13 @@ export default function Header() {
                   Contact
                 </Link>
               </li>
+              <li>
+                {!loading && session?.user && (
+                  <Link className="hover:text-purple-500" href="/team">
+                    Team
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
@@ -175,6 +182,13 @@ export default function Header() {
                   <Link className="hover:text-purple-500" href="/contact">
                     Contact
                   </Link>
+                </li>
+                <li>
+                  {!loading && session?.user && (
+                    <Link className="hover:text-purple-500" href="/team">
+                      Team
+                    </Link>
+                  )}
                 </li>
                 <li>
                   <div className="md:hidden mt-10">
