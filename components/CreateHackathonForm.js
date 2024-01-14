@@ -62,7 +62,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="title"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Title
               </label>
@@ -74,7 +74,7 @@ const CreateHackathonForm = () => {
                     id="title"
                     autoComplete="title"
                     onChange={(e) => setTitle(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
                     required
                   />
@@ -85,7 +85,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="description"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Description
               </label>
@@ -96,7 +96,7 @@ const CreateHackathonForm = () => {
                     name="description"
                     rows={3}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
                     required
                   />
@@ -107,7 +107,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="benefits"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Benefits
               </label>
@@ -118,7 +118,7 @@ const CreateHackathonForm = () => {
                     name="benefits"
                     rows={3}
                     onChange={(e) => setBenefits(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
                     required
                   />
@@ -129,7 +129,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="rules"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Rules
               </label>
@@ -140,7 +140,7 @@ const CreateHackathonForm = () => {
                     name="rules"
                     rows={3}
                     onChange={(e) => setRules(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
                     required
                   />
@@ -151,7 +151,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="judgingCriteria"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Judging Criteria
               </label>
@@ -162,7 +162,7 @@ const CreateHackathonForm = () => {
                     name="judgingCriteria"
                     rows={3}
                     onChange={(e) => setJudgingCriteria(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
                     required
                   />
@@ -173,7 +173,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="firstPlacePrize"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 First Place Prize
               </label>
@@ -185,7 +185,7 @@ const CreateHackathonForm = () => {
                     id="firstPlacePrize"
                     autoComplete="first-place-prize"
                     onChange={(e) => setFirstPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   />
                 </div>
@@ -195,7 +195,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="secondPlacePrize"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Second Place Prize
               </label>
@@ -207,7 +207,7 @@ const CreateHackathonForm = () => {
                     id="secondPlacePrize"
                     autoComplete="second-place-prize"
                     onChange={(e) => setSecondPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   />
                 </div>
@@ -217,7 +217,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="thirdPlacePrize"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Third Place Prize
               </label>
@@ -229,7 +229,7 @@ const CreateHackathonForm = () => {
                     id="thirdPlacePrize"
                     autoComplete="third-place-prize"
                     onChange={(e) => setThirdPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   />
                 </div>
@@ -239,7 +239,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="startDate"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 Start Date
               </label>
@@ -251,7 +251,7 @@ const CreateHackathonForm = () => {
                     id="startDate"
                     autoComplete="start-date"
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   />
                 </div>
@@ -260,7 +260,7 @@ const CreateHackathonForm = () => {
             <div className="sm:col-span-4">
               <label
                 htmlFor="endDate"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 "
               >
                 End Date
               </label>
@@ -272,7 +272,7 @@ const CreateHackathonForm = () => {
                     id="endDate"
                     autoComplete="end-date"
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   />
                 </div>
