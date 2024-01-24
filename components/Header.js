@@ -3,11 +3,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { X, Menu } from "lucide-react";
+import { X, Menu } from 'lucide-react';
+import { motion, stagger, AnimatePresence } from "framer-motion"
 
 export default function Header() {
   const [click, setClick] = useState(false);
   const [gradient, setGradient] = useState("");
+
   const toggleNavbar = () => {
     setClick(!click);
     if (!click) {
@@ -20,15 +22,13 @@ export default function Header() {
   const handleResize = () => {
     if (window.innerWidth >= 768) {
       setGradient("");
-      setClick(false); // Cierra el menú si la pantalla es lo suficientemente grande
+      setClick(false);
     }
   };
 
   useEffect(() => {
-    // Agrega el listener del evento resize cuando el componente se monta
     window.addEventListener("resize", handleResize);
 
-    // Limpia el listener cuando el componente se desmonta
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -89,6 +89,13 @@ export default function Header() {
                   Contact
                 </Link>
               </li>
+              <li>
+                {!loading && session?.user && (
+                  <Link className="hover:text-purple-500" href="/team">
+                    Team
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
@@ -140,81 +147,97 @@ export default function Header() {
               )}
             </button>
           </div>
-        </nav>
-        {click && (
-          <div
-            className="md:hidden fixed inset-x-0 top-1/4 transform -translate-y-1/2 z-20 pt-20"
-            style={{ background: gradient }}
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <ul className="flex flex-col items-center justify-center gap-3 font-bold text-lg">
-                <li>
-                  <Link className="hover:text-purple-500" href="/hackathons">
-                    Hackathons
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="hover:text-purple-500"
-                    href="https://emeralize.app/marketplace"
-                  >
-                    Learn
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/organizers">
-                    Organizers
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/sponsor">
-                    Sponsor
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-purple-500" href="/contact">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <div className="md:hidden mt-10">
-                    {!loading && !session && (
-                      <ButtonSecondary
-                        buttonText={"Log In"}
-                        functionCall={signInHandler}
-                      />
-                    )}
+          {click && (<AnimatePresence>
+            <motion.div
+              className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 border-b-2  border-black py-20 shadow-lg "
+              style={{ background: gradient }}
+              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, }}
+              exit={{ opacity: 0, y: 50 }}
+              animate={{ opacity: click ? 1 : 0 }}
+            >
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
+                }}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              >
+                <motion.ul variants={stagger(0.1)} className="gap-3 font-bold text-lg flex flex-col items-center justify-center ">
+                  <li>
+                    <Link className="hover:text-purple-500" href="/hackathons">
+                      Hackathons
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="https://emeralize.app/marketplace">
+                      Learn
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/organizers">
+                      Organizers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/sponsor">
+                      Sponsor
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-purple-500" href="/contact">
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
                     {!loading && session?.user && (
-                      <div className="flex flex-row">
-                        <span>
-                          <Link href="/team">
-                            <Image
-                              src={session.user.image}
-                              alt="User Profile Image"
-                              className="h-12 w-12 rounded-full mr-2 inline-block"
-                              width={12}
-                              height={12}
-                            />
-                          </Link>
-                        </span>
-                        <span>
-                          {session.user.image && (
-                            <div className="align-middle px-5">
-                              <ButtonSecondary
-                                buttonText={"Log Out"}
-                                functionCall={signOutHandler}
-                              />
-                            </div>
-                          )}
-                        </span>
-                      </div>
+                      <Link className="hover:text-purple-500" href="/team">
+                        Team
+                      </Link>
                     )}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        )}
+                  </li>
+                  <li>
+                    <div className="md:hidden mt-10">
+                      {!loading && !session && (
+                        <ButtonSecondary
+                          buttonText={"Log In"}
+                          functionCall={signInHandler}
+                        />
+                      )}
+                      {!loading && session?.user && (
+                        <div className="flex flex-row">
+                          <span>
+                            <Link href="/team">
+                              <Image
+                                src={session.user.image}
+                                alt="User Profile Image"
+                                className="h-12 w-12 rounded-full mr-2 inline-block"
+                                width={12}
+                                height={12}
+                              />
+                            </Link>
+                          </span>
+                          <span>
+                            {session.user.image && (
+                              <div className="align-middle px-5">
+                                <ButtonSecondary
+                                  buttonText={"Log Out"}
+                                  functionCall={signOutHandler}
+                                />
+                              </div>
+                            )}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                </motion.ul>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>)}
+        </nav>
       </header>
     </div>
   );

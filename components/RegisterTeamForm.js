@@ -54,7 +54,12 @@ const RegisterTeamForm = ({ hackathonId }) => {
       });
       console.log(data);
 
-      router.push("/success");
+      if (teams.length === 0) {
+        router.push("/team");
+      } else {
+        router.push("/success");
+      }
+      
     } catch (error) {
       console.error(error);
     }
@@ -84,7 +89,7 @@ const RegisterTeamForm = ({ hackathonId }) => {
                 id="team"
                 name="team"
                 autoComplete="team"
-                className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 required
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
