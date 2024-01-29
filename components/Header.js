@@ -112,22 +112,22 @@ export default function Header() {
                 <span>
                   <Link href="/team">
                     {
-                      session.user.image !==null? (
+                      session.user.image !== null ? (
                         <Image
-                        src={session.user.image}
-                        alt="User Profile Image"
-                        className="h-12 w-12 rounded-full mr-2 inline-block"
-                        width={12}
-                        height={12}
-                      /> 
-                      ):(
+                          src={session.user.image}
+                          alt="User Profile Image"
+                          className="h-12 w-12 rounded-full mr-2 inline-block"
+                          width={12}
+                          height={12}
+                        />
+                      ) : (
                         <Image
-                        src={userIcon}
-                        alt="User Profile Image"
-                        className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
-                        width={12}
-                        height={12}
-                      /> 
+                          src={userIcon}
+                          alt="User Profile Image"
+                          className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                          width={12}
+                          height={12}
+                        />
                       )
                     }
                   </Link>
@@ -223,17 +223,29 @@ export default function Header() {
                         <div className="flex flex-row">
                           <span>
                             <Link href="/team">
-                              <Image
-                                src={session.user.image}
-                                alt="User Profile Image"
-                                className="h-12 w-12 rounded-full mr-2 inline-block"
-                                width={12}
-                                height={12}
-                              />
+                              {
+                                session.user.image !== null ? (
+                                  <Image
+                                    src={session.user.image}
+                                    alt="User Profile Image"
+                                    className="h-12 w-12 rounded-full mr-2 inline-block"
+                                    width={12}
+                                    height={12}
+                                  />
+                                ) : (
+                                  <Image
+                                    src={userIcon}
+                                    alt="User Profile Image"
+                                    className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                                    width={12}
+                                    height={12}
+                                  />
+                                )
+                              }
                             </Link>
                           </span>
                           <span>
-                            {session.user.image && (
+                            {session.user && (
                               <div className="align-middle px-5">
                                 <ButtonSecondary
                                   buttonText={"Log Out"}

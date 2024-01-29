@@ -18,11 +18,12 @@ export default function HackathonDetail() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [teams, setTeams] = useState([]);
-  const [registration,setRegistration] = useState([])
-  const [hackathon,setHackathon] = useState([])
-  const [submit,setSubmit] = useState()
-  const [prices, setPrices]= useState([])
+  const [registration, setRegistration] = useState([])
+  const [hackathon, setHackathon] = useState([])
+  const [submit, setSubmit] = useState()
+  const [prices, setPrices] = useState([])
   const signedUp = teams.length > 0;
+  const [ruleList, setRuleList] = useState("")
 
   useEffect(() => {
     if (router.isReady) {
@@ -73,29 +74,31 @@ export default function HackathonDetail() {
     };
     fetchRegistrationHackathon();
   }, [id]);
-  
-  useEffect(()=>{
-    const fetchHackathon = async()=>{
-      try{
-        if(id){
-          const data =  await fetch(`/api/hackathons/${id}`,{
-            method:"GET",
+
+  useEffect(() => {
+    const fetchHackathon = async () => {
+      try {
+        if (id) {
+          const data = await fetch(`/api/hackathons/${id}`, {
+            method: "GET",
             headers: { "Content-Type": "application/json" }
           })
-          if(data.ok){
+          if (data.ok) {
             const response = await data.json()
             setHackathon(response)
             setPrices([["1st Place Prize", response.firstPlacePrize], ["2nd Place Prize", response.secondPlacePrize], ["3rd Place Prize", response.thirdPlacePrize]])
-          }else{
+            setRuleList(response.rules)
+
+          } else {
             console.error("Error fetching Registration Hackthon:", data.statusText);
           }
         }
-      }catch(error){
-        console.error("Error fetching hackathon data",error)
+      } catch (error) {
+        console.error("Error fetching hackathon data", error)
       }
     }
     fetchHackathon()
-  },[id])
+  }, [id])
 
   useEffect(() => {
     const findTeam = (team, registration) => {
@@ -109,7 +112,7 @@ export default function HackathonDetail() {
       }
       setSubmit(isMatching);
     };
-  
+
     findTeam(teams, registration);
   }, [teams, registration]);
 
@@ -139,7 +142,7 @@ export default function HackathonDetail() {
                       buttonLink={`/hackathons/${id}/submit`}
                     />
                   )}
-                  {console.log(submit)
+                  {
                   /* <ButtonPrimary
                     buttonText={"Register"}
                     buttonLink={`/hackathons/${id}/register`}
@@ -162,21 +165,27 @@ export default function HackathonDetail() {
                 {bitblockboom.descriptionText}
               </p>
               <dl className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
-               
-                  <div className="relative pl-9 my-4">
-                    <dt className=" font-semibold">
-                      <Check className="absolute left-1 top-1 h-5 w-5 text-green-400" />
-                      {hackathon.benefits}
-                    </dt>
-                  </div>
-               
+
+                <div className="relative pl-9 my-4">
+                  <dt className=" font-semibold">
+                    <Check className="absolute left-1 top-1 h-5 w-5 text-green-400" />
+                    {hackathon.benefits}
+                  </dt>
+                </div>
+
               </dl>
             </div>
           </div>
           <div className="my-24">
             <SectionHeader headerText={"Rules"} descriptionText={""} />
             <ul className="text-xl list-disc ml-6">
-              <li>{hackathon.rules}</li>
+              {ruleList.split("/N").map(rule => {
+                return (
+                  <li>
+                    {rule}
+                  </li>
+                )
+              })}
             </ul>
           </div>
           <PrizePool data={prices} />
@@ -188,7 +197,7 @@ export default function HackathonDetail() {
               }
             />
             <ul className="text-xl list-disc ml-6">
-            <li>{hackathon.judgingCriteria}</li>
+              <li>{hackathon.judgingCriteria}</li>
             </ul>
           </div>
           <div className="py-24 sm:py-32">
