@@ -20,7 +20,7 @@ export default function HackathonRegistration() {
     const fetchHackathon = async()=>{
       try{
         if(id){
-          const data =  await fetch(`/api/hackathons/${id}`,{
+          const data =  await fetch(`/api/hackathons/${id} `,{
             method:"GET",
             headers: { "Content-Type": "application/json" }
           })
