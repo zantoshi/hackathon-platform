@@ -28,7 +28,7 @@ const Hackathons = ({ data }) => {
 
   return (
     <div className="py-12 text-left">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 hover">
         <div className="mx-auto max-w-6xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {data.headerText}
@@ -37,7 +37,7 @@ const Hackathons = ({ data }) => {
             {data.descriptionText}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-full my-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-full my-4 ">
           {hackathons.map((hackathon) => (
             <HackathonCard
               key={hackathon.id}
