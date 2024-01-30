@@ -74,7 +74,7 @@ const CreateHackathonForm = () => {
                     id="title"
                     autoComplete="title"
                     onChange={(e) => setTitle(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
                     required
                   />
@@ -96,7 +96,7 @@ const CreateHackathonForm = () => {
                     name="description"
                     rows={3}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
                     required
                   />
@@ -118,7 +118,7 @@ const CreateHackathonForm = () => {
                     name="benefits"
                     rows={3}
                     onChange={(e) => setBenefits(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
                     required
                   />
@@ -140,7 +140,7 @@ const CreateHackathonForm = () => {
                     name="rules"
                     rows={3}
                     onChange={(e) => setRules(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
                     required
                   />
@@ -162,7 +162,7 @@ const CreateHackathonForm = () => {
                     name="judgingCriteria"
                     rows={3}
                     onChange={(e) => setJudgingCriteria(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
                     required
                   />
@@ -185,7 +185,7 @@ const CreateHackathonForm = () => {
                     id="firstPlacePrize"
                     autoComplete="first-place-prize"
                     onChange={(e) => setFirstPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     required
                   />
                 </div>
@@ -207,7 +207,7 @@ const CreateHackathonForm = () => {
                     id="secondPlacePrize"
                     autoComplete="second-place-prize"
                     onChange={(e) => setSecondPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     required
                   />
                 </div>
@@ -229,7 +229,7 @@ const CreateHackathonForm = () => {
                     id="thirdPlacePrize"
                     autoComplete="third-place-prize"
                     onChange={(e) => setThirdPlacePrize(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     required
                   />
                 </div>
@@ -251,7 +251,7 @@ const CreateHackathonForm = () => {
                     id="startDate"
                     autoComplete="start-date"
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     required
                   />
                 </div>
@@ -272,7 +272,7 @@ const CreateHackathonForm = () => {
                     id="endDate"
                     autoComplete="end-date"
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     required
                   />
                 </div>

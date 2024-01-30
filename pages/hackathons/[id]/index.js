@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Layout from "../../../components/layout";
 import PageHeader from "@/components/PageHeader";
 import SectionHeader from "@/components/SectionHeader";
@@ -12,12 +12,18 @@ import ButtonPrimary from "@/components/ButtonPrimary";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { match } from "assert";
 
 export default function HackathonDetail() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [teams, setTeams] = useState([]);
+  const [registration, setRegistration] = useState([])
+  const [hackathon, setHackathon] = useState([])
+  const [submit, setSubmit] = useState()
+  const [prices, setPrices] = useState([])
   const signedUp = teams.length > 0;
+  const [ruleList, setRuleList] = useState("")
 
   useEffect(() => {
     if (router.isReady) {
@@ -47,6 +53,69 @@ export default function HackathonDetail() {
     fetchTeams(); // Call the fetchTeams function
   }, []); // Empty dependency array to ensure the effect runs only once on mount
 
+  useEffect(() => {
+    const fetchRegistrationHackathon = async () => {
+      try {
+        if (id) {
+          const registration = await fetch(`/api/hackathonRegister/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          });
+          if (registration.ok) {
+            const registrationData = await registration.json();
+            setRegistration(registrationData);
+          } else {
+            console.error("Error fetching Registration Hackthon:", registration.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching the data:", error);
+      }
+    };
+    fetchRegistrationHackathon();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchHackathon = async () => {
+      try {
+        if (id) {
+          const data = await fetch(`/api/hackathons/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          })
+          if (data.ok) {
+            const response = await data.json()
+            setHackathon(response)
+            setPrices([["1st Place Prize", response.firstPlacePrize], ["2nd Place Prize", response.secondPlacePrize], ["3rd Place Prize", response.thirdPlacePrize]])
+            setRuleList(response.rules)
+
+          } else {
+            console.error("Error fetching Registration Hackthon:", data.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching hackathon data", error)
+      }
+    }
+    fetchHackathon()
+  }, [id])
+
+  useEffect(() => {
+    const findTeam = (team, registration) => {
+      let isMatching = false;
+      for (const t2 of registration) {
+        const matching = team.some((t1) => t1.id === t2.teamId);
+        if (matching) {
+          isMatching = true;
+          break;
+        }
+      }
+      setSubmit(isMatching);
+    };
+
+    findTeam(teams, registration);
+  }, [teams, registration]);
+
   return (
     <Layout>
       <div className="py-4 sm:py-12">
@@ -55,15 +124,14 @@ export default function HackathonDetail() {
             <div className="m-auto max-w-3xl py-16">
               <div className="text-center">
                 <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-500 via-purple-500 to-white text-transparent bg-clip-text h-20">
-                  <div>BitBlockBoom Buildathon</div>
+                  <div>{hackathon.title}</div>
                 </h1>
                 <p className="my-6 text-lg leading-8 text-gray-200">
-                  Make your dreams reality. <br />
-                  Empower yourself, find teams, have fun, and grow.
+                  {hackathon.description}
                 </p>
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
-                  {!signedUp ? (
+                  {(!signedUp || !submit) ? (
                     <ButtonPrimary
                       buttonText={"Register"}
                       buttonLink={`/hackathons/${id}/register`}
@@ -74,6 +142,15 @@ export default function HackathonDetail() {
                       buttonLink={`/hackathons/${id}/submit`}
                     />
                   )}
+                  {
+                  /* <ButtonPrimary
+                    buttonText={"Register"}
+                    buttonLink={`/hackathons/${id}/register`}
+                  />
+                  <ButtonPrimary
+                    buttonText={"Submit Project"}
+                    buttonLink={`/hackathons/${id}/submit`}
+                  /> */}
                 </div>
               </div>
             </div>
@@ -88,26 +165,30 @@ export default function HackathonDetail() {
                 {bitblockboom.descriptionText}
               </p>
               <dl className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
-                {bitblockboom.data.map((item) => (
-                  <div className="relative pl-9 my-4">
-                    <dt className=" font-semibold">
-                      <Check className="absolute left-1 top-1 h-5 w-5 text-green-400" />
-                      {item[0]}
-                    </dt>
-                  </div>
-                ))}
+
+                <div className="relative pl-9 my-4">
+                  <dt className=" font-semibold">
+                    <Check className="absolute left-1 top-1 h-5 w-5 text-green-400" />
+                    {hackathon.benefits}
+                  </dt>
+                </div>
+
               </dl>
             </div>
           </div>
           <div className="my-24">
             <SectionHeader headerText={"Rules"} descriptionText={""} />
-            <ul className="text-xl list-decimal ml-6">
-              <li>Must be built during the BitBlockBoom hackathon.</li>
-              <li>Must have a BitBlockBoom ticket in order to compete.</li>
-              <li>Must incorporate Lightning and Nostr.</li>
+            <ul className="text-xl list-disc ml-6">
+              {ruleList.split("/N").map(rule => {
+                return (
+                  <li>
+                    {rule}
+                  </li>
+                )
+              })}
             </ul>
           </div>
-          <PrizePool data={bitblockboom.prizes} />
+          <PrizePool data={prices} />
           <div className="mt-24">
             <SectionHeader
               headerText={"Judging Criteria"}
@@ -116,12 +197,7 @@ export default function HackathonDetail() {
               }
             />
             <ul className="text-xl list-disc ml-6">
-              <li>Feasibility.</li>
-              <li>Impact.</li>
-              <li>User Experience.</li>
-              <li>Scalability.</li>
-              <li>Innovative.</li>
-              <li>The Pitch.</li>
+              <li>{hackathon.judgingCriteria}</li>
             </ul>
           </div>
           <div className="py-24 sm:py-32">

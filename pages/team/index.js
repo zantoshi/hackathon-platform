@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-
+import { signIn, useSession } from "next-auth/react";
 import Layout from "@/components/layout";
 import PageHeader from "@/components/PageHeader";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import HackathonCard from "@/components/HackathonCard";
-
+import { useRouter } from "next/navigation";
 export default function TeamsPage() {
   const [teams, setTeams] = useState([]);
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -32,7 +34,7 @@ export default function TeamsPage() {
 
   return (
     <Layout>
-      <div>
+        <div>
         <div className="mx-auto px-6 lg:px-8">
           <div className="my-2">
             <h1 className="font-bold custom-text-shadow text-4xl">Teams</h1>
@@ -58,6 +60,7 @@ export default function TeamsPage() {
           </div>
         </div>
       </div>
+     { !loading && !session && signIn()}
     </Layout>
   );
 }
