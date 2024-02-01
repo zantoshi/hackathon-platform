@@ -57,6 +57,7 @@ model User {
   social                Json?
   balance               String?
   remainingAmountLimits Json?
+    judgeassessments Judgeassessments[]
 }
 
 model VerificationToken {
@@ -105,6 +106,7 @@ model Hackathon {
   published Boolean @default(false)
   creator   User    @relation(fields: [creatorId], references: [id])
   creatorId String
+    judgeassessments Judgeassessments[]
 
   startDate String
   endDate   String
@@ -144,7 +146,7 @@ model Project {
 
   hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
   hackathonId String
-
+  judgeassessments Judgeassessments[]
   team   Team   @relation(fields: [teamId], references: [id])
   teamId String
 
@@ -170,4 +172,28 @@ enum Role {
   USER
   ADMIN
   JUDGE
+}
+
+model Judgeassessments {
+id      String @id @default(cuid())
+impact Int
+feasability Int
+user_experience Int
+scalability Int
+innovate Int
+pitch Int
+overall_score Decimal
+
+hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+hackathonId String
+
+project Project  @relation(fields: [projectId], references: [id])
+projectId String
+
+
+user User  @relation(fields: [judgeId], references: [id])
+judgeId String
+
+
+@@unique([hackathonId, projectId,judgeId])
 }

@@ -37,7 +37,7 @@ const Hackathons = ({ data }) => {
             {data.descriptionText}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 h-full my-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 h-full my-4">
           {hackathons.map((hackathon) => (
             <HackathonCard
               key={hackathon.id}

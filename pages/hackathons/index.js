@@ -11,10 +11,33 @@ import ButtonSecondary from "@/components/ButtonSecondary";
 import Image from "next/image";
 import Hackathons from "@/components/Hackathons";
 import hackathons from "@/data/content/hackathons.json";
+import { useEffect, useState } from "react";
+import JudgeView from "@/components/JudgeView"
 
 export default function HackathonList() {
+  const [user,setUser] = useState();
+  
+  useEffect(()=>{
+    const getRole = async()=>{
+      const response = await fetch("/api/users",
+      {
+        method:"GET",
+        headers: { "Content-Type": "application/json"}
+      })
+      const data= await response.json()
+      setUser(data)
+    }
+    getRole()
+  },[])
+
   return (
     <Layout>
+      {/* {user && user.role === "JUDGE" ? (
+       <JudgeView/>
+      ):
+      (
+        <Hackathons data={hackathons} />
+      )} */}
       <Hackathons data={hackathons} />
     </Layout>
   );
