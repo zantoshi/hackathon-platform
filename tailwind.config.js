@@ -13,6 +13,9 @@ module.exports = {
       colors: {
         field: '#524E4E40',
       },
+      boxShadow: {
+        '3xl': '0 0px 65px 15px rgba(110, 57, 168, 0.3)',
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],
