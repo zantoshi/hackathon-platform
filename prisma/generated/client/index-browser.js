@@ -219,6 +219,14 @@ exports.Prisma.SponsorsScalarFieldEnum = {
   company: 'company'
 };
 
+exports.Prisma.JudgeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  judgeGamertag: 'judgeGamertag',
+  email: 'email',
+  hackathonId: 'hackathonId'
+};
+
 exports.Prisma.JudgeassessmentsScalarFieldEnum = {
   id: 'id',
   impact: 'impact',
@@ -260,8 +268,7 @@ exports.Prisma.JsonNullValueFilter = {
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
-  ADMIN: 'ADMIN',
-  JUDGE: 'JUDGE'
+  ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {
@@ -275,6 +282,7 @@ exports.Prisma.ModelName = {
   Project: 'Project',
   Contact: 'Contact',
   Sponsors: 'Sponsors',
+  Judge: 'Judge',
   Judgeassessments: 'Judgeassessments'
 };
 

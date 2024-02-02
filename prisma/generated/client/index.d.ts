@@ -64,6 +64,11 @@ export type Contact = $Result.DefaultSelection<Prisma.$ContactPayload>
  */
 export type Sponsors = $Result.DefaultSelection<Prisma.$SponsorsPayload>
 /**
+ * Model Judge
+ * 
+ */
+export type Judge = $Result.DefaultSelection<Prisma.$JudgePayload>
+/**
  * Model Judgeassessments
  * 
  */
@@ -75,8 +80,7 @@ export type Judgeassessments = $Result.DefaultSelection<Prisma.$Judgeassessments
 export namespace $Enums {
   export const Role: {
   USER: 'USER',
-  ADMIN: 'ADMIN',
-  JUDGE: 'JUDGE'
+  ADMIN: 'ADMIN'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -308,6 +312,16 @@ export class PrismaClient<
     * ```
     */
   get sponsors(): Prisma.SponsorsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.judge`: Exposes CRUD operations for the **Judge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Judges
+    * const judges = await prisma.judge.findMany()
+    * ```
+    */
+  get judge(): Prisma.JudgeDelegate<ExtArgs>;
 
   /**
    * `prisma.judgeassessments`: Exposes CRUD operations for the **Judgeassessments** model.
@@ -798,6 +812,7 @@ export namespace Prisma {
     Project: 'Project',
     Contact: 'Contact',
     Sponsors: 'Sponsors',
+    Judge: 'Judge',
     Judgeassessments: 'Judgeassessments'
   };
 
@@ -815,7 +830,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judgeassessments'
+      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judge' | 'judgeassessments'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1479,6 +1494,72 @@ export namespace Prisma {
           }
         }
       }
+      Judge: {
+        payload: Prisma.$JudgePayload<ExtArgs>
+        fields: Prisma.JudgeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JudgeFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JudgeFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          findFirst: {
+            args: Prisma.JudgeFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JudgeFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          findMany: {
+            args: Prisma.JudgeFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>[]
+          }
+          create: {
+            args: Prisma.JudgeCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          createMany: {
+            args: Prisma.JudgeCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.JudgeDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          update: {
+            args: Prisma.JudgeUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          deleteMany: {
+            args: Prisma.JudgeDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JudgeUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.JudgeUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$JudgePayload>
+          }
+          aggregate: {
+            args: Prisma.JudgeAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateJudge>
+          }
+          groupBy: {
+            args: Prisma.JudgeGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<JudgeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JudgeCountArgs<ExtArgs>,
+            result: $Utils.Optional<JudgeCountAggregateOutputType> | number
+          }
+        }
+      }
       Judgeassessments: {
         payload: Prisma.$JudgeassessmentsPayload<ExtArgs>
         fields: Prisma.JudgeassessmentsFieldRefs
@@ -1698,7 +1779,7 @@ export namespace Prisma {
     teams: number
     accounts: number
     sessions: number
-    judgeassessments: number
+    judge: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1706,7 +1787,7 @@ export namespace Prisma {
     teams?: boolean | UserCountOutputTypeCountTeamsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
-    judgeassessments?: boolean | UserCountOutputTypeCountJudgeassessmentsArgs
+    judge?: boolean | UserCountOutputTypeCountJudgeArgs
   }
 
   // Custom InputTypes
@@ -1757,8 +1838,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountJudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: JudgeassessmentsWhereInput
+  export type UserCountOutputTypeCountJudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JudgeWhereInput
   }
 
 
@@ -1814,12 +1895,14 @@ export namespace Prisma {
   export type HackathonCountOutputType = {
     projects: number
     registrations: number
+    judge: number
     judgeassessments: number
   }
 
   export type HackathonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | HackathonCountOutputTypeCountProjectsArgs
     registrations?: boolean | HackathonCountOutputTypeCountRegistrationsArgs
+    judge?: boolean | HackathonCountOutputTypeCountJudgeArgs
     judgeassessments?: boolean | HackathonCountOutputTypeCountJudgeassessmentsArgs
   }
 
@@ -1849,6 +1932,14 @@ export namespace Prisma {
    */
   export type HackathonCountOutputTypeCountRegistrationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HackathonRegistrationWhereInput
+  }
+
+
+  /**
+   * HackathonCountOutputType without action
+   */
+  export type HackathonCountOutputTypeCountJudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JudgeWhereInput
   }
 
 
@@ -1890,6 +1981,40 @@ export namespace Prisma {
    * ProjectCountOutputType without action
    */
   export type ProjectCountOutputTypeCountJudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JudgeassessmentsWhereInput
+  }
+
+
+
+  /**
+   * Count Type JudgeCountOutputType
+   */
+
+  export type JudgeCountOutputType = {
+    judgeassessments: number
+  }
+
+  export type JudgeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    judgeassessments?: boolean | JudgeCountOutputTypeCountJudgeassessmentsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * JudgeCountOutputType without action
+   */
+  export type JudgeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JudgeCountOutputType
+     */
+    select?: JudgeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * JudgeCountOutputType without action
+   */
+  export type JudgeCountOutputTypeCountJudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JudgeassessmentsWhereInput
   }
 
@@ -4032,7 +4157,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     name: string | null
-    email: string | null
+    email: string
     gamertag: string
     role: $Enums.Role
     emailVerified: boolean | null
@@ -4082,7 +4207,7 @@ export namespace Prisma {
     teams?: boolean | User$teamsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
-    judgeassessments?: boolean | User$judgeassessmentsArgs<ExtArgs>
+    judge?: boolean | User$judgeArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4108,7 +4233,7 @@ export namespace Prisma {
     teams?: boolean | User$teamsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
-    judgeassessments?: boolean | User$judgeassessmentsArgs<ExtArgs>
+    judge?: boolean | User$judgeArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4120,12 +4245,12 @@ export namespace Prisma {
       teams: Prisma.$TeamPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
-      judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
+      judge: Prisma.$JudgePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
-      email: string | null
+      email: string
       gamertag: string
       role: $Enums.Role
       emailVerified: boolean | null
@@ -4510,7 +4635,7 @@ export namespace Prisma {
 
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    judgeassessments<T extends User$judgeassessmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$judgeassessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgeassessmentsPayload<ExtArgs>, T, 'findMany'> | Null>;
+    judge<T extends User$judgeArgs<ExtArgs> = {}>(args?: Subset<T, User$judgeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4950,23 +5075,23 @@ export namespace Prisma {
 
 
   /**
-   * User.judgeassessments
+   * User.judge
    */
-  export type User$judgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$judgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Judgeassessments
+     * Select specific fields to fetch from the Judge
      */
-    select?: JudgeassessmentsSelect<ExtArgs> | null
+    select?: JudgeSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: JudgeassessmentsInclude<ExtArgs> | null
-    where?: JudgeassessmentsWhereInput
-    orderBy?: JudgeassessmentsOrderByWithRelationInput | JudgeassessmentsOrderByWithRelationInput[]
-    cursor?: JudgeassessmentsWhereUniqueInput
+    include?: JudgeInclude<ExtArgs> | null
+    where?: JudgeWhereInput
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    cursor?: JudgeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: JudgeassessmentsScalarFieldEnum | JudgeassessmentsScalarFieldEnum[]
+    distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
   }
 
 
@@ -7085,6 +7210,7 @@ export namespace Prisma {
     endDate?: boolean
     projects?: boolean | Hackathon$projectsArgs<ExtArgs>
     registrations?: boolean | Hackathon$registrationsArgs<ExtArgs>
+    judge?: boolean | Hackathon$judgeArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
@@ -7111,6 +7237,7 @@ export namespace Prisma {
   export type HackathonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | Hackathon$projectsArgs<ExtArgs>
     registrations?: boolean | Hackathon$registrationsArgs<ExtArgs>
+    judge?: boolean | Hackathon$judgeArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
@@ -7122,6 +7249,7 @@ export namespace Prisma {
     objects: {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       registrations: Prisma.$HackathonRegistrationPayload<ExtArgs>[]
+      judge: Prisma.$JudgePayload<ExtArgs>[]
       creator: Prisma.$UserPayload<ExtArgs>
       judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
     }
@@ -7509,6 +7637,8 @@ export namespace Prisma {
     projects<T extends Hackathon$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     registrations<T extends Hackathon$registrationsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonRegistrationPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    judge<T extends Hackathon$judgeArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$judgeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -7907,6 +8037,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HackathonRegistrationScalarFieldEnum | HackathonRegistrationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Hackathon.judge
+   */
+  export type Hackathon$judgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    where?: JudgeWhereInput
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    cursor?: JudgeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
   }
 
 
@@ -11617,6 +11768,957 @@ export namespace Prisma {
 
 
   /**
+   * Model Judge
+   */
+
+  export type AggregateJudge = {
+    _count: JudgeCountAggregateOutputType | null
+    _min: JudgeMinAggregateOutputType | null
+    _max: JudgeMaxAggregateOutputType | null
+  }
+
+  export type JudgeMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    judgeGamertag: string | null
+    email: string | null
+    hackathonId: string | null
+  }
+
+  export type JudgeMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    judgeGamertag: string | null
+    email: string | null
+    hackathonId: string | null
+  }
+
+  export type JudgeCountAggregateOutputType = {
+    id: number
+    userId: number
+    judgeGamertag: number
+    email: number
+    hackathonId: number
+    _all: number
+  }
+
+
+  export type JudgeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    judgeGamertag?: true
+    email?: true
+    hackathonId?: true
+  }
+
+  export type JudgeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    judgeGamertag?: true
+    email?: true
+    hackathonId?: true
+  }
+
+  export type JudgeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    judgeGamertag?: true
+    email?: true
+    hackathonId?: true
+    _all?: true
+  }
+
+  export type JudgeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Judge to aggregate.
+     */
+    where?: JudgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Judges to fetch.
+     */
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JudgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Judges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Judges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Judges
+    **/
+    _count?: true | JudgeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JudgeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JudgeMaxAggregateInputType
+  }
+
+  export type GetJudgeAggregateType<T extends JudgeAggregateArgs> = {
+        [P in keyof T & keyof AggregateJudge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJudge[P]>
+      : GetScalarType<T[P], AggregateJudge[P]>
+  }
+
+
+
+
+  export type JudgeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JudgeWhereInput
+    orderBy?: JudgeOrderByWithAggregationInput | JudgeOrderByWithAggregationInput[]
+    by: JudgeScalarFieldEnum[] | JudgeScalarFieldEnum
+    having?: JudgeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JudgeCountAggregateInputType | true
+    _min?: JudgeMinAggregateInputType
+    _max?: JudgeMaxAggregateInputType
+  }
+
+  export type JudgeGroupByOutputType = {
+    id: string
+    userId: string
+    judgeGamertag: string
+    email: string
+    hackathonId: string
+    _count: JudgeCountAggregateOutputType | null
+    _min: JudgeMinAggregateOutputType | null
+    _max: JudgeMaxAggregateOutputType | null
+  }
+
+  type GetJudgeGroupByPayload<T extends JudgeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JudgeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JudgeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JudgeGroupByOutputType[P]>
+            : GetScalarType<T[P], JudgeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JudgeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    judgeGamertag?: boolean
+    email?: boolean
+    hackathonId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+    judgeassessments?: boolean | Judge$judgeassessmentsArgs<ExtArgs>
+    _count?: boolean | JudgeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["judge"]>
+
+  export type JudgeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    judgeGamertag?: boolean
+    email?: boolean
+    hackathonId?: boolean
+  }
+
+  export type JudgeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+    judgeassessments?: boolean | Judge$judgeassessmentsArgs<ExtArgs>
+    _count?: boolean | JudgeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $JudgePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Judge"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      hackathon: Prisma.$HackathonPayload<ExtArgs>
+      judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      judgeGamertag: string
+      email: string
+      hackathonId: string
+    }, ExtArgs["result"]["judge"]>
+    composites: {}
+  }
+
+
+  type JudgeGetPayload<S extends boolean | null | undefined | JudgeDefaultArgs> = $Result.GetResult<Prisma.$JudgePayload, S>
+
+  type JudgeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JudgeFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: JudgeCountAggregateInputType | true
+    }
+
+  export interface JudgeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Judge'], meta: { name: 'Judge' } }
+    /**
+     * Find zero or one Judge that matches the filter.
+     * @param {JudgeFindUniqueArgs} args - Arguments to find a Judge
+     * @example
+     * // Get one Judge
+     * const judge = await prisma.judge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends JudgeFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeFindUniqueArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Judge that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {JudgeFindUniqueOrThrowArgs} args - Arguments to find a Judge
+     * @example
+     * // Get one Judge
+     * const judge = await prisma.judge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends JudgeFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Judge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeFindFirstArgs} args - Arguments to find a Judge
+     * @example
+     * // Get one Judge
+     * const judge = await prisma.judge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends JudgeFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeFindFirstArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Judge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeFindFirstOrThrowArgs} args - Arguments to find a Judge
+     * @example
+     * // Get one Judge
+     * const judge = await prisma.judge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends JudgeFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Judges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Judges
+     * const judges = await prisma.judge.findMany()
+     * 
+     * // Get first 10 Judges
+     * const judges = await prisma.judge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const judgeWithIdOnly = await prisma.judge.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends JudgeFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Judge.
+     * @param {JudgeCreateArgs} args - Arguments to create a Judge.
+     * @example
+     * // Create one Judge
+     * const Judge = await prisma.judge.create({
+     *   data: {
+     *     // ... data to create a Judge
+     *   }
+     * })
+     * 
+    **/
+    create<T extends JudgeCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeCreateArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Judges.
+     *     @param {JudgeCreateManyArgs} args - Arguments to create many Judges.
+     *     @example
+     *     // Create many Judges
+     *     const judge = await prisma.judge.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends JudgeCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Judge.
+     * @param {JudgeDeleteArgs} args - Arguments to delete one Judge.
+     * @example
+     * // Delete one Judge
+     * const Judge = await prisma.judge.delete({
+     *   where: {
+     *     // ... filter to delete one Judge
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends JudgeDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeDeleteArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Judge.
+     * @param {JudgeUpdateArgs} args - Arguments to update one Judge.
+     * @example
+     * // Update one Judge
+     * const judge = await prisma.judge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends JudgeUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeUpdateArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Judges.
+     * @param {JudgeDeleteManyArgs} args - Arguments to filter Judges to delete.
+     * @example
+     * // Delete a few Judges
+     * const { count } = await prisma.judge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends JudgeDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, JudgeDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Judges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Judges
+     * const judge = await prisma.judge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends JudgeUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Judge.
+     * @param {JudgeUpsertArgs} args - Arguments to update or create a Judge.
+     * @example
+     * // Update or create a Judge
+     * const judge = await prisma.judge.upsert({
+     *   create: {
+     *     // ... data to create a Judge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Judge we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends JudgeUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, JudgeUpsertArgs<ExtArgs>>
+    ): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Judges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeCountArgs} args - Arguments to filter Judges to count.
+     * @example
+     * // Count the number of Judges
+     * const count = await prisma.judge.count({
+     *   where: {
+     *     // ... the filter for the Judges we want to count
+     *   }
+     * })
+    **/
+    count<T extends JudgeCountArgs>(
+      args?: Subset<T, JudgeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JudgeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Judge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JudgeAggregateArgs>(args: Subset<T, JudgeAggregateArgs>): Prisma.PrismaPromise<GetJudgeAggregateType<T>>
+
+    /**
+     * Group by Judge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JudgeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JudgeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JudgeGroupByArgs['orderBy'] }
+        : { orderBy?: JudgeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JudgeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJudgeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Judge model
+   */
+  readonly fields: JudgeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Judge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JudgeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    hackathon<T extends HackathonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HackathonDefaultArgs<ExtArgs>>): Prisma__HackathonClient<$Result.GetResult<Prisma.$HackathonPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    judgeassessments<T extends Judge$judgeassessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Judge$judgeassessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgeassessmentsPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Judge model
+   */ 
+  interface JudgeFieldRefs {
+    readonly id: FieldRef<"Judge", 'String'>
+    readonly userId: FieldRef<"Judge", 'String'>
+    readonly judgeGamertag: FieldRef<"Judge", 'String'>
+    readonly email: FieldRef<"Judge", 'String'>
+    readonly hackathonId: FieldRef<"Judge", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Judge findUnique
+   */
+  export type JudgeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Judge to fetch.
+     */
+    where: JudgeWhereUniqueInput
+  }
+
+
+  /**
+   * Judge findUniqueOrThrow
+   */
+  export type JudgeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Judge to fetch.
+     */
+    where: JudgeWhereUniqueInput
+  }
+
+
+  /**
+   * Judge findFirst
+   */
+  export type JudgeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Judge to fetch.
+     */
+    where?: JudgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Judges to fetch.
+     */
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Judges.
+     */
+    cursor?: JudgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Judges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Judges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Judges.
+     */
+    distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
+  }
+
+
+  /**
+   * Judge findFirstOrThrow
+   */
+  export type JudgeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Judge to fetch.
+     */
+    where?: JudgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Judges to fetch.
+     */
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Judges.
+     */
+    cursor?: JudgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Judges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Judges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Judges.
+     */
+    distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
+  }
+
+
+  /**
+   * Judge findMany
+   */
+  export type JudgeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter, which Judges to fetch.
+     */
+    where?: JudgeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Judges to fetch.
+     */
+    orderBy?: JudgeOrderByWithRelationInput | JudgeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Judges.
+     */
+    cursor?: JudgeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Judges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Judges.
+     */
+    skip?: number
+    distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
+  }
+
+
+  /**
+   * Judge create
+   */
+  export type JudgeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Judge.
+     */
+    data: XOR<JudgeCreateInput, JudgeUncheckedCreateInput>
+  }
+
+
+  /**
+   * Judge createMany
+   */
+  export type JudgeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Judges.
+     */
+    data: JudgeCreateManyInput | JudgeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Judge update
+   */
+  export type JudgeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Judge.
+     */
+    data: XOR<JudgeUpdateInput, JudgeUncheckedUpdateInput>
+    /**
+     * Choose, which Judge to update.
+     */
+    where: JudgeWhereUniqueInput
+  }
+
+
+  /**
+   * Judge updateMany
+   */
+  export type JudgeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Judges.
+     */
+    data: XOR<JudgeUpdateManyMutationInput, JudgeUncheckedUpdateManyInput>
+    /**
+     * Filter which Judges to update
+     */
+    where?: JudgeWhereInput
+  }
+
+
+  /**
+   * Judge upsert
+   */
+  export type JudgeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Judge to update in case it exists.
+     */
+    where: JudgeWhereUniqueInput
+    /**
+     * In case the Judge found by the `where` argument doesn't exist, create a new Judge with this data.
+     */
+    create: XOR<JudgeCreateInput, JudgeUncheckedCreateInput>
+    /**
+     * In case the Judge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JudgeUpdateInput, JudgeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Judge delete
+   */
+  export type JudgeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+    /**
+     * Filter which Judge to delete.
+     */
+    where: JudgeWhereUniqueInput
+  }
+
+
+  /**
+   * Judge deleteMany
+   */
+  export type JudgeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Judges to delete
+     */
+    where?: JudgeWhereInput
+  }
+
+
+  /**
+   * Judge.judgeassessments
+   */
+  export type Judge$judgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judgeassessments
+     */
+    select?: JudgeassessmentsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeassessmentsInclude<ExtArgs> | null
+    where?: JudgeassessmentsWhereInput
+    orderBy?: JudgeassessmentsOrderByWithRelationInput | JudgeassessmentsOrderByWithRelationInput[]
+    cursor?: JudgeassessmentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JudgeassessmentsScalarFieldEnum | JudgeassessmentsScalarFieldEnum[]
+  }
+
+
+  /**
+   * Judge without action
+   */
+  export type JudgeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Judge
+     */
+    select?: JudgeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: JudgeInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Model Judgeassessments
    */
 
@@ -11888,7 +12990,7 @@ export namespace Prisma {
     judgeId?: boolean
     hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    judge?: boolean | JudgeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["judgeassessments"]>
 
   export type JudgeassessmentsSelectScalar = {
@@ -11908,7 +13010,7 @@ export namespace Prisma {
   export type JudgeassessmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    judge?: boolean | JudgeDefaultArgs<ExtArgs>
   }
 
 
@@ -11917,7 +13019,7 @@ export namespace Prisma {
     objects: {
       hackathon: Prisma.$HackathonPayload<ExtArgs>
       project: Prisma.$ProjectPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
+      judge: Prisma.$JudgePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12300,7 +13402,7 @@ export namespace Prisma {
 
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    judge<T extends JudgeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JudgeDefaultArgs<ExtArgs>>): Prisma__JudgeClient<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12824,6 +13926,17 @@ export namespace Prisma {
   export type SponsorsScalarFieldEnum = (typeof SponsorsScalarFieldEnum)[keyof typeof SponsorsScalarFieldEnum]
 
 
+  export const JudgeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    judgeGamertag: 'judgeGamertag',
+    email: 'email',
+    hackathonId: 'hackathonId'
+  };
+
+  export type JudgeScalarFieldEnum = (typeof JudgeScalarFieldEnum)[keyof typeof JudgeScalarFieldEnum]
+
+
   export const JudgeassessmentsScalarFieldEnum: {
     id: 'id',
     impact: 'impact',
@@ -13142,7 +14255,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
-    email?: StringNullableFilter<"User"> | string | null
+    email?: StringFilter<"User"> | string
     gamertag?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     emailVerified?: BoolNullableFilter<"User"> | boolean | null
@@ -13158,13 +14271,13 @@ export namespace Prisma {
     teams?: TeamListRelationFilter
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
-    judgeassessments?: JudgeassessmentsListRelationFilter
+    judge?: JudgeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
     gamertag?: SortOrder
     role?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
@@ -13180,12 +14293,13 @@ export namespace Prisma {
     teams?: TeamOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
-    judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
+    judge?: JudgeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    id_gamertag_email?: UserIdGamertagEmailCompoundUniqueInput
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -13205,13 +14319,13 @@ export namespace Prisma {
     teams?: TeamListRelationFilter
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
-    judgeassessments?: JudgeassessmentsListRelationFilter
-  }, "id" | "email">
+    judge?: JudgeListRelationFilter
+  }, "id" | "email" | "id_gamertag_email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
     gamertag?: SortOrder
     role?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
@@ -13234,7 +14348,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
-    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    email?: StringWithAggregatesFilter<"User"> | string
     gamertag?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     emailVerified?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
@@ -13388,6 +14502,7 @@ export namespace Prisma {
     endDate?: StringFilter<"Hackathon"> | string
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
+    judge?: JudgeListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
   }
@@ -13410,6 +14525,7 @@ export namespace Prisma {
     endDate?: SortOrder
     projects?: ProjectOrderByRelationAggregateInput
     registrations?: HackathonRegistrationOrderByRelationAggregateInput
+    judge?: JudgeOrderByRelationAggregateInput
     creator?: UserOrderByWithRelationInput
     judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
   }
@@ -13435,6 +14551,7 @@ export namespace Prisma {
     endDate?: StringFilter<"Hackathon"> | string
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
+    judge?: JudgeListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
   }, "id">
@@ -13731,6 +14848,68 @@ export namespace Prisma {
     company?: StringWithAggregatesFilter<"Sponsors"> | string
   }
 
+  export type JudgeWhereInput = {
+    AND?: JudgeWhereInput | JudgeWhereInput[]
+    OR?: JudgeWhereInput[]
+    NOT?: JudgeWhereInput | JudgeWhereInput[]
+    id?: StringFilter<"Judge"> | string
+    userId?: StringFilter<"Judge"> | string
+    judgeGamertag?: StringFilter<"Judge"> | string
+    email?: StringFilter<"Judge"> | string
+    hackathonId?: StringFilter<"Judge"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+    judgeassessments?: JudgeassessmentsListRelationFilter
+  }
+
+  export type JudgeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    judgeGamertag?: SortOrder
+    email?: SortOrder
+    hackathonId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    hackathon?: HackathonOrderByWithRelationInput
+    judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
+  }
+
+  export type JudgeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    userId_hackathonId?: JudgeUserIdHackathonIdCompoundUniqueInput
+    AND?: JudgeWhereInput | JudgeWhereInput[]
+    OR?: JudgeWhereInput[]
+    NOT?: JudgeWhereInput | JudgeWhereInput[]
+    judgeGamertag?: StringFilter<"Judge"> | string
+    email?: StringFilter<"Judge"> | string
+    hackathonId?: StringFilter<"Judge"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+    judgeassessments?: JudgeassessmentsListRelationFilter
+  }, "id" | "userId" | "userId_hackathonId">
+
+  export type JudgeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    judgeGamertag?: SortOrder
+    email?: SortOrder
+    hackathonId?: SortOrder
+    _count?: JudgeCountOrderByAggregateInput
+    _max?: JudgeMaxOrderByAggregateInput
+    _min?: JudgeMinOrderByAggregateInput
+  }
+
+  export type JudgeScalarWhereWithAggregatesInput = {
+    AND?: JudgeScalarWhereWithAggregatesInput | JudgeScalarWhereWithAggregatesInput[]
+    OR?: JudgeScalarWhereWithAggregatesInput[]
+    NOT?: JudgeScalarWhereWithAggregatesInput | JudgeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Judge"> | string
+    userId?: StringWithAggregatesFilter<"Judge"> | string
+    judgeGamertag?: StringWithAggregatesFilter<"Judge"> | string
+    email?: StringWithAggregatesFilter<"Judge"> | string
+    hackathonId?: StringWithAggregatesFilter<"Judge"> | string
+  }
+
   export type JudgeassessmentsWhereInput = {
     AND?: JudgeassessmentsWhereInput | JudgeassessmentsWhereInput[]
     OR?: JudgeassessmentsWhereInput[]
@@ -13748,7 +14927,7 @@ export namespace Prisma {
     judgeId?: StringFilter<"Judgeassessments"> | string
     hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    judge?: XOR<JudgeRelationFilter, JudgeWhereInput>
   }
 
   export type JudgeassessmentsOrderByWithRelationInput = {
@@ -13765,7 +14944,7 @@ export namespace Prisma {
     judgeId?: SortOrder
     hackathon?: HackathonOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
-    user?: UserOrderByWithRelationInput
+    judge?: JudgeOrderByWithRelationInput
   }
 
   export type JudgeassessmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -13786,7 +14965,7 @@ export namespace Prisma {
     judgeId?: StringFilter<"Judgeassessments"> | string
     hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    judge?: XOR<JudgeRelationFilter, JudgeWhereInput>
   }, "id" | "hackathonId_projectId_judgeId">
 
   export type JudgeassessmentsOrderByWithAggregationInput = {
@@ -13987,7 +15166,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -14003,13 +15182,13 @@ export namespace Prisma {
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -14025,13 +15204,13 @@ export namespace Prisma {
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14047,13 +15226,13 @@ export namespace Prisma {
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14069,13 +15248,13 @@ export namespace Prisma {
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -14092,7 +15271,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14109,7 +15288,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14266,6 +15445,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
   }
@@ -14288,6 +15468,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -14308,6 +15489,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
   }
@@ -14330,6 +15512,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -14645,6 +15828,58 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
   }
 
+  export type JudgeCreateInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutJudgeInput
+    hackathon: HackathonCreateNestedOneWithoutJudgeInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutJudgeInput
+  }
+
+  export type JudgeUncheckedCreateInput = {
+    id?: string
+    userId: string
+    judgeGamertag: string
+    email: string
+    hackathonId: string
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutJudgeInput
+  }
+
+  export type JudgeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutJudgeNestedInput
+    hackathon?: HackathonUpdateOneRequiredWithoutJudgeNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutJudgeNestedInput
+  }
+
+  export type JudgeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    judgeGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutJudgeNestedInput
+  }
+
+  export type JudgeCreateManyInput = {
+    id?: string
+    userId: string
+    judgeGamertag: string
+    email: string
+    hackathonId: string
+  }
+
+  export type JudgeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JudgeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    judgeGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type JudgeassessmentsCreateInput = {
     id?: string
     impact: number
@@ -14656,7 +15891,7 @@ export namespace Prisma {
     overall_score: Decimal | DecimalJsLike | number | string
     hackathon: HackathonCreateNestedOneWithoutJudgeassessmentsInput
     project: ProjectCreateNestedOneWithoutJudgeassessmentsInput
-    user: UserCreateNestedOneWithoutJudgeassessmentsInput
+    judge: JudgeCreateNestedOneWithoutJudgeassessmentsInput
   }
 
   export type JudgeassessmentsUncheckedCreateInput = {
@@ -14684,7 +15919,7 @@ export namespace Prisma {
     overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hackathon?: HackathonUpdateOneRequiredWithoutJudgeassessmentsNestedInput
     project?: ProjectUpdateOneRequiredWithoutJudgeassessmentsNestedInput
-    user?: UserUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+    judge?: JudgeUpdateOneRequiredWithoutJudgeassessmentsNestedInput
   }
 
   export type JudgeassessmentsUncheckedUpdateInput = {
@@ -15010,10 +16245,10 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
-  export type JudgeassessmentsListRelationFilter = {
-    every?: JudgeassessmentsWhereInput
-    some?: JudgeassessmentsWhereInput
-    none?: JudgeassessmentsWhereInput
+  export type JudgeListRelationFilter = {
+    every?: JudgeWhereInput
+    some?: JudgeWhereInput
+    none?: JudgeWhereInput
   }
 
   export type HackathonOrderByRelationAggregateInput = {
@@ -15032,8 +16267,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type JudgeassessmentsOrderByRelationAggregateInput = {
+  export type JudgeOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type UserIdGamertagEmailCompoundUniqueInput = {
+    id: string
+    gamertag: string
+    email: string
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -15205,6 +16446,16 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type JudgeassessmentsListRelationFilter = {
+    every?: JudgeassessmentsWhereInput
+    some?: JudgeassessmentsWhereInput
+    none?: JudgeassessmentsWhereInput
+  }
+
+  export type JudgeassessmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type HackathonCountOrderByAggregateInput = {
@@ -15400,6 +16651,35 @@ export namespace Prisma {
     company?: SortOrder
   }
 
+  export type JudgeUserIdHackathonIdCompoundUniqueInput = {
+    userId: string
+    hackathonId: string
+  }
+
+  export type JudgeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    judgeGamertag?: SortOrder
+    email?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type JudgeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    judgeGamertag?: SortOrder
+    email?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type JudgeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    judgeGamertag?: SortOrder
+    email?: SortOrder
+    hackathonId?: SortOrder
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -15425,6 +16705,11 @@ export namespace Prisma {
   export type ProjectRelationFilter = {
     is?: ProjectWhereInput
     isNot?: ProjectWhereInput
+  }
+
+  export type JudgeRelationFilter = {
+    is?: JudgeWhereInput
+    isNot?: JudgeWhereInput
   }
 
   export type JudgeassessmentsHackathonIdProjectIdJudgeIdCompoundUniqueInput = {
@@ -15603,11 +16888,11 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
-  export type JudgeassessmentsCreateNestedManyWithoutUserInput = {
-    create?: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput> | JudgeassessmentsCreateWithoutUserInput[] | JudgeassessmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutUserInput | JudgeassessmentsCreateOrConnectWithoutUserInput[]
-    createMany?: JudgeassessmentsCreateManyUserInputEnvelope
-    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  export type JudgeCreateNestedManyWithoutUserInput = {
+    create?: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput> | JudgeCreateWithoutUserInput[] | JudgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutUserInput | JudgeCreateOrConnectWithoutUserInput[]
+    createMany?: JudgeCreateManyUserInputEnvelope
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
   }
 
   export type HackathonUncheckedCreateNestedManyWithoutCreatorInput = {
@@ -15638,11 +16923,11 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
-  export type JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput> | JudgeassessmentsCreateWithoutUserInput[] | JudgeassessmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutUserInput | JudgeassessmentsCreateOrConnectWithoutUserInput[]
-    createMany?: JudgeassessmentsCreateManyUserInputEnvelope
-    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  export type JudgeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput> | JudgeCreateWithoutUserInput[] | JudgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutUserInput | JudgeCreateOrConnectWithoutUserInput[]
+    createMany?: JudgeCreateManyUserInputEnvelope
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -15709,18 +16994,18 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
-  export type JudgeassessmentsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput> | JudgeassessmentsCreateWithoutUserInput[] | JudgeassessmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutUserInput | JudgeassessmentsCreateOrConnectWithoutUserInput[]
-    upsert?: JudgeassessmentsUpsertWithWhereUniqueWithoutUserInput | JudgeassessmentsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: JudgeassessmentsCreateManyUserInputEnvelope
-    set?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    disconnect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    delete?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    update?: JudgeassessmentsUpdateWithWhereUniqueWithoutUserInput | JudgeassessmentsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutUserInput | JudgeassessmentsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  export type JudgeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput> | JudgeCreateWithoutUserInput[] | JudgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutUserInput | JudgeCreateOrConnectWithoutUserInput[]
+    upsert?: JudgeUpsertWithWhereUniqueWithoutUserInput | JudgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JudgeCreateManyUserInputEnvelope
+    set?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    disconnect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    delete?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    update?: JudgeUpdateWithWhereUniqueWithoutUserInput | JudgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JudgeUpdateManyWithWhereWithoutUserInput | JudgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
   }
 
   export type HackathonUncheckedUpdateManyWithoutCreatorNestedInput = {
@@ -15779,18 +17064,18 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
-  export type JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput> | JudgeassessmentsCreateWithoutUserInput[] | JudgeassessmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutUserInput | JudgeassessmentsCreateOrConnectWithoutUserInput[]
-    upsert?: JudgeassessmentsUpsertWithWhereUniqueWithoutUserInput | JudgeassessmentsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: JudgeassessmentsCreateManyUserInputEnvelope
-    set?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    disconnect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    delete?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
-    update?: JudgeassessmentsUpdateWithWhereUniqueWithoutUserInput | JudgeassessmentsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutUserInput | JudgeassessmentsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  export type JudgeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput> | JudgeCreateWithoutUserInput[] | JudgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutUserInput | JudgeCreateOrConnectWithoutUserInput[]
+    upsert?: JudgeUpsertWithWhereUniqueWithoutUserInput | JudgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JudgeCreateManyUserInputEnvelope
+    set?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    disconnect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    delete?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    update?: JudgeUpdateWithWhereUniqueWithoutUserInput | JudgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JudgeUpdateManyWithWhereWithoutUserInput | JudgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
   }
 
   export type ProjectCreateNestedManyWithoutTeamInput = {
@@ -15905,6 +17190,13 @@ export namespace Prisma {
     connect?: HackathonRegistrationWhereUniqueInput | HackathonRegistrationWhereUniqueInput[]
   }
 
+  export type JudgeCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput> | JudgeCreateWithoutHackathonInput[] | JudgeUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutHackathonInput | JudgeCreateOrConnectWithoutHackathonInput[]
+    createMany?: JudgeCreateManyHackathonInputEnvelope
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutHackathonsInput = {
     create?: XOR<UserCreateWithoutHackathonsInput, UserUncheckedCreateWithoutHackathonsInput>
     connectOrCreate?: UserCreateOrConnectWithoutHackathonsInput
@@ -15930,6 +17222,13 @@ export namespace Prisma {
     connectOrCreate?: HackathonRegistrationCreateOrConnectWithoutHackathonInput | HackathonRegistrationCreateOrConnectWithoutHackathonInput[]
     createMany?: HackathonRegistrationCreateManyHackathonInputEnvelope
     connect?: HackathonRegistrationWhereUniqueInput | HackathonRegistrationWhereUniqueInput[]
+  }
+
+  export type JudgeUncheckedCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput> | JudgeCreateWithoutHackathonInput[] | JudgeUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutHackathonInput | JudgeCreateOrConnectWithoutHackathonInput[]
+    createMany?: JudgeCreateManyHackathonInputEnvelope
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
   }
 
   export type JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput = {
@@ -15969,6 +17268,20 @@ export namespace Prisma {
     update?: HackathonRegistrationUpdateWithWhereUniqueWithoutHackathonInput | HackathonRegistrationUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: HackathonRegistrationUpdateManyWithWhereWithoutHackathonInput | HackathonRegistrationUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: HackathonRegistrationScalarWhereInput | HackathonRegistrationScalarWhereInput[]
+  }
+
+  export type JudgeUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput> | JudgeCreateWithoutHackathonInput[] | JudgeUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutHackathonInput | JudgeCreateOrConnectWithoutHackathonInput[]
+    upsert?: JudgeUpsertWithWhereUniqueWithoutHackathonInput | JudgeUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: JudgeCreateManyHackathonInputEnvelope
+    set?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    disconnect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    delete?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    update?: JudgeUpdateWithWhereUniqueWithoutHackathonInput | JudgeUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: JudgeUpdateManyWithWhereWithoutHackathonInput | JudgeUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutHackathonsNestedInput = {
@@ -16019,6 +17332,20 @@ export namespace Prisma {
     update?: HackathonRegistrationUpdateWithWhereUniqueWithoutHackathonInput | HackathonRegistrationUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: HackathonRegistrationUpdateManyWithWhereWithoutHackathonInput | HackathonRegistrationUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: HackathonRegistrationScalarWhereInput | HackathonRegistrationScalarWhereInput[]
+  }
+
+  export type JudgeUncheckedUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput> | JudgeCreateWithoutHackathonInput[] | JudgeUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: JudgeCreateOrConnectWithoutHackathonInput | JudgeCreateOrConnectWithoutHackathonInput[]
+    upsert?: JudgeUpsertWithWhereUniqueWithoutHackathonInput | JudgeUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: JudgeCreateManyHackathonInputEnvelope
+    set?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    disconnect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    delete?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+    update?: JudgeUpdateWithWhereUniqueWithoutHackathonInput | JudgeUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: JudgeUpdateManyWithWhereWithoutHackathonInput | JudgeUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
   }
 
   export type JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput = {
@@ -16133,6 +17460,76 @@ export namespace Prisma {
     deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutJudgeInput = {
+    create?: XOR<UserCreateWithoutJudgeInput, UserUncheckedCreateWithoutJudgeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJudgeInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HackathonCreateNestedOneWithoutJudgeInput = {
+    create?: XOR<HackathonCreateWithoutJudgeInput, HackathonUncheckedCreateWithoutJudgeInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutJudgeInput
+    connect?: HackathonWhereUniqueInput
+  }
+
+  export type JudgeassessmentsCreateNestedManyWithoutJudgeInput = {
+    create?: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput> | JudgeassessmentsCreateWithoutJudgeInput[] | JudgeassessmentsUncheckedCreateWithoutJudgeInput[]
+    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutJudgeInput | JudgeassessmentsCreateOrConnectWithoutJudgeInput[]
+    createMany?: JudgeassessmentsCreateManyJudgeInputEnvelope
+    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  }
+
+  export type JudgeassessmentsUncheckedCreateNestedManyWithoutJudgeInput = {
+    create?: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput> | JudgeassessmentsCreateWithoutJudgeInput[] | JudgeassessmentsUncheckedCreateWithoutJudgeInput[]
+    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutJudgeInput | JudgeassessmentsCreateOrConnectWithoutJudgeInput[]
+    createMany?: JudgeassessmentsCreateManyJudgeInputEnvelope
+    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutJudgeNestedInput = {
+    create?: XOR<UserCreateWithoutJudgeInput, UserUncheckedCreateWithoutJudgeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJudgeInput
+    upsert?: UserUpsertWithoutJudgeInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJudgeInput, UserUpdateWithoutJudgeInput>, UserUncheckedUpdateWithoutJudgeInput>
+  }
+
+  export type HackathonUpdateOneRequiredWithoutJudgeNestedInput = {
+    create?: XOR<HackathonCreateWithoutJudgeInput, HackathonUncheckedCreateWithoutJudgeInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutJudgeInput
+    upsert?: HackathonUpsertWithoutJudgeInput
+    connect?: HackathonWhereUniqueInput
+    update?: XOR<XOR<HackathonUpdateToOneWithWhereWithoutJudgeInput, HackathonUpdateWithoutJudgeInput>, HackathonUncheckedUpdateWithoutJudgeInput>
+  }
+
+  export type JudgeassessmentsUpdateManyWithoutJudgeNestedInput = {
+    create?: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput> | JudgeassessmentsCreateWithoutJudgeInput[] | JudgeassessmentsUncheckedCreateWithoutJudgeInput[]
+    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutJudgeInput | JudgeassessmentsCreateOrConnectWithoutJudgeInput[]
+    upsert?: JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput | JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput[]
+    createMany?: JudgeassessmentsCreateManyJudgeInputEnvelope
+    set?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    disconnect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    delete?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    update?: JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput | JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput[]
+    updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput | JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput[]
+    deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  }
+
+  export type JudgeassessmentsUncheckedUpdateManyWithoutJudgeNestedInput = {
+    create?: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput> | JudgeassessmentsCreateWithoutJudgeInput[] | JudgeassessmentsUncheckedCreateWithoutJudgeInput[]
+    connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutJudgeInput | JudgeassessmentsCreateOrConnectWithoutJudgeInput[]
+    upsert?: JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput | JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput[]
+    createMany?: JudgeassessmentsCreateManyJudgeInputEnvelope
+    set?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    disconnect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    delete?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+    update?: JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput | JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput[]
+    updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput | JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput[]
+    deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  }
+
   export type HackathonCreateNestedOneWithoutJudgeassessmentsInput = {
     create?: XOR<HackathonCreateWithoutJudgeassessmentsInput, HackathonUncheckedCreateWithoutJudgeassessmentsInput>
     connectOrCreate?: HackathonCreateOrConnectWithoutJudgeassessmentsInput
@@ -16145,10 +17542,10 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutJudgeassessmentsInput = {
-    create?: XOR<UserCreateWithoutJudgeassessmentsInput, UserUncheckedCreateWithoutJudgeassessmentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutJudgeassessmentsInput
-    connect?: UserWhereUniqueInput
+  export type JudgeCreateNestedOneWithoutJudgeassessmentsInput = {
+    create?: XOR<JudgeCreateWithoutJudgeassessmentsInput, JudgeUncheckedCreateWithoutJudgeassessmentsInput>
+    connectOrCreate?: JudgeCreateOrConnectWithoutJudgeassessmentsInput
+    connect?: JudgeWhereUniqueInput
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -16183,12 +17580,12 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutJudgeassessmentsInput, ProjectUpdateWithoutJudgeassessmentsInput>, ProjectUncheckedUpdateWithoutJudgeassessmentsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutJudgeassessmentsNestedInput = {
-    create?: XOR<UserCreateWithoutJudgeassessmentsInput, UserUncheckedCreateWithoutJudgeassessmentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutJudgeassessmentsInput
-    upsert?: UserUpsertWithoutJudgeassessmentsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJudgeassessmentsInput, UserUpdateWithoutJudgeassessmentsInput>, UserUncheckedUpdateWithoutJudgeassessmentsInput>
+  export type JudgeUpdateOneRequiredWithoutJudgeassessmentsNestedInput = {
+    create?: XOR<JudgeCreateWithoutJudgeassessmentsInput, JudgeUncheckedCreateWithoutJudgeassessmentsInput>
+    connectOrCreate?: JudgeCreateOrConnectWithoutJudgeassessmentsInput
+    upsert?: JudgeUpsertWithoutJudgeassessmentsInput
+    connect?: JudgeWhereUniqueInput
+    update?: XOR<XOR<JudgeUpdateToOneWithWhereWithoutJudgeassessmentsInput, JudgeUpdateWithoutJudgeassessmentsInput>, JudgeUncheckedUpdateWithoutJudgeassessmentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16449,7 +17846,7 @@ export namespace Prisma {
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -16464,13 +17861,13 @@ export namespace Prisma {
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -16485,7 +17882,7 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -16507,7 +17904,7 @@ export namespace Prisma {
   export type UserUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -16522,13 +17919,13 @@ export namespace Prisma {
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -16543,13 +17940,13 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -16564,13 +17961,13 @@ export namespace Prisma {
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -16585,7 +17982,7 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -16607,7 +18004,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -16622,13 +18019,13 @@ export namespace Prisma {
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -16643,7 +18040,7 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type HackathonCreateWithoutCreatorInput = {
@@ -16663,6 +18060,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
   }
 
@@ -16683,6 +18081,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -16792,39 +18191,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type JudgeassessmentsCreateWithoutUserInput = {
+  export type JudgeCreateWithoutUserInput = {
     id?: string
-    impact: number
-    feasability: number
-    user_experience: number
-    scalability: number
-    innovate: number
-    pitch: number
-    overall_score: Decimal | DecimalJsLike | number | string
-    hackathon: HackathonCreateNestedOneWithoutJudgeassessmentsInput
-    project: ProjectCreateNestedOneWithoutJudgeassessmentsInput
+    hackathon: HackathonCreateNestedOneWithoutJudgeInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutJudgeInput
   }
 
-  export type JudgeassessmentsUncheckedCreateWithoutUserInput = {
+  export type JudgeUncheckedCreateWithoutUserInput = {
     id?: string
-    impact: number
-    feasability: number
-    user_experience: number
-    scalability: number
-    innovate: number
-    pitch: number
-    overall_score: Decimal | DecimalJsLike | number | string
     hackathonId: string
-    projectId: string
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutJudgeInput
   }
 
-  export type JudgeassessmentsCreateOrConnectWithoutUserInput = {
-    where: JudgeassessmentsWhereUniqueInput
-    create: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput>
+  export type JudgeCreateOrConnectWithoutUserInput = {
+    where: JudgeWhereUniqueInput
+    create: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput>
   }
 
-  export type JudgeassessmentsCreateManyUserInputEnvelope = {
-    data: JudgeassessmentsCreateManyUserInput | JudgeassessmentsCreateManyUserInput[]
+  export type JudgeCreateManyUserInputEnvelope = {
+    data: JudgeCreateManyUserInput | JudgeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -16956,37 +18341,31 @@ export namespace Prisma {
     expires?: DateTimeFilter<"Session"> | Date | string
   }
 
-  export type JudgeassessmentsUpsertWithWhereUniqueWithoutUserInput = {
-    where: JudgeassessmentsWhereUniqueInput
-    update: XOR<JudgeassessmentsUpdateWithoutUserInput, JudgeassessmentsUncheckedUpdateWithoutUserInput>
-    create: XOR<JudgeassessmentsCreateWithoutUserInput, JudgeassessmentsUncheckedCreateWithoutUserInput>
+  export type JudgeUpsertWithWhereUniqueWithoutUserInput = {
+    where: JudgeWhereUniqueInput
+    update: XOR<JudgeUpdateWithoutUserInput, JudgeUncheckedUpdateWithoutUserInput>
+    create: XOR<JudgeCreateWithoutUserInput, JudgeUncheckedCreateWithoutUserInput>
   }
 
-  export type JudgeassessmentsUpdateWithWhereUniqueWithoutUserInput = {
-    where: JudgeassessmentsWhereUniqueInput
-    data: XOR<JudgeassessmentsUpdateWithoutUserInput, JudgeassessmentsUncheckedUpdateWithoutUserInput>
+  export type JudgeUpdateWithWhereUniqueWithoutUserInput = {
+    where: JudgeWhereUniqueInput
+    data: XOR<JudgeUpdateWithoutUserInput, JudgeUncheckedUpdateWithoutUserInput>
   }
 
-  export type JudgeassessmentsUpdateManyWithWhereWithoutUserInput = {
-    where: JudgeassessmentsScalarWhereInput
-    data: XOR<JudgeassessmentsUpdateManyMutationInput, JudgeassessmentsUncheckedUpdateManyWithoutUserInput>
+  export type JudgeUpdateManyWithWhereWithoutUserInput = {
+    where: JudgeScalarWhereInput
+    data: XOR<JudgeUpdateManyMutationInput, JudgeUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type JudgeassessmentsScalarWhereInput = {
-    AND?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
-    OR?: JudgeassessmentsScalarWhereInput[]
-    NOT?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
-    id?: StringFilter<"Judgeassessments"> | string
-    impact?: IntFilter<"Judgeassessments"> | number
-    feasability?: IntFilter<"Judgeassessments"> | number
-    user_experience?: IntFilter<"Judgeassessments"> | number
-    scalability?: IntFilter<"Judgeassessments"> | number
-    innovate?: IntFilter<"Judgeassessments"> | number
-    pitch?: IntFilter<"Judgeassessments"> | number
-    overall_score?: DecimalFilter<"Judgeassessments"> | Decimal | DecimalJsLike | number | string
-    hackathonId?: StringFilter<"Judgeassessments"> | string
-    projectId?: StringFilter<"Judgeassessments"> | string
-    judgeId?: StringFilter<"Judgeassessments"> | string
+  export type JudgeScalarWhereInput = {
+    AND?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+    OR?: JudgeScalarWhereInput[]
+    NOT?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+    id?: StringFilter<"Judge"> | string
+    userId?: StringFilter<"Judge"> | string
+    judgeGamertag?: StringFilter<"Judge"> | string
+    email?: StringFilter<"Judge"> | string
+    hackathonId?: StringFilter<"Judge"> | string
   }
 
   export type ProjectCreateWithoutTeamInput = {
@@ -17054,7 +18433,7 @@ export namespace Prisma {
   export type UserCreateWithoutTeamsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -17069,13 +18448,13 @@ export namespace Prisma {
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTeamsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -17090,7 +18469,7 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTeamsInput = {
@@ -17172,7 +18551,7 @@ export namespace Prisma {
   export type UserUpdateWithoutTeamsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -17187,13 +18566,13 @@ export namespace Prisma {
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -17208,7 +18587,7 @@ export namespace Prisma {
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectCreateWithoutHackathonInput = {
@@ -17273,10 +18652,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JudgeCreateWithoutHackathonInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutJudgeInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutJudgeInput
+  }
+
+  export type JudgeUncheckedCreateWithoutHackathonInput = {
+    id?: string
+    userId: string
+    judgeGamertag: string
+    email: string
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutJudgeInput
+  }
+
+  export type JudgeCreateOrConnectWithoutHackathonInput = {
+    where: JudgeWhereUniqueInput
+    create: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type JudgeCreateManyHackathonInputEnvelope = {
+    data: JudgeCreateManyHackathonInput | JudgeCreateManyHackathonInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserCreateWithoutHackathonsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -17291,13 +18694,13 @@ export namespace Prisma {
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHackathonsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     gamertag: string
     role?: $Enums.Role
     emailVerified?: boolean | null
@@ -17312,7 +18715,7 @@ export namespace Prisma {
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHackathonsInput = {
@@ -17330,7 +18733,7 @@ export namespace Prisma {
     pitch: number
     overall_score: Decimal | DecimalJsLike | number | string
     project: ProjectCreateNestedOneWithoutJudgeassessmentsInput
-    user: UserCreateNestedOneWithoutJudgeassessmentsInput
+    judge: JudgeCreateNestedOneWithoutJudgeassessmentsInput
   }
 
   export type JudgeassessmentsUncheckedCreateWithoutHackathonInput = {
@@ -17388,6 +18791,22 @@ export namespace Prisma {
     data: XOR<HackathonRegistrationUpdateManyMutationInput, HackathonRegistrationUncheckedUpdateManyWithoutHackathonInput>
   }
 
+  export type JudgeUpsertWithWhereUniqueWithoutHackathonInput = {
+    where: JudgeWhereUniqueInput
+    update: XOR<JudgeUpdateWithoutHackathonInput, JudgeUncheckedUpdateWithoutHackathonInput>
+    create: XOR<JudgeCreateWithoutHackathonInput, JudgeUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type JudgeUpdateWithWhereUniqueWithoutHackathonInput = {
+    where: JudgeWhereUniqueInput
+    data: XOR<JudgeUpdateWithoutHackathonInput, JudgeUncheckedUpdateWithoutHackathonInput>
+  }
+
+  export type JudgeUpdateManyWithWhereWithoutHackathonInput = {
+    where: JudgeScalarWhereInput
+    data: XOR<JudgeUpdateManyMutationInput, JudgeUncheckedUpdateManyWithoutHackathonInput>
+  }
+
   export type UserUpsertWithoutHackathonsInput = {
     update: XOR<UserUpdateWithoutHackathonsInput, UserUncheckedUpdateWithoutHackathonsInput>
     create: XOR<UserCreateWithoutHackathonsInput, UserUncheckedCreateWithoutHackathonsInput>
@@ -17402,7 +18821,7 @@ export namespace Prisma {
   export type UserUpdateWithoutHackathonsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -17417,13 +18836,13 @@ export namespace Prisma {
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHackathonsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     gamertag?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -17438,7 +18857,7 @@ export namespace Prisma {
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JudgeassessmentsUpsertWithWhereUniqueWithoutHackathonInput = {
@@ -17457,6 +18876,23 @@ export namespace Prisma {
     data: XOR<JudgeassessmentsUpdateManyMutationInput, JudgeassessmentsUncheckedUpdateManyWithoutHackathonInput>
   }
 
+  export type JudgeassessmentsScalarWhereInput = {
+    AND?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+    OR?: JudgeassessmentsScalarWhereInput[]
+    NOT?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+    id?: StringFilter<"Judgeassessments"> | string
+    impact?: IntFilter<"Judgeassessments"> | number
+    feasability?: IntFilter<"Judgeassessments"> | number
+    user_experience?: IntFilter<"Judgeassessments"> | number
+    scalability?: IntFilter<"Judgeassessments"> | number
+    innovate?: IntFilter<"Judgeassessments"> | number
+    pitch?: IntFilter<"Judgeassessments"> | number
+    overall_score?: DecimalFilter<"Judgeassessments"> | Decimal | DecimalJsLike | number | string
+    hackathonId?: StringFilter<"Judgeassessments"> | string
+    projectId?: StringFilter<"Judgeassessments"> | string
+    judgeId?: StringFilter<"Judgeassessments"> | string
+  }
+
   export type HackathonCreateWithoutRegistrationsInput = {
     id?: string
     createdAt?: Date | string
@@ -17473,6 +18909,7 @@ export namespace Prisma {
     startDate: string
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
   }
@@ -17494,6 +18931,7 @@ export namespace Prisma {
     startDate: string
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -17558,6 +18996,7 @@ export namespace Prisma {
     startDate?: StringFieldUpdateOperationsInput | string
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
   }
@@ -17579,6 +19018,7 @@ export namespace Prisma {
     startDate?: StringFieldUpdateOperationsInput | string
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -17633,6 +19073,7 @@ export namespace Prisma {
     startDate: string
     endDate: string
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
   }
@@ -17654,6 +19095,7 @@ export namespace Prisma {
     startDate: string
     endDate: string
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -17672,7 +19114,7 @@ export namespace Prisma {
     pitch: number
     overall_score: Decimal | DecimalJsLike | number | string
     hackathon: HackathonCreateNestedOneWithoutJudgeassessmentsInput
-    user: UserCreateNestedOneWithoutJudgeassessmentsInput
+    judge: JudgeCreateNestedOneWithoutJudgeassessmentsInput
   }
 
   export type JudgeassessmentsUncheckedCreateWithoutProjectInput = {
@@ -17754,6 +19196,7 @@ export namespace Prisma {
     startDate?: StringFieldUpdateOperationsInput | string
     endDate?: StringFieldUpdateOperationsInput | string
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
   }
@@ -17775,6 +19218,7 @@ export namespace Prisma {
     startDate?: StringFieldUpdateOperationsInput | string
     endDate?: StringFieldUpdateOperationsInput | string
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -17829,6 +19273,258 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
   }
 
+  export type UserCreateWithoutJudgeInput = {
+    id?: string
+    name?: string | null
+    email: string
+    gamertag: string
+    role?: $Enums.Role
+    emailVerified?: boolean | null
+    image?: string | null
+    isVerified?: boolean | null
+    lightningAddress?: string | null
+    publicBio?: string | null
+    publicStaticCharge?: string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonCreateNestedManyWithoutCreatorInput
+    teams?: TeamCreateNestedManyWithoutCreatorInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutJudgeInput = {
+    id?: string
+    name?: string | null
+    email: string
+    gamertag: string
+    role?: $Enums.Role
+    emailVerified?: boolean | null
+    image?: string | null
+    isVerified?: boolean | null
+    lightningAddress?: string | null
+    publicBio?: string | null
+    publicStaticCharge?: string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
+    teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutJudgeInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJudgeInput, UserUncheckedCreateWithoutJudgeInput>
+  }
+
+  export type HackathonCreateWithoutJudgeInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    startDate: string
+    endDate: string
+    projects?: ProjectCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    creator: UserCreateNestedOneWithoutHackathonsInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonUncheckedCreateWithoutJudgeInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    creatorId: string
+    startDate: string
+    endDate: string
+    projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonCreateOrConnectWithoutJudgeInput = {
+    where: HackathonWhereUniqueInput
+    create: XOR<HackathonCreateWithoutJudgeInput, HackathonUncheckedCreateWithoutJudgeInput>
+  }
+
+  export type JudgeassessmentsCreateWithoutJudgeInput = {
+    id?: string
+    impact: number
+    feasability: number
+    user_experience: number
+    scalability: number
+    innovate: number
+    pitch: number
+    overall_score: Decimal | DecimalJsLike | number | string
+    hackathon: HackathonCreateNestedOneWithoutJudgeassessmentsInput
+    project: ProjectCreateNestedOneWithoutJudgeassessmentsInput
+  }
+
+  export type JudgeassessmentsUncheckedCreateWithoutJudgeInput = {
+    id?: string
+    impact: number
+    feasability: number
+    user_experience: number
+    scalability: number
+    innovate: number
+    pitch: number
+    overall_score: Decimal | DecimalJsLike | number | string
+    hackathonId: string
+    projectId: string
+  }
+
+  export type JudgeassessmentsCreateOrConnectWithoutJudgeInput = {
+    where: JudgeassessmentsWhereUniqueInput
+    create: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput>
+  }
+
+  export type JudgeassessmentsCreateManyJudgeInputEnvelope = {
+    data: JudgeassessmentsCreateManyJudgeInput | JudgeassessmentsCreateManyJudgeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutJudgeInput = {
+    update: XOR<UserUpdateWithoutJudgeInput, UserUncheckedUpdateWithoutJudgeInput>
+    create: XOR<UserCreateWithoutJudgeInput, UserUncheckedCreateWithoutJudgeInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJudgeInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJudgeInput, UserUncheckedUpdateWithoutJudgeInput>
+  }
+
+  export type UserUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    gamertag?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
+    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: NullableStringFieldUpdateOperationsInput | string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
+    teams?: TeamUpdateManyWithoutCreatorNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    gamertag?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
+    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: NullableStringFieldUpdateOperationsInput | string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type HackathonUpsertWithoutJudgeInput = {
+    update: XOR<HackathonUpdateWithoutJudgeInput, HackathonUncheckedUpdateWithoutJudgeInput>
+    create: XOR<HackathonCreateWithoutJudgeInput, HackathonUncheckedCreateWithoutJudgeInput>
+    where?: HackathonWhereInput
+  }
+
+  export type HackathonUpdateToOneWithWhereWithoutJudgeInput = {
+    where?: HackathonWhereInput
+    data: XOR<HackathonUpdateWithoutJudgeInput, HackathonUncheckedUpdateWithoutJudgeInput>
+  }
+
+  export type HackathonUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+  }
+
+  export type HackathonUncheckedUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    creatorId?: StringFieldUpdateOperationsInput | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+  }
+
+  export type JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput = {
+    where: JudgeassessmentsWhereUniqueInput
+    update: XOR<JudgeassessmentsUpdateWithoutJudgeInput, JudgeassessmentsUncheckedUpdateWithoutJudgeInput>
+    create: XOR<JudgeassessmentsCreateWithoutJudgeInput, JudgeassessmentsUncheckedCreateWithoutJudgeInput>
+  }
+
+  export type JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput = {
+    where: JudgeassessmentsWhereUniqueInput
+    data: XOR<JudgeassessmentsUpdateWithoutJudgeInput, JudgeassessmentsUncheckedUpdateWithoutJudgeInput>
+  }
+
+  export type JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput = {
+    where: JudgeassessmentsScalarWhereInput
+    data: XOR<JudgeassessmentsUpdateManyMutationInput, JudgeassessmentsUncheckedUpdateManyWithoutJudgeInput>
+  }
+
   export type HackathonCreateWithoutJudgeassessmentsInput = {
     id?: string
     createdAt?: Date | string
@@ -17846,6 +19542,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
   }
 
@@ -17867,6 +19564,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutJudgeassessmentsInput = {
@@ -17907,51 +19605,23 @@ export namespace Prisma {
     create: XOR<ProjectCreateWithoutJudgeassessmentsInput, ProjectUncheckedCreateWithoutJudgeassessmentsInput>
   }
 
-  export type UserCreateWithoutJudgeassessmentsInput = {
+  export type JudgeCreateWithoutJudgeassessmentsInput = {
     id?: string
-    name?: string | null
-    email?: string | null
-    gamertag: string
-    role?: $Enums.Role
-    emailVerified?: boolean | null
-    image?: string | null
-    isVerified?: boolean | null
-    lightningAddress?: string | null
-    publicBio?: string | null
-    publicStaticCharge?: string | null
-    social?: NullableJsonNullValueInput | InputJsonValue
-    balance?: string | null
-    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
-    hackathons?: HackathonCreateNestedManyWithoutCreatorInput
-    teams?: TeamCreateNestedManyWithoutCreatorInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    user: UserCreateNestedOneWithoutJudgeInput
+    hackathon: HackathonCreateNestedOneWithoutJudgeInput
   }
 
-  export type UserUncheckedCreateWithoutJudgeassessmentsInput = {
+  export type JudgeUncheckedCreateWithoutJudgeassessmentsInput = {
     id?: string
-    name?: string | null
-    email?: string | null
-    gamertag: string
-    role?: $Enums.Role
-    emailVerified?: boolean | null
-    image?: string | null
-    isVerified?: boolean | null
-    lightningAddress?: string | null
-    publicBio?: string | null
-    publicStaticCharge?: string | null
-    social?: NullableJsonNullValueInput | InputJsonValue
-    balance?: string | null
-    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
-    hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
-    teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    userId: string
+    judgeGamertag: string
+    email: string
+    hackathonId: string
   }
 
-  export type UserCreateOrConnectWithoutJudgeassessmentsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutJudgeassessmentsInput, UserUncheckedCreateWithoutJudgeassessmentsInput>
+  export type JudgeCreateOrConnectWithoutJudgeassessmentsInput = {
+    where: JudgeWhereUniqueInput
+    create: XOR<JudgeCreateWithoutJudgeassessmentsInput, JudgeUncheckedCreateWithoutJudgeassessmentsInput>
   }
 
   export type HackathonUpsertWithoutJudgeassessmentsInput = {
@@ -17982,6 +19652,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
   }
 
@@ -18003,6 +19674,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type ProjectUpsertWithoutJudgeassessmentsInput = {
@@ -18044,57 +19716,29 @@ export namespace Prisma {
     teamId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserUpsertWithoutJudgeassessmentsInput = {
-    update: XOR<UserUpdateWithoutJudgeassessmentsInput, UserUncheckedUpdateWithoutJudgeassessmentsInput>
-    create: XOR<UserCreateWithoutJudgeassessmentsInput, UserUncheckedCreateWithoutJudgeassessmentsInput>
-    where?: UserWhereInput
+  export type JudgeUpsertWithoutJudgeassessmentsInput = {
+    update: XOR<JudgeUpdateWithoutJudgeassessmentsInput, JudgeUncheckedUpdateWithoutJudgeassessmentsInput>
+    create: XOR<JudgeCreateWithoutJudgeassessmentsInput, JudgeUncheckedCreateWithoutJudgeassessmentsInput>
+    where?: JudgeWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutJudgeassessmentsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutJudgeassessmentsInput, UserUncheckedUpdateWithoutJudgeassessmentsInput>
+  export type JudgeUpdateToOneWithWhereWithoutJudgeassessmentsInput = {
+    where?: JudgeWhereInput
+    data: XOR<JudgeUpdateWithoutJudgeassessmentsInput, JudgeUncheckedUpdateWithoutJudgeassessmentsInput>
   }
 
-  export type UserUpdateWithoutJudgeassessmentsInput = {
+  export type JudgeUpdateWithoutJudgeassessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    gamertag?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
-    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
-    social?: NullableJsonNullValueInput | InputJsonValue
-    balance?: NullableStringFieldUpdateOperationsInput | string | null
-    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
-    hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
-    teams?: TeamUpdateManyWithoutCreatorNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    user?: UserUpdateOneRequiredWithoutJudgeNestedInput
+    hackathon?: HackathonUpdateOneRequiredWithoutJudgeNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutJudgeassessmentsInput = {
+  export type JudgeUncheckedUpdateWithoutJudgeassessmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    gamertag?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
-    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
-    social?: NullableJsonNullValueInput | InputJsonValue
-    balance?: NullableStringFieldUpdateOperationsInput | string | null
-    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
-    hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
-    teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    userId?: StringFieldUpdateOperationsInput | string
+    judgeGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
   }
 
   export type HackathonCreateManyCreatorInput = {
@@ -18145,17 +19789,9 @@ export namespace Prisma {
     expires: Date | string
   }
 
-  export type JudgeassessmentsCreateManyUserInput = {
+  export type JudgeCreateManyUserInput = {
     id?: string
-    impact: number
-    feasability: number
-    user_experience: number
-    scalability: number
-    innovate: number
-    pitch: number
-    overall_score: Decimal | DecimalJsLike | number | string
     hackathonId: string
-    projectId: string
   }
 
   export type HackathonUpdateWithoutCreatorInput = {
@@ -18175,6 +19811,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
   }
 
@@ -18195,6 +19832,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -18312,43 +19950,21 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type JudgeassessmentsUpdateWithoutUserInput = {
+  export type JudgeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    impact?: IntFieldUpdateOperationsInput | number
-    feasability?: IntFieldUpdateOperationsInput | number
-    user_experience?: IntFieldUpdateOperationsInput | number
-    scalability?: IntFieldUpdateOperationsInput | number
-    innovate?: IntFieldUpdateOperationsInput | number
-    pitch?: IntFieldUpdateOperationsInput | number
-    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    hackathon?: HackathonUpdateOneRequiredWithoutJudgeassessmentsNestedInput
-    project?: ProjectUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+    hackathon?: HackathonUpdateOneRequiredWithoutJudgeNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutJudgeNestedInput
   }
 
-  export type JudgeassessmentsUncheckedUpdateWithoutUserInput = {
+  export type JudgeUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    impact?: IntFieldUpdateOperationsInput | number
-    feasability?: IntFieldUpdateOperationsInput | number
-    user_experience?: IntFieldUpdateOperationsInput | number
-    scalability?: IntFieldUpdateOperationsInput | number
-    innovate?: IntFieldUpdateOperationsInput | number
-    pitch?: IntFieldUpdateOperationsInput | number
-    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hackathonId?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutJudgeNestedInput
   }
 
-  export type JudgeassessmentsUncheckedUpdateManyWithoutUserInput = {
+  export type JudgeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    impact?: IntFieldUpdateOperationsInput | number
-    feasability?: IntFieldUpdateOperationsInput | number
-    user_experience?: IntFieldUpdateOperationsInput | number
-    scalability?: IntFieldUpdateOperationsInput | number
-    innovate?: IntFieldUpdateOperationsInput | number
-    pitch?: IntFieldUpdateOperationsInput | number
-    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hackathonId?: StringFieldUpdateOperationsInput | string
-    projectId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProjectCreateManyTeamInput = {
@@ -18453,6 +20069,13 @@ export namespace Prisma {
     teamId: string
   }
 
+  export type JudgeCreateManyHackathonInput = {
+    id?: string
+    userId: string
+    judgeGamertag: string
+    email: string
+  }
+
   export type JudgeassessmentsCreateManyHackathonInput = {
     id?: string
     impact: number
@@ -18528,6 +20151,27 @@ export namespace Prisma {
     teamId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type JudgeUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutJudgeNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutJudgeNestedInput
+  }
+
+  export type JudgeUncheckedUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    judgeGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutJudgeNestedInput
+  }
+
+  export type JudgeUncheckedUpdateManyWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    judgeGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+  }
+
   export type JudgeassessmentsUpdateWithoutHackathonInput = {
     id?: StringFieldUpdateOperationsInput | string
     impact?: IntFieldUpdateOperationsInput | number
@@ -18538,7 +20182,7 @@ export namespace Prisma {
     pitch?: IntFieldUpdateOperationsInput | number
     overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     project?: ProjectUpdateOneRequiredWithoutJudgeassessmentsNestedInput
-    user?: UserUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+    judge?: JudgeUpdateOneRequiredWithoutJudgeassessmentsNestedInput
   }
 
   export type JudgeassessmentsUncheckedUpdateWithoutHackathonInput = {
@@ -18590,7 +20234,7 @@ export namespace Prisma {
     pitch?: IntFieldUpdateOperationsInput | number
     overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hackathon?: HackathonUpdateOneRequiredWithoutJudgeassessmentsNestedInput
-    user?: UserUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+    judge?: JudgeUpdateOneRequiredWithoutJudgeassessmentsNestedInput
   }
 
   export type JudgeassessmentsUncheckedUpdateWithoutProjectInput = {
@@ -18619,6 +20263,58 @@ export namespace Prisma {
     judgeId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type JudgeassessmentsCreateManyJudgeInput = {
+    id?: string
+    impact: number
+    feasability: number
+    user_experience: number
+    scalability: number
+    innovate: number
+    pitch: number
+    overall_score: Decimal | DecimalJsLike | number | string
+    hackathonId: string
+    projectId: string
+  }
+
+  export type JudgeassessmentsUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    impact?: IntFieldUpdateOperationsInput | number
+    feasability?: IntFieldUpdateOperationsInput | number
+    user_experience?: IntFieldUpdateOperationsInput | number
+    scalability?: IntFieldUpdateOperationsInput | number
+    innovate?: IntFieldUpdateOperationsInput | number
+    pitch?: IntFieldUpdateOperationsInput | number
+    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hackathon?: HackathonUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutJudgeassessmentsNestedInput
+  }
+
+  export type JudgeassessmentsUncheckedUpdateWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    impact?: IntFieldUpdateOperationsInput | number
+    feasability?: IntFieldUpdateOperationsInput | number
+    user_experience?: IntFieldUpdateOperationsInput | number
+    scalability?: IntFieldUpdateOperationsInput | number
+    innovate?: IntFieldUpdateOperationsInput | number
+    pitch?: IntFieldUpdateOperationsInput | number
+    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JudgeassessmentsUncheckedUpdateManyWithoutJudgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    impact?: IntFieldUpdateOperationsInput | number
+    feasability?: IntFieldUpdateOperationsInput | number
+    user_experience?: IntFieldUpdateOperationsInput | number
+    scalability?: IntFieldUpdateOperationsInput | number
+    innovate?: IntFieldUpdateOperationsInput | number
+    pitch?: IntFieldUpdateOperationsInput | number
+    overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+  }
+
 
 
   /**
@@ -18640,6 +20336,10 @@ export namespace Prisma {
      * @deprecated Use ProjectCountOutputTypeDefaultArgs instead
      */
     export type ProjectCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JudgeCountOutputTypeDefaultArgs instead
+     */
+    export type JudgeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JudgeCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AccountDefaultArgs instead
      */
@@ -18680,6 +20380,10 @@ export namespace Prisma {
      * @deprecated Use SponsorsDefaultArgs instead
      */
     export type SponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SponsorsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JudgeDefaultArgs instead
+     */
+    export type JudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JudgeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use JudgeassessmentsDefaultArgs instead
      */
