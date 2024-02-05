@@ -41,7 +41,7 @@ model Session {
 model User {
   id                    String      @id @default(cuid())
   name                  String?
-  email                 String?     @unique
+  email                 String     @unique
   gamertag              String
   role                  Role        @default(USER)
   hackathons            Hackathon[]
@@ -57,6 +57,9 @@ model User {
   social                Json?
   balance               String?
   remainingAmountLimits Json?
+    judge Judge[]
+  
+  @@unique([id,gamertag,email])
 }
 
 model VerificationToken {
@@ -101,10 +104,12 @@ model Hackathon {
 
   projects      Project[]
   registrations HackathonRegistration[]
+  judge Judge[]
 
   published Boolean @default(false)
   creator   User    @relation(fields: [creatorId], references: [id])
   creatorId String
+    judgeassessments Judgeassessments[]
 
   startDate String
   endDate   String
@@ -144,7 +149,7 @@ model Project {
 
   hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
   hackathonId String
-
+  judgeassessments Judgeassessments[]
   team   Team   @relation(fields: [teamId], references: [id])
   teamId String
 
@@ -169,5 +174,39 @@ model Sponsors {
 enum Role {
   USER
   ADMIN
-  JUDGE
+}
+
+model Judge{
+id String @id @default(cuid())
+user User @relation(fields: [userId,judgeGamertag,email], references: [id,gamertag,email])
+userId String @unique
+judgeGamertag String
+email String
+hackathon Hackathon @relation(fields: [hackathonId], references: [id])
+hackathonId String
+judgeassessments Judgeassessments[]
+@@unique([userId,hackathonId])
+}
+
+model Judgeassessments {
+id      String @id @default(cuid())
+impact Int
+feasability Int
+user_experience Int
+scalability Int
+innovate Int
+pitch Int
+overall_score Decimal
+
+hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+hackathonId String
+
+project Project  @relation(fields: [projectId], references: [id])
+projectId String
+
+
+judge Judge  @relation(fields: [judgeId], references: [id])
+judgeId String
+
+@@unique([hackathonId, projectId,judgeId])
 }
