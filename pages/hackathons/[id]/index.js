@@ -26,7 +26,7 @@ export default function HackathonDetail() {
   const [ruleList, setRuleList] = useState("");
   const [projects, setProject] = useState([])
   const [details, setDetails] = useState([])
-
+  const [judges, setJudges] = useState([])
 
   useEffect(() => {
     if (router.isReady) {
@@ -127,8 +127,12 @@ export default function HackathonDetail() {
             method: "GET",
             headers: { "Content-Type": "application/json" }
           });
-          const projectsData = await response.json();
-          setProject(projectsData);
+          if (response.ok) {
+            const projectsData = await response.json();
+            setProject(projectsData);
+          } else {
+            console.error("Error fetching of projects:", response.statusText);
+          }
         }
       } catch (error) {
         console.error("Error fetching the data:", error);
@@ -159,6 +163,31 @@ export default function HackathonDetail() {
 
     fetchTeams(); // Call the fetchTeams function
   }, []);
+
+
+  useEffect(() => {
+    const fetchJudges = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/judges/${id}/hackathonDetails`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setJudges(data);
+          } else {
+            console.error("Error fetching teams:", response.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching j:", error);
+      }
+    };
+
+    fetchJudges(); // Call the fetchTeams function
+  }, [id]);
 
   return (
     <Layout>
@@ -245,56 +274,128 @@ export default function HackathonDetail() {
             </ul>
           </div>
           <div className="mt-24">
+          <SectionHeader
+              headerText={"Contestants"} 
+            />
+            {
+              projects.length ? (
+                <>
+                <SectionHeader
+               
+               descriptionText={
+                 "Teams and their projects already registered for this hackathon  "
+               }
+             />
+              <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                {projects.map((project) => {
+                  return (
+                    <>
+
+                      <div class="">
+                        <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-5 flex flex-col justify-center items-center text-center">
+                          <div key={project.id}>
+                            {details.map(detail => {
+                              return (
+                                <>
+                                  {project.teamId === detail.id &&
+                                    (
+                                      <div key={detail.id}>
+                                        <p class="text-base text-gray-400 font-normal">{detail.name}</p>
+                                        <br></br>
+                                        <div class="mb-8">
+                                          <img class="object-center object-cover rounded-full h-32 w-32" src={detail.teamAvatar} alt="photo"></img>
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+                                </>
+                              )
+                            })}
+                          </div>
+
+                          <div class="text-center">
+                            <p class="text-xl text-white font-bold mb-2"> {project.name}</p>
+                            <p class="text-base text-gray-400 font-normal">{project.description}</p>
+
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </>
+                  )
+                })}
+              </div></>) : (
+                <div class="p-4 mb-4 text-white border border-purple-800 rounded-lg bg-gray-900">
+                  <div class="flex items-center">
+                    <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <h3 class="text-lg font-medium">No projects or teams registered</h3>
+                  </div>
+                  <div class="mt-2 mb-4 text-sm">
+                    There are no projects registered yet for this Hackathon. Be the first to register your project now!
+                  </div>
+
+                </div>
+              )
+            }
+
+          </div>
+
+
+          <div className="mt-24">
             <SectionHeader
-              headerText={"Teams and Projects"}
+              headerText={"Judges"}
+              
+            />
+            {judges.length ? (
+              <>
+               <SectionHeader
+              
               descriptionText={
-                "Teams with their projects already sign up and submitted"
+                "Judges that will evaluate the projects"
               }
             />
-
-            <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-              {projects.map((project) => {
-                return (
-                  <>
-
-                    <div class="">
-                      <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-5 flex flex-col justify-center items-center text-center">
-                        <div>
-                          {details.map(detail => {
-                            return (
-                              <>
-                                {project.teamId === detail.id &&
-                                  (
-                                    <>
-                                      <p class="text-base text-gray-400 font-normal">{detail.name}</p>
-                                      <br></br>
-                                      <div class="mb-8">
-                                        <img class="object-center object-cover rounded-full h-32 w-32" src={detail.teamAvatar} alt="photo"></img>
-                                      </div>
-                                    </>
-                                  )
-                                }
-                              </>
-                            )
-                          })}
-                        </div>
-
-                        <div class="text-center">
-                          <p class="text-xl text-white font-bold mb-2"> {project.name}</p>
-                          <p class="text-base text-gray-400 font-normal">{project.description}</p>
-
-
+            <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+              {
+                judges.map(judge => {
+                  return (
+                    <div
+                      class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6" key={judge.id}>
+                      <img class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" src={judge.judgeImage} alt="Woman's Face"></img>
+                      <div class="text-center space-y-2 sm:text-left">
+                        <div class="space-y-0.5 flex-cols items-center">
+                          <p class="text-lg text-white font-semibold">
+                            {judge.judgeGamertag}
+                          </p>
+                          <p class="text-gray-400 font-medium">
+                            {judge.email}
+                          </p>
                         </div>
                       </div>
                     </div>
+                  )
+                })
+              }
 
+            </div> </>) :
+              (<div class="p-4 mb-4 text-white border border-purple-800 rounded-lg bg-gray-900">
+              <div class="flex items-center">
+                <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <h3 class="text-lg font-medium">No judges assigned yet</h3>
+              </div>
+              <div class="mt-2 mb-4 text-sm">
+                There are no judges registered for this Hackathon. Make sure to check once in a while to see who is going to evaluate your project
+              </div>
 
-
-                  </>
-                )
-              })}
-            </div>
-
+            </div>)}
           </div>
           <div className="py-24 sm:py-32">
             <div className="max-w-7xl">

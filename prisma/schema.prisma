@@ -47,7 +47,7 @@ model User {
   hackathons            Hackathon[]
   teams                 Team[]
   emailVerified         Boolean?
-  image                 String?
+  image                 String
   accounts              Account[]
   sessions              Session[]
   isVerified            Boolean?
@@ -59,7 +59,7 @@ model User {
   remainingAmountLimits Json?
     judge Judge[]
   
-  @@unique([id,gamertag,email])
+  @@unique([id,gamertag,email,image])
 }
 
 model VerificationToken {
@@ -178,10 +178,11 @@ enum Role {
 
 model Judge{
 id String @id @default(cuid())
-user User @relation(fields: [userId,judgeGamertag,email], references: [id,gamertag,email])
+user User @relation(fields: [userId,judgeGamertag,email,judgeImage], references: [id,gamertag,email,image])
 userId String @unique
 judgeGamertag String
 email String
+judgeImage String
 hackathon Hackathon @relation(fields: [hackathonId], references: [id])
 hackathonId String
 judgeassessments Judgeassessments[]
