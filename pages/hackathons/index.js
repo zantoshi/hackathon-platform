@@ -12,27 +12,9 @@ import Image from "next/image";
 import Hackathons from "@/components/Hackathons";
 import hackathons from "@/data/content/hackathons.json";
 import { useEffect, useState } from "react";
-import JudgeView from "@/components/JudgeView"
+
 
 export default function HackathonList() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const getRole = async () => {
-      try {
-        const response = await fetch("/api/users",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-          })
-        const data = await response.json()
-        setUser(data)
-      } catch (error) {
-        console.log("Error fetching the data: " + error)
-      }
-    }
-    getRole()
-  }, [])
 
   return (
     <Layout>

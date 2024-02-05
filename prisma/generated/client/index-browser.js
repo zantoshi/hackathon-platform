@@ -224,6 +224,7 @@ exports.Prisma.JudgeScalarFieldEnum = {
   userId: 'userId',
   judgeGamertag: 'judgeGamertag',
   email: 'email',
+  judgeImage: 'judgeImage',
   hackathonId: 'hackathonId'
 };
 

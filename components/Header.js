@@ -97,6 +97,13 @@ export default function Header() {
                   </Link>
                 )}
               </li>
+              <li>
+                {!loading && session?.user && (
+                  <Link className="hover:text-purple-500" href="/judge">
+                    Judge
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
@@ -117,16 +124,16 @@ export default function Header() {
                           src={session.user.image}
                           alt="User Profile Image"
                           className="h-12 w-12 rounded-full mr-2 inline-block"
-                          width={12}
-                          height={12}
+                          width={128}
+                          height={128}
                         />
                       ) : (
                         <Image
                           src={userIcon}
                           alt="User Profile Image"
                           className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
-                          width={12}
-                          height={12}
+                          width={128}
+                          height={128}
                         />
                       )
                     }
