@@ -36,7 +36,7 @@ function JudgeView() {
             key={hackathon.id}
             headerText={hackathon.title}
             descriptionText={hackathon.description}
-            buttonLink={`/projects`}
+            buttonLink={`/judge/${hackathon.id}/dashboard`}
           />
         ))}
       </div>
