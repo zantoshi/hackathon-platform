@@ -23,7 +23,10 @@ export default function HackathonDetail() {
   const [submit, setSubmit] = useState()
   const [prices, setPrices] = useState([])
   const signedUp = teams.length > 0;
-  const [ruleList, setRuleList] = useState("")
+  const [ruleList, setRuleList] = useState("");
+  const [projects, setProject] = useState([])
+  const [details, setDetails] = useState([])
+
 
   useEffect(() => {
     if (router.isReady) {
@@ -116,6 +119,47 @@ export default function HackathonDetail() {
     findTeam(teams, registration);
   }, [teams, registration]);
 
+  useEffect(() => {
+    const fetchHackathonProjects = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/projects/${id}/hackathonDetails`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          });
+          const projectsData = await response.json();
+          setProject(projectsData);
+        }
+      } catch (error) {
+        console.error("Error fetching the data:", error);
+      }
+    };
+    fetchHackathonProjects();
+  }, [id]);
+
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teams = await fetch(`/api/team/teams`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (teams.ok) {
+          const teamsData = await teams.json();
+          setDetails(teamsData);
+        } else {
+          console.error("Error fetching teams:", teams.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams(); // Call the fetchTeams function
+  }, []);
+
   return (
     <Layout>
       <div className="py-4 sm:py-12">
@@ -199,6 +243,58 @@ export default function HackathonDetail() {
             <ul className="text-xl list-disc ml-6">
               <li>{hackathon.judgingCriteria}</li>
             </ul>
+          </div>
+          <div className="mt-24">
+            <SectionHeader
+              headerText={"Teams and Projects"}
+              descriptionText={
+                "Teams with their projects already sign up and submitted"
+              }
+            />
+
+            <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+              {projects.map((project) => {
+                return (
+                  <>
+
+                    <div class="">
+                      <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-5 flex flex-col justify-center items-center text-center">
+                        <div>
+                          {details.map(detail => {
+                            return (
+                              <>
+                                {project.teamId === detail.id &&
+                                  (
+                                    <>
+                                      <p class="text-base text-gray-400 font-normal">{detail.name}</p>
+                                      <br></br>
+                                      <div class="mb-8">
+                                        <img class="object-center object-cover rounded-full h-32 w-32" src={detail.teamAvatar} alt="photo"></img>
+                                      </div>
+                                    </>
+                                  )
+                                }
+                              </>
+                            )
+                          })}
+                        </div>
+
+                        <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2"> {project.name}</p>
+                          <p class="text-base text-gray-400 font-normal">{project.description}</p>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                  </>
+                )
+              })}
+            </div>
+
           </div>
           <div className="py-24 sm:py-32">
             <div className="max-w-7xl">

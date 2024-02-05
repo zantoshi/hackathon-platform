@@ -15,34 +15,30 @@ import { useEffect, useState } from "react";
 import JudgeView from "@/components/JudgeView"
 
 export default function HackathonList() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const getRole = async () => {
-      try {
-        const response = await fetch("/api/users",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-          })
-        const data = await response.json()
-        setUser(data)
-      } catch (error) {
-        console.log("Error fetching the data: " + error)
-      }
+  const [user,setUser] = useState();
+  
+  useEffect(()=>{
+    const getRole = async()=>{
+      const response = await fetch("/api/users",
+      {
+        method:"GET",
+        headers: { "Content-Type": "application/json"}
+      })
+      const data= await response.json()
+      setUser(data)
     }
     getRole()
-  }, [])
+  },[])
 
   return (
     <Layout>
-      {/* {user && user.role === "JUDGE" ? (
+      {user && user.role === "JUDGE" ? (
        <JudgeView/>
       ):
       (
         <Hackathons data={hackathons} />
-      )} */}
-      <Hackathons data={hackathons} />
+      )}
+     
     </Layout>
   );
 }

@@ -55,6 +55,7 @@ export default function TeamsPage() {
               <HackathonCard
                 headerText={team.name}
                 descriptionText={team.description}
+                buttonLink={`/team/${team.id}`}
               />
             ))}
           </div>
