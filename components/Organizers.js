@@ -48,6 +48,22 @@ function Organizers() {
             <Globe className="w-" size={24} />
           </Link>
         </div>
+        <div className="border border-purple-500 rounded-lg md:px-5 md:py-6 px-8 py-12">
+          <Image
+            src="/alan.png"
+            width={80}
+            height={80}
+            alt="Picture of the author"
+            className="rounded-full  mb-3"
+          />
+          <h2 className="block mb-2 font-bold md:text-md text-xl">
+            Alan Cañas
+          </h2>
+          <p className="block mb-3">Builder</p>
+          <Link href="https://github.com/Alan-AC7" target="_blank">
+            <Globe className="w-" size={24} />
+          </Link>
+        </div>
       </div>
     </main>
   );

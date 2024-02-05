@@ -278,7 +278,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\USER\\Escritorio\\ZBD Projects\\hackathon-platform\\prisma\\generated\\client",
+      "value": "C:\\Users\\Alan\\Desktop\\Emeralize\\redirect-fix\\hackathon-platform-tests\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
