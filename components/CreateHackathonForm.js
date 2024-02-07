@@ -35,7 +35,7 @@ const CreateHackathonForm = () => {
         endDate,
       };
 
-      await fetch(`/api/hackathon/create`, {
+      await fetch(`/api/hackathons/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -53,7 +53,7 @@ const CreateHackathonForm = () => {
     <form onSubmit={create}>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ButtonSecondary buttonText={"Back"} buttonLink={"/"} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={"/hackathons"} />
           <PageHeader
             headerText={"Create a Hackathon"}
             descriptionText={"Wohooo! LFG and create a hackathon."}
