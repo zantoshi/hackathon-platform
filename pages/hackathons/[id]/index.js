@@ -143,25 +143,25 @@ export default function HackathonDetail() {
 
 
   useEffect(() => {
-    const fetchTeams = async () => {
+    const fetchDetails = async () => {
       try {
-        const teams = await fetch(`/api/team/teams`, {
+        const response = await fetch(`/api/team/teams`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
 
-        if (teams.ok) {
-          const teamsData = await teams.json();
-          setDetails(teamsData);
+        if (response.ok) {
+          const dataDetails = await response.json();
+          setDetails(dataDetails);
         } else {
-          console.error("Error fetching teams:", teams.statusText);
+          console.error("Error fetching teams:", response.statusText);
         }
       } catch (error) {
         console.error("Error fetching teams:", error);
       }
     };
 
-    fetchTeams(); // Call the fetchTeams function
+    fetchDetails(); // Call the fetchTeams function
   }, []);
 
 
@@ -369,11 +369,8 @@ export default function HackathonDetail() {
                       <img class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" src={judge.judgeImage} alt="Woman's Face"></img>
                       <div class="text-center space-y-2 sm:text-left">
                         <div class="space-y-0.5 flex-cols items-center">
-                          <p class="text-lg text-white font-semibold">
+                          <p class="text-xl text-white font-semibold">
                             {judge.judgeGamertag}
-                          </p>
-                          <p class="text-gray-400 font-medium">
-                            {judge.email}
                           </p>
                         </div>
                       </div>

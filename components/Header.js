@@ -6,10 +6,25 @@ import { useState, useEffect } from "react";
 import { X, Menu } from 'lucide-react';
 import { motion, stagger, AnimatePresence } from "framer-motion"
 import userIcon from "../public/user-filled.svg"
+import { fetchingData } from "../util/fetchingData.js"
 
 export default function Header() {
   const [click, setClick] = useState(false);
   const [gradient, setGradient] = useState("");
+  const [judge, setJudge] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchingData("/api/judges");
+        setJudge(data);
+      } catch (error) {
+        console.error("Error fetching judge data:", error);
+      }
+    };
+    fetchData()
+  }, [])
+
 
   const toggleNavbar = () => {
     setClick(!click);
@@ -98,7 +113,7 @@ export default function Header() {
                 )}
               </li>
               <li>
-                {!loading && session?.user && (
+                {!loading && session?.user && judge.length > 0 &&(
                   <Link className="hover:text-purple-500" href="/judge">
                     Judge
                   </Link>
@@ -218,6 +233,13 @@ export default function Header() {
                       </Link>
                     )}
                   </li>
+                  <li>
+                {!loading && session?.user && judge && judge.email === session.user.email && (
+                  <Link className="hover:text-purple-500" href="/judge">
+                    Judge
+                  </Link>
+                )}
+              </li>
                   <li>
                     <div className="md:hidden mt-10">
                       {!loading && !session && (

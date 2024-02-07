@@ -59,7 +59,7 @@ model User {
   remainingAmountLimits Json?
     judge Judge[]
   
-  @@unique([id,gamertag,email])
+  @@unique([id,gamertag,email,image])
 }
 
 model VerificationToken {
@@ -178,14 +178,14 @@ enum Role {
 
 model Judge{
 id String @id @default(cuid())
-user User @relation(fields: [userId,judgeGamertag,email], references: [id,gamertag,email])
-userId String @unique
+user User @relation(fields: [userId,judgeGamertag,email,judgeImage], references: [id,gamertag,email,image])
+userId String 
 judgeGamertag String
 email String
+judgeImage String
 hackathon Hackathon @relation(fields: [hackathonId], references: [id])
 hackathonId String
 judgeassessments Judgeassessments[]
-@@unique([userId,hackathonId])
 }
 
 model Judgeassessments {
@@ -208,5 +208,5 @@ projectId String
 judge Judge  @relation(fields: [judgeId], references: [id])
 judgeId String
 
-@@unique([hackathonId, projectId,judgeId])
+@@unique([ projectId])
 }

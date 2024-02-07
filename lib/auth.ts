@@ -25,7 +25,7 @@ const zbdConfig = getZBDProvider({
 });
 
 export const config = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as any,
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
   providers: [zbdConfig],
