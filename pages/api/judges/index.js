@@ -10,7 +10,7 @@ export default async function handle(req, res) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const user = await prisma.judge.findMany({
+    const result = await prisma.judge.findMany({
       where: {
         email: session.user.email,
       },
