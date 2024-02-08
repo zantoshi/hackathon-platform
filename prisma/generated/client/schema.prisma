@@ -179,7 +179,7 @@ enum Role {
 model Judge{
 id String @id @default(cuid())
 user User @relation(fields: [userId,judgeGamertag,email,judgeImage], references: [id,gamertag,email,image])
-userId String @unique
+userId String
 judgeGamertag String
 email String
 judgeImage String
