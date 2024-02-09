@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import { ArrowRight } from "lucide-react";
 import ButtonSecondary from "@/components/ButtonSecondary";
+import { useEffect } from "react";
 
-const CreateHackathonForm = () => {
+const CreateHackathonForm = ({id}) => {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
@@ -19,35 +20,92 @@ const CreateHackathonForm = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+
   const create = async (e) => {
     e.preventDefault();
     try {
-      const body = {
-        title,
-        description,
-        benefits,
-        rules,
-        judgingCriteria,
-        firstPlacePrize,
-        secondPlacePrize,
-        thirdPlacePrize,
-        startDate,
-        endDate,
-      };
-
-      await fetch(`/api/hackathons/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      router.push("/");
+      if(id){
+        const body = {
+          title,
+          description,
+          benefits,
+          rules,
+          judgingCriteria,
+          firstPlacePrize,
+          secondPlacePrize,
+          thirdPlacePrize,
+          startDate,
+          endDate,
+        };
+        await fetch(`/api/hackathons/${id}/update`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+  
+        router.push(`/hackathons/${id}/manage`);
+      }else{
+        const body = {
+          title,
+          description,
+          benefits,
+          rules,
+          judgingCriteria,
+          firstPlacePrize,
+          secondPlacePrize,
+          thirdPlacePrize,
+          startDate,
+          endDate,
+        };
+  
+        await fetch(`/api/hackathons/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+  
+        router.push("/hackathons");
+      }
     } catch (error) {
       console.error(error);
     }
 
     // const forumId = await createForum({ subject, description });
   };
+
+  useEffect(() => {
+    const fetchHackathon = async () => {
+      try {
+        if (id) {
+          const data = await fetch(`/api/hackathons/${id} `, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          if (data.ok) {
+            const response = await data.json();
+            setTitle(response.title)
+            setDescription(response.description)
+            setBenefits(response.benefits)
+            setRules(response.rules)
+            setJudgingCriteria(response.judgingCriteria)
+            setFirstPlacePrize(response.firstPlacePrize)
+            setSecondPlacePrize(response.secondPlacePrize)
+            setThirdPlacePrize(response.thirdPlacePrize)
+            setStartDate(response.startDate)
+            setEndDate(response.endDate)
+          } else {
+            console.error(
+              "Error fetching Registration Hackthon:",
+              data.statusText
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching hackathon data", error);
+      }
+    };
+    fetchHackathon();
+  }, [id]);
 
   return (
     <form onSubmit={create}>
@@ -76,6 +134,7 @@ const CreateHackathonForm = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
+                    value={title}
                     required
                   />
                 </div>
@@ -98,6 +157,7 @@ const CreateHackathonForm = () => {
                     onChange={(e) => setDescription(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
+                    value={description}
                     required
                   />
                 </div>
@@ -120,6 +180,7 @@ const CreateHackathonForm = () => {
                     onChange={(e) => setBenefits(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
+                    value={benefits}
                     required
                   />
                 </div>
@@ -142,6 +203,7 @@ const CreateHackathonForm = () => {
                     onChange={(e) => setRules(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
+                    value={rules}
                     required
                   />
                 </div>
@@ -164,6 +226,7 @@ const CreateHackathonForm = () => {
                     onChange={(e) => setJudgingCriteria(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
                     defaultValue={""}
+                    value={judgingCriteria}
                     required
                   />
                 </div>
@@ -186,6 +249,7 @@ const CreateHackathonForm = () => {
                     autoComplete="first-place-prize"
                     onChange={(e) => setFirstPlacePrize(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
+                    value={firstPlacePrize}
                     required
                   />
                 </div>
@@ -208,6 +272,7 @@ const CreateHackathonForm = () => {
                     autoComplete="second-place-prize"
                     onChange={(e) => setSecondPlacePrize(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
+                    value={secondPlacePrize}
                     required
                   />
                 </div>
@@ -230,6 +295,7 @@ const CreateHackathonForm = () => {
                     autoComplete="third-place-prize"
                     onChange={(e) => setThirdPlacePrize(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
+                    value={thirdPlacePrize}
                     required
                   />
                 </div>
@@ -252,6 +318,7 @@ const CreateHackathonForm = () => {
                     autoComplete="start-date"
                     onChange={(e) => setStartDate(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
+                    value={startDate}
                     required
                   />
                 </div>
@@ -273,6 +340,7 @@ const CreateHackathonForm = () => {
                     autoComplete="end-date"
                     onChange={(e) => setEndDate(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-black"
+                    value={endDate}
                     required
                   />
                 </div>
