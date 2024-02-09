@@ -445,7 +445,7 @@ const judgeGetting = async ()=>{
             {hackathon.title} Hackathon Information
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-200">
-            Manage the Hackathon
+            Manage this Hackathon
           </p>
           <br></br>
           <table>
