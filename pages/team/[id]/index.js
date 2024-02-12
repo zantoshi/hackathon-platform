@@ -78,6 +78,7 @@ function Index() {
             </div>
           </div>
         </div>
+        <ButtonSecondary buttonText={"Edit"} buttonLink={`/team/${id}/edit`} />
       </Layout>
     </>
   );

@@ -1,42 +1,83 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import { ArrowRight } from "lucide-react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import ButtonPrimary from "./ButtonPrimary";
 
-const CreateTeamForm = () => {
+const CreateTeamForm = ({ id }) => {
   const router = useRouter();
 
   const [teamName, setTeamName] = useState("");
   const [teamDescription, setTeamDescription] = useState("");
   const [teamAvatarURL, setTeamAvatarURL] = useState("");
   const [teamMembers, setTeamMembers] = useState("");
+  const [test, setTest] = useState();
 
   const create = async (e) => {
     e.preventDefault();
     try {
-      const body = {
-        teamName,
-        teamDescription,
-        teamAvatarURL,
-        teamMembers,
-      };
-
-      await fetch(`/api/team/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      router.push("/");
+      if (id) {
+        const body = {
+          teamName,
+          teamDescription,
+          teamAvatarURL,
+          teamMembers,
+        };
+        await fetch(`/api/team/${id}/update`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        router.push(`/team/${id}`);
+      } else {
+        const body = {
+          teamName,
+          teamDescription,
+          teamAvatarURL,
+          teamMembers,
+        };
+        await fetch(`/api/team/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        router.push("/team");
+      }
+ 
     } catch (error) {
       console.error(error);
     }
 
     // const forumId = await createForum({ subject, description });
   };
+
+  useEffect(() => {
+    const team = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/team/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setTeamName(data.name);
+            setTeamDescription(data.description);
+            setTeamAvatarURL(data.teamAvatar);
+            setTeamMembers(data.teamMembers);
+            setTest(data);
+          } else console.log("Error fetching the:", response.statusText);
+        }
+      } catch (error) {
+        console.log(
+          "it's no able to get the data from the database because of ",
+          error
+        );
+      }
+    };
+    team();
+  }, [id]);
 
   return (
     <form onSubmit={create}>
@@ -58,6 +99,7 @@ const CreateTeamForm = () => {
                 onChange={(e) => setTeamName(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 defaultValue={""}
+                value={teamName}
                 required
               />
             </div>
@@ -81,6 +123,7 @@ const CreateTeamForm = () => {
                 onChange={(e) => setTeamDescription(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 defaultValue={""}
+                value={teamDescription}
                 required
               />
             </div>
@@ -104,6 +147,7 @@ const CreateTeamForm = () => {
                 onChange={(e) => setTeamAvatarURL(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 defaultValue={""}
+                value={teamAvatarURL}
                 required
               />
             </div>
@@ -126,6 +170,7 @@ const CreateTeamForm = () => {
                 onChange={(e) => setTeamMembers(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 defaultValue={""}
+                value={teamMembers}
                 required
               />
             </div>

@@ -40,19 +40,22 @@ function Project() {
   return (
     <div className=''>
       <Layout>
+        {console.log(projects)}
         <>
-        <div className='w-full md:pl-14 text-white px-5'>
-          <h1 className='text-3xl font-bold '>{projects.name}</h1>
-          <br></br>
-          <h1 className='text-2xl font-bold '>{projects.description}</h1>
-          <br></br>
-          <h1 className='text-1xl font-bold '>{projects.loomLink}</h1>
-          <h1 className='text-1xl font-bold '>{projects.pitchLink}</h1>
-          <h1 className='text-1xl font-bold '>{projects.projectResourceLink}</h1>
-          <h1 className='text-1xl font-bold '>{projects.comments}</h1>
-          <br></br>
-          <ButtonSecondary buttonText={"Assess >" } buttonLink={`/judge/${projects.id}/assessment`}></ButtonSecondary>
-          </div>
+          {
+            id && projects && (<div className='w-full md:pl-14 text-white px-5'>
+            <h1 className='text-3xl font-bold '>{projects.name}</h1>
+            <br></br>
+            <h1 className='text-2xl font-bold '>{projects.description}</h1>
+            <br></br>
+            <h1 className='text-1xl font-bold '>{projects.loomLink}</h1>
+            <h1 className='text-1xl font-bold '>{projects.pitchLink}</h1>
+            <h1 className='text-1xl font-bold '>{projects.projectResourceLink}</h1>
+            <h1 className='text-1xl font-bold '>{projects.comments}</h1>
+            <br></br>
+            <ButtonSecondary buttonText={"Assess >" } buttonLink={`/judge/${projects.id}/assessment`}></ButtonSecondary>
+            </div>)
+          }
         </>
 
       </Layout>
