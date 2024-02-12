@@ -47,7 +47,7 @@ model User {
   hackathons            Hackathon[]
   teams                 Team[]
   emailVerified         Boolean?
-  image                 String
+  image                 String?
   accounts              Account[]
   sessions              Session[]
   isVerified            Boolean?

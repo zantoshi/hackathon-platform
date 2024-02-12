@@ -20,13 +20,13 @@ export default function ManageHackathon() {
   const { data: session } = useSession();
   const [users, setUsers] = useState([]);
   const [values, setValue] = useState([]);
+  const [assess,setAssess] = useState([])
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
   };
 
   const handleChange = (search) => {
-    console.log(search.image);
     setValue(search);
   };
 
@@ -265,11 +265,37 @@ const judgeGetting = async ()=>{
     }
   };
 
+
+  useEffect(() => {
+    const fetchAssessment = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/assessment`, {
+            cache: 'no-store' ,
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            next: { revalidate: 10 },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setAssess(data);
+          } else {
+            console.error("Error fetching of projects:", response.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching the data:", error);
+      }
+    };
+    fetchAssessment();
+  }, [id]);
+
+
   let content;
   switch (selectedTab) {
     case "judges":
       content = (
-        <div>
+        <div className="">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information (Judges)
           </h2>
@@ -277,22 +303,21 @@ const judgeGetting = async ()=>{
           <form onSubmit={create}>
             <div className="pt-5 pb-5 flex">
               <div
-                class="relative  bg-black text-purple-600"
+                class="relative  text-purple-600 w-1/4"
                 data-te-input-wrapper-init
                 id="async"
               >
                 <Select
                   type="text"
-                  class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary"
+                  className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
                   id="exampleFormControlInput3"
-                  placeholder="Type the gamertag of the usar to make him judge"
+                  placeholder="Type the gamertag of the user to make him judge"
                   options={options}
                   defaultValue={search}
                   onChange={handleChange}
                   values={options}
                 ></Select>
 
-                <div></div>
               </div>
               <ButtonSecondary
                 functionCall={create}
@@ -418,8 +443,60 @@ const judgeGetting = async ()=>{
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information (Scores)
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-200">
-            Manage the Hackathon - Scores
+          <p className="mt-2 text-lg leading-8 text-gray-200 pt-5">
+           {
+            assess.map(score=>{
+              return(<>
+                {
+                  projects.map(project =>{
+                    return (<>
+                      {
+                       details.map(detail=>{
+                        return (<>
+                          {score.hackathonId === id && score.projectId == project.id  && detail.id ===  project.teamId && (
+                            <>
+                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Project Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Team Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Overall Score
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {project.name}
+                </th>
+                <td class="px-6 py-4">
+                  {detail.name}
+                </td>
+                <td class="px-6 py-4">
+                {score.overall_score}
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+                            </>
+                          )}
+                        </>)
+                       })
+                      }
+                    </>)
+                  })
+                }
+              </>)
+            })
+           }
           </p>
         </div>
       );
