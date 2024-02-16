@@ -159,7 +159,6 @@ exports.Prisma.TeamScalarFieldEnum = {
   updatedAt: 'updatedAt',
   name: 'name',
   description: 'description',
-  teamMembers: 'teamMembers',
   teamAvatar: 'teamAvatar',
   creatorId: 'creatorId'
 };
@@ -242,6 +241,22 @@ exports.Prisma.JudgeassessmentsScalarFieldEnum = {
   judgeId: 'judgeId'
 };
 
+exports.Prisma.TeamMembersScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId'
+};
+
+exports.Prisma.TeamRequestScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  teamName: 'teamName',
+  userSender: 'userSender',
+  userSenderName: 'userSenderName',
+  userReceiver: 'userReceiver',
+  state: 'state'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,7 +299,9 @@ exports.Prisma.ModelName = {
   Contact: 'Contact',
   Sponsors: 'Sponsors',
   Judge: 'Judge',
-  Judgeassessments: 'Judgeassessments'
+  Judgeassessments: 'Judgeassessments',
+  teamMembers: 'teamMembers',
+  teamRequest: 'teamRequest'
 };
 
 /**
