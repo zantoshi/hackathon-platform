@@ -132,7 +132,7 @@ export default function Header() {
             {!loading && session?.user && (
               <div className="flex flex-row">
                 <span>
-                  <Link href="/team">
+                  <Link href="/user">
                     {
                       session.user.image !== null ? (
                         <Image
@@ -251,7 +251,7 @@ export default function Header() {
                       {!loading && session?.user && (
                         <div className="flex flex-row">
                           <span>
-                            <Link href="/team">
+                            <Link href="/user">
                               {
                                 session.user.image !== null ? (
                                   <Image
