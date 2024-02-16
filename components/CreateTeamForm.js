@@ -175,7 +175,7 @@ const CreateTeamForm = ({ id }) => {
                   required
                 />
               </div>
-              <AddUserTeam></AddUserTeam>
+              {/*<AddUserTeam></AddUserTeam> */}
               <div className="mb-4 mt-6">
                 <ButtonPrimary buttonText={"Finish"} />
               </div>
