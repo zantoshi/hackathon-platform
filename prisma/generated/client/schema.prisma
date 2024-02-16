@@ -110,6 +110,7 @@ model Hackathon {
   creator   User    @relation(fields: [creatorId], references: [id])
   creatorId String
     judgeassessments Judgeassessments[]
+    hackathonSponsors  HackathonSponsors[]
 
   startDate String
   endDate   String
@@ -209,4 +210,13 @@ judge Judge  @relation(fields: [judgeId], references: [id])
 judgeId String
 
 @@unique([ projectId])
+}
+
+model HackathonSponsors {
+  id      String @id @default(cuid())
+  name  String
+  email String
+  image String
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id])
+  hackathonId String
 }
