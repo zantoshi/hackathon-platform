@@ -2184,6 +2184,7 @@ export namespace Prisma {
     judge: number
     judgeassessments: number
     hackathonSponsors: number
+    hackathonSponsors: number
   }
 
   export type HackathonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2191,6 +2192,7 @@ export namespace Prisma {
     registrations?: boolean | HackathonCountOutputTypeCountRegistrationsArgs
     judge?: boolean | HackathonCountOutputTypeCountJudgeArgs
     judgeassessments?: boolean | HackathonCountOutputTypeCountJudgeassessmentsArgs
+    hackathonSponsors?: boolean | HackathonCountOutputTypeCountHackathonSponsorsArgs
     hackathonSponsors?: boolean | HackathonCountOutputTypeCountHackathonSponsorsArgs
   }
 
@@ -2236,6 +2238,14 @@ export namespace Prisma {
    */
   export type HackathonCountOutputTypeCountJudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JudgeassessmentsWhereInput
+  }
+
+
+  /**
+   * HackathonCountOutputType without action
+   */
+  export type HackathonCountOutputTypeCountHackathonSponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HackathonSponsorsWhereInput
   }
 
 
@@ -7603,6 +7613,7 @@ export namespace Prisma {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
+    hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hackathon"]>
 
@@ -7631,6 +7642,7 @@ export namespace Prisma {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
+    hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -7643,6 +7655,7 @@ export namespace Prisma {
       judge: Prisma.$JudgePayload<ExtArgs>[]
       creator: Prisma.$UserPayload<ExtArgs>
       judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
+      hackathonSponsors: Prisma.$HackathonSponsorsPayload<ExtArgs>[]
       hackathonSponsors: Prisma.$HackathonSponsorsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -8035,6 +8048,8 @@ export namespace Prisma {
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     judgeassessments<T extends Hackathon$judgeassessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$judgeassessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgeassessmentsPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    hackathonSponsors<T extends Hackathon$hackathonSponsorsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$hackathonSponsorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     hackathonSponsors<T extends Hackathon$hackathonSponsorsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$hackathonSponsorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -8473,6 +8488,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JudgeassessmentsScalarFieldEnum | JudgeassessmentsScalarFieldEnum[]
+  }
+
+
+  /**
+   * Hackathon.hackathonSponsors
+   */
+  export type Hackathon$hackathonSponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    where?: HackathonSponsorsWhereInput
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    cursor?: HackathonSponsorsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HackathonSponsorsScalarFieldEnum | HackathonSponsorsScalarFieldEnum[]
   }
 
 
@@ -17736,6 +17772,7 @@ export namespace Prisma {
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
     hackathonSponsors?: HackathonSponsorsListRelationFilter
+    hackathonSponsors?: HackathonSponsorsListRelationFilter
   }
 
   export type HackathonOrderByWithRelationInput = {
@@ -17759,6 +17796,7 @@ export namespace Prisma {
     judge?: JudgeOrderByRelationAggregateInput
     creator?: UserOrderByWithRelationInput
     judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
+    hackathonSponsors?: HackathonSponsorsOrderByRelationAggregateInput
     hackathonSponsors?: HackathonSponsorsOrderByRelationAggregateInput
   }
 
@@ -17786,6 +17824,7 @@ export namespace Prisma {
     judge?: JudgeListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
+    hackathonSponsors?: HackathonSponsorsListRelationFilter
     hackathonSponsors?: HackathonSponsorsListRelationFilter
   }, "id">
 
@@ -18865,6 +18904,7 @@ export namespace Prisma {
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateInput = {
@@ -18887,6 +18927,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -18911,6 +18952,7 @@ export namespace Prisma {
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateInput = {
@@ -18933,6 +18975,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -20065,7 +20108,17 @@ export namespace Prisma {
     none?: HackathonSponsorsWhereInput
   }
 
+  export type HackathonSponsorsListRelationFilter = {
+    every?: HackathonSponsorsWhereInput
+    some?: HackathonSponsorsWhereInput
+    none?: HackathonSponsorsWhereInput
+  }
+
   export type JudgeassessmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HackathonSponsorsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21064,6 +21117,13 @@ export namespace Prisma {
     connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
   }
 
+  export type HackathonSponsorsCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutHackathonInput = {
     create?: XOR<ProjectCreateWithoutHackathonInput, ProjectUncheckedCreateWithoutHackathonInput> | ProjectCreateWithoutHackathonInput[] | ProjectUncheckedCreateWithoutHackathonInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutHackathonInput | ProjectCreateOrConnectWithoutHackathonInput[]
@@ -21090,6 +21150,13 @@ export namespace Prisma {
     connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutHackathonInput | JudgeassessmentsCreateOrConnectWithoutHackathonInput[]
     createMany?: JudgeassessmentsCreateManyHackathonInputEnvelope
     connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  }
+
+  export type HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
   }
 
   export type HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput = {
@@ -21181,6 +21248,20 @@ export namespace Prisma {
     deleteMany?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
   }
 
+  export type HackathonSponsorsUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    upsert?: HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    set?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    disconnect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    delete?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    update?: HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput | HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutHackathonNestedInput = {
     create?: XOR<ProjectCreateWithoutHackathonInput, ProjectUncheckedCreateWithoutHackathonInput> | ProjectCreateWithoutHackathonInput[] | ProjectUncheckedCreateWithoutHackathonInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutHackathonInput | ProjectCreateOrConnectWithoutHackathonInput[]
@@ -21235,6 +21316,20 @@ export namespace Prisma {
     update?: JudgeassessmentsUpdateWithWhereUniqueWithoutHackathonInput | JudgeassessmentsUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutHackathonInput | JudgeassessmentsUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  }
+
+  export type HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    upsert?: HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    set?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    disconnect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    delete?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    update?: HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput | HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
   }
 
   export type HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput = {
@@ -22038,6 +22133,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutCreatorInput = {
@@ -22059,6 +22155,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -22957,6 +23054,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HackathonSponsorsCreateWithoutHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
+  export type HackathonSponsorsUncheckedCreateWithoutHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
+  export type HackathonSponsorsCreateOrConnectWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    create: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsCreateManyHackathonInputEnvelope = {
+    data: HackathonSponsorsCreateManyHackathonInput | HackathonSponsorsCreateManyHackathonInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectUpsertWithWhereUniqueWithoutHackathonInput = {
     where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutHackathonInput, ProjectUncheckedUpdateWithoutHackathonInput>
@@ -23122,6 +23243,33 @@ export namespace Prisma {
     hackathonId?: StringFilter<"HackathonSponsors"> | string
   }
 
+  export type HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    update: XOR<HackathonSponsorsUpdateWithoutHackathonInput, HackathonSponsorsUncheckedUpdateWithoutHackathonInput>
+    create: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    data: XOR<HackathonSponsorsUpdateWithoutHackathonInput, HackathonSponsorsUncheckedUpdateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput = {
+    where: HackathonSponsorsScalarWhereInput
+    data: XOR<HackathonSponsorsUpdateManyMutationInput, HackathonSponsorsUncheckedUpdateManyWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsScalarWhereInput = {
+    AND?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+    OR?: HackathonSponsorsScalarWhereInput[]
+    NOT?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+    id?: StringFilter<"HackathonSponsors"> | string
+    name?: StringFilter<"HackathonSponsors"> | string
+    email?: StringFilter<"HackathonSponsors"> | string
+    image?: StringFilter<"HackathonSponsors"> | string
+    hackathonId?: StringFilter<"HackathonSponsors"> | string
+  }
+
   export type HackathonCreateWithoutRegistrationsInput = {
     id?: string
     createdAt?: Date | string
@@ -23141,6 +23289,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
@@ -23163,6 +23312,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -23233,6 +23383,7 @@ export namespace Prisma {
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutRegistrationsInput = {
@@ -23254,6 +23405,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -23314,6 +23466,7 @@ export namespace Prisma {
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutProjectsInput = {
@@ -23335,6 +23488,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -23441,6 +23595,7 @@ export namespace Prisma {
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutProjectsInput = {
@@ -23462,6 +23617,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -23589,6 +23745,7 @@ export namespace Prisma {
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutJudgeInput = {
@@ -23610,6 +23767,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -23742,6 +23900,7 @@ export namespace Prisma {
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutJudgeInput = {
@@ -23763,6 +23922,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -23802,6 +23962,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutJudgeassessmentsInput = {
@@ -23823,6 +23984,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -23915,6 +24077,7 @@ export namespace Prisma {
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutJudgeassessmentsInput = {
@@ -23936,6 +24099,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -24546,6 +24710,7 @@ export namespace Prisma {
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutCreatorInput = {
@@ -24567,6 +24732,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -24930,6 +25096,13 @@ export namespace Prisma {
     image: string
   }
 
+  export type HackathonSponsorsCreateManyHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
   export type ProjectUpdateWithoutHackathonInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25052,6 +25225,27 @@ export namespace Prisma {
     overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     projectId?: StringFieldUpdateOperationsInput | string
     judgeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUncheckedUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUncheckedUpdateManyWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
   }
 
   export type HackathonSponsorsUpdateWithoutHackathonInput = {

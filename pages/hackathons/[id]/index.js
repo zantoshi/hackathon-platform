@@ -71,11 +71,8 @@ export default function HackathonDetail() {
             setRegistration(registrationData);
           } else {
             console.error(
-              
               "Error fetching Registration Hackthon:",
-             
               registration.statusText
-            
             );
           }
         }
@@ -256,7 +253,6 @@ export default function HackathonDetail() {
                       buttonLink={`/hackathons/${id}/submit`}
                     />
                   )}
-                  {/* <ButtonPrimary
                   {/* <ButtonPrimary
                     buttonText={"Register"}
                     buttonLink={`/hackathons/${id}/register`}
