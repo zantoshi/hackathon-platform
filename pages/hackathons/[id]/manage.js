@@ -21,6 +21,7 @@ export default function ManageHackathon() {
   const [users, setUsers] = useState([]);
   const [values, setValue] = useState([]);
   const [assess,setAssess] = useState([])
+  const [sponsors,setSponsors] = useState([])
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
@@ -245,6 +246,22 @@ const judgeGetting = async ()=>{
     }
   };
 
+  const handleClickDeleteSponsor = async (id) => {
+    try {
+      if (id) {
+        const response = await fetch(`/api/hackathonsponsors/${id}/delete`, {
+          cache: 'no-store',
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        setSponsors(prevSponsor => prevSponsor.filter(sponsors => sponsors.id !== id));
+
+      }
+    } catch (error) {
+      console.log("this is the error for deleting a sponsor: " + error);
+    }
+  };
+
   const handleClickProject = async (id) => {
     try {
       if (id) {
@@ -288,6 +305,30 @@ const judgeGetting = async ()=>{
       }
     };
     fetchAssessment();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchSponsors = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/hackathonsponsors/${id}/sponsorsDetails`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setSponsors(data);
+          } else {
+            console.error("Error fetching sponsors:", response.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching j:", error);
+      }
+    };
+
+    fetchSponsors(); // Call the fetchTeams function
   }, [id]);
 
 
@@ -437,6 +478,68 @@ const judgeGetting = async ()=>{
         </div>
       );
       break;
+      case "sponsors":
+      content = (
+        <div className="">
+          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+            {hackathon.title} Hackathon Information (Sponsor)
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-200"></p>
+            <div className="pt-5 pb-5 flex">
+              <ButtonSecondary
+                buttonText="Add New Sponsor"
+                buttonLink={`/hackathons/${id}/addsponsor`}
+              ></ButtonSecondary>
+            </div>
+        
+          <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {sponsors.map((sponsor) => {
+              return (
+                <div
+                  class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+                  key={sponsor.id}
+                >
+                  <img
+                    class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                    src={sponsor.image}
+                  ></img>
+
+                  <div class="text-center space-y-2 sm:text-left">
+                    <div class="space-y-0.5 flex-cols items-center">
+                      <p class="text-xl text-white font-semibold">
+                        {sponsor.name}
+                      </p>
+                      <p class="text-lg text-white font-semibold">
+                        {sponsor.email}
+                      </p>
+                    </div>
+
+                    <div className="space-x-5"> 
+                        <button
+                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          handleClickDeleteSponsor(sponsor.id);
+                        }}
+                      >
+                        Remove
+                      </button>
+                      <button
+                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          router.push(`/hackathons/${id}/${sponsor.id}/editsponsor`)
+                        }}
+                      >
+                        Edit
+                      </button>
+                          </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+      break;
     case "scores":
       content = (
         <div>
@@ -551,6 +654,12 @@ const judgeGetting = async ()=>{
                   <ButtonSecondary
                     functionCall={() => handleTabClick("scores")}
                     buttonText="Scores"
+                  ></ButtonSecondary>
+                </th>
+                <th>
+                  <ButtonSecondary
+                    functionCall={() => handleTabClick("sponsors")}
+                    buttonText="Sponsors"
                   ></ButtonSecondary>
                 </th>
               </tr>

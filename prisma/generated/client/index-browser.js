@@ -242,6 +242,14 @@ exports.Prisma.JudgeassessmentsScalarFieldEnum = {
   judgeId: 'judgeId'
 };
 
+exports.Prisma.HackathonSponsorsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  image: 'image',
+  hackathonId: 'hackathonId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,7 +292,8 @@ exports.Prisma.ModelName = {
   Contact: 'Contact',
   Sponsors: 'Sponsors',
   Judge: 'Judge',
-  Judgeassessments: 'Judgeassessments'
+  Judgeassessments: 'Judgeassessments',
+  HackathonSponsors: 'HackathonSponsors'
 };
 
 /**
