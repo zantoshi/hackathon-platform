@@ -74,6 +74,11 @@ export type Judge = $Result.DefaultSelection<Prisma.$JudgePayload>
  */
 export type Judgeassessments = $Result.DefaultSelection<Prisma.$JudgeassessmentsPayload>
 /**
+ * Model HackathonSponsors
+ * 
+ */
+export type HackathonSponsors = $Result.DefaultSelection<Prisma.$HackathonSponsorsPayload>
+/**
  * Model teamMembers
  * 
  */
@@ -342,6 +347,16 @@ export class PrismaClient<
     * ```
     */
   get judgeassessments(): Prisma.JudgeassessmentsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.hackathonSponsors`: Exposes CRUD operations for the **HackathonSponsors** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HackathonSponsors
+    * const hackathonSponsors = await prisma.hackathonSponsors.findMany()
+    * ```
+    */
+  get hackathonSponsors(): Prisma.HackathonSponsorsDelegate<ExtArgs>;
 
   /**
    * `prisma.teamMembers`: Exposes CRUD operations for the **teamMembers** model.
@@ -844,6 +859,7 @@ export namespace Prisma {
     Sponsors: 'Sponsors',
     Judge: 'Judge',
     Judgeassessments: 'Judgeassessments',
+    HackathonSponsors: 'HackathonSponsors',
     teamMembers: 'teamMembers',
     teamRequest: 'teamRequest'
   };
@@ -862,7 +878,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judge' | 'judgeassessments' | 'teamMembers' | 'teamRequest'
+      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judge' | 'judgeassessments' | 'hackathonSponsors' | 'teamMembers' | 'teamRequest'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1658,6 +1674,72 @@ export namespace Prisma {
           }
         }
       }
+      HackathonSponsors: {
+        payload: Prisma.$HackathonSponsorsPayload<ExtArgs>
+        fields: Prisma.HackathonSponsorsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HackathonSponsorsFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HackathonSponsorsFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          findFirst: {
+            args: Prisma.HackathonSponsorsFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HackathonSponsorsFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          findMany: {
+            args: Prisma.HackathonSponsorsFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>[]
+          }
+          create: {
+            args: Prisma.HackathonSponsorsCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          createMany: {
+            args: Prisma.HackathonSponsorsCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.HackathonSponsorsDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          update: {
+            args: Prisma.HackathonSponsorsUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          deleteMany: {
+            args: Prisma.HackathonSponsorsDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HackathonSponsorsUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.HackathonSponsorsUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$HackathonSponsorsPayload>
+          }
+          aggregate: {
+            args: Prisma.HackathonSponsorsAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateHackathonSponsors>
+          }
+          groupBy: {
+            args: Prisma.HackathonSponsorsGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<HackathonSponsorsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HackathonSponsorsCountArgs<ExtArgs>,
+            result: $Utils.Optional<HackathonSponsorsCountAggregateOutputType> | number
+          }
+        }
+      }
       teamMembers: {
         payload: Prisma.$teamMembersPayload<ExtArgs>
         fields: Prisma.teamMembersFieldRefs
@@ -2101,6 +2183,7 @@ export namespace Prisma {
     registrations: number
     judge: number
     judgeassessments: number
+    hackathonSponsors: number
   }
 
   export type HackathonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2108,6 +2191,7 @@ export namespace Prisma {
     registrations?: boolean | HackathonCountOutputTypeCountRegistrationsArgs
     judge?: boolean | HackathonCountOutputTypeCountJudgeArgs
     judgeassessments?: boolean | HackathonCountOutputTypeCountJudgeassessmentsArgs
+    hackathonSponsors?: boolean | HackathonCountOutputTypeCountHackathonSponsorsArgs
   }
 
   // Custom InputTypes
@@ -2152,6 +2236,14 @@ export namespace Prisma {
    */
   export type HackathonCountOutputTypeCountJudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JudgeassessmentsWhereInput
+  }
+
+
+  /**
+   * HackathonCountOutputType without action
+   */
+  export type HackathonCountOutputTypeCountHackathonSponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HackathonSponsorsWhereInput
   }
 
 
@@ -7510,6 +7602,7 @@ export namespace Prisma {
     judge?: boolean | Hackathon$judgeArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
+    hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hackathon"]>
 
@@ -7537,6 +7630,7 @@ export namespace Prisma {
     judge?: boolean | Hackathon$judgeArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
+    hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
     _count?: boolean | HackathonCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -7549,6 +7643,7 @@ export namespace Prisma {
       judge: Prisma.$JudgePayload<ExtArgs>[]
       creator: Prisma.$UserPayload<ExtArgs>
       judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
+      hackathonSponsors: Prisma.$HackathonSponsorsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7940,6 +8035,8 @@ export namespace Prisma {
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     judgeassessments<T extends Hackathon$judgeassessmentsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$judgeassessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgeassessmentsPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    hackathonSponsors<T extends Hackathon$hackathonSponsorsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$hackathonSponsorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8376,6 +8473,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JudgeassessmentsScalarFieldEnum | JudgeassessmentsScalarFieldEnum[]
+  }
+
+
+  /**
+   * Hackathon.hackathonSponsors
+   */
+  export type Hackathon$hackathonSponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    where?: HackathonSponsorsWhereInput
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    cursor?: HackathonSponsorsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HackathonSponsorsScalarFieldEnum | HackathonSponsorsScalarFieldEnum[]
   }
 
 
@@ -14079,6 +14197,924 @@ export namespace Prisma {
 
 
   /**
+   * Model HackathonSponsors
+   */
+
+  export type AggregateHackathonSponsors = {
+    _count: HackathonSponsorsCountAggregateOutputType | null
+    _min: HackathonSponsorsMinAggregateOutputType | null
+    _max: HackathonSponsorsMaxAggregateOutputType | null
+  }
+
+  export type HackathonSponsorsMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    image: string | null
+    hackathonId: string | null
+  }
+
+  export type HackathonSponsorsMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    image: string | null
+    hackathonId: string | null
+  }
+
+  export type HackathonSponsorsCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    image: number
+    hackathonId: number
+    _all: number
+  }
+
+
+  export type HackathonSponsorsMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    image?: true
+    hackathonId?: true
+  }
+
+  export type HackathonSponsorsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    image?: true
+    hackathonId?: true
+  }
+
+  export type HackathonSponsorsCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    image?: true
+    hackathonId?: true
+    _all?: true
+  }
+
+  export type HackathonSponsorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HackathonSponsors to aggregate.
+     */
+    where?: HackathonSponsorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HackathonSponsors to fetch.
+     */
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HackathonSponsorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HackathonSponsors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HackathonSponsors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HackathonSponsors
+    **/
+    _count?: true | HackathonSponsorsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HackathonSponsorsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HackathonSponsorsMaxAggregateInputType
+  }
+
+  export type GetHackathonSponsorsAggregateType<T extends HackathonSponsorsAggregateArgs> = {
+        [P in keyof T & keyof AggregateHackathonSponsors]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHackathonSponsors[P]>
+      : GetScalarType<T[P], AggregateHackathonSponsors[P]>
+  }
+
+
+
+
+  export type HackathonSponsorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HackathonSponsorsWhereInput
+    orderBy?: HackathonSponsorsOrderByWithAggregationInput | HackathonSponsorsOrderByWithAggregationInput[]
+    by: HackathonSponsorsScalarFieldEnum[] | HackathonSponsorsScalarFieldEnum
+    having?: HackathonSponsorsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HackathonSponsorsCountAggregateInputType | true
+    _min?: HackathonSponsorsMinAggregateInputType
+    _max?: HackathonSponsorsMaxAggregateInputType
+  }
+
+  export type HackathonSponsorsGroupByOutputType = {
+    id: string
+    name: string
+    email: string
+    image: string
+    hackathonId: string
+    _count: HackathonSponsorsCountAggregateOutputType | null
+    _min: HackathonSponsorsMinAggregateOutputType | null
+    _max: HackathonSponsorsMaxAggregateOutputType | null
+  }
+
+  type GetHackathonSponsorsGroupByPayload<T extends HackathonSponsorsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HackathonSponsorsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HackathonSponsorsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HackathonSponsorsGroupByOutputType[P]>
+            : GetScalarType<T[P], HackathonSponsorsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HackathonSponsorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    image?: boolean
+    hackathonId?: boolean
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hackathonSponsors"]>
+
+  export type HackathonSponsorsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    image?: boolean
+    hackathonId?: boolean
+  }
+
+  export type HackathonSponsorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+  }
+
+
+  export type $HackathonSponsorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HackathonSponsors"
+    objects: {
+      hackathon: Prisma.$HackathonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      email: string
+      image: string
+      hackathonId: string
+    }, ExtArgs["result"]["hackathonSponsors"]>
+    composites: {}
+  }
+
+
+  type HackathonSponsorsGetPayload<S extends boolean | null | undefined | HackathonSponsorsDefaultArgs> = $Result.GetResult<Prisma.$HackathonSponsorsPayload, S>
+
+  type HackathonSponsorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HackathonSponsorsFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: HackathonSponsorsCountAggregateInputType | true
+    }
+
+  export interface HackathonSponsorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HackathonSponsors'], meta: { name: 'HackathonSponsors' } }
+    /**
+     * Find zero or one HackathonSponsors that matches the filter.
+     * @param {HackathonSponsorsFindUniqueArgs} args - Arguments to find a HackathonSponsors
+     * @example
+     * // Get one HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends HackathonSponsorsFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsFindUniqueArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one HackathonSponsors that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {HackathonSponsorsFindUniqueOrThrowArgs} args - Arguments to find a HackathonSponsors
+     * @example
+     * // Get one HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends HackathonSponsorsFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first HackathonSponsors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsFindFirstArgs} args - Arguments to find a HackathonSponsors
+     * @example
+     * // Get one HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends HackathonSponsorsFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsFindFirstArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first HackathonSponsors that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsFindFirstOrThrowArgs} args - Arguments to find a HackathonSponsors
+     * @example
+     * // Get one HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends HackathonSponsorsFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more HackathonSponsors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findMany()
+     * 
+     * // Get first 10 HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hackathonSponsorsWithIdOnly = await prisma.hackathonSponsors.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends HackathonSponsorsFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a HackathonSponsors.
+     * @param {HackathonSponsorsCreateArgs} args - Arguments to create a HackathonSponsors.
+     * @example
+     * // Create one HackathonSponsors
+     * const HackathonSponsors = await prisma.hackathonSponsors.create({
+     *   data: {
+     *     // ... data to create a HackathonSponsors
+     *   }
+     * })
+     * 
+    **/
+    create<T extends HackathonSponsorsCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsCreateArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many HackathonSponsors.
+     *     @param {HackathonSponsorsCreateManyArgs} args - Arguments to create many HackathonSponsors.
+     *     @example
+     *     // Create many HackathonSponsors
+     *     const hackathonSponsors = await prisma.hackathonSponsors.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends HackathonSponsorsCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a HackathonSponsors.
+     * @param {HackathonSponsorsDeleteArgs} args - Arguments to delete one HackathonSponsors.
+     * @example
+     * // Delete one HackathonSponsors
+     * const HackathonSponsors = await prisma.hackathonSponsors.delete({
+     *   where: {
+     *     // ... filter to delete one HackathonSponsors
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends HackathonSponsorsDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsDeleteArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one HackathonSponsors.
+     * @param {HackathonSponsorsUpdateArgs} args - Arguments to update one HackathonSponsors.
+     * @example
+     * // Update one HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends HackathonSponsorsUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsUpdateArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more HackathonSponsors.
+     * @param {HackathonSponsorsDeleteManyArgs} args - Arguments to filter HackathonSponsors to delete.
+     * @example
+     * // Delete a few HackathonSponsors
+     * const { count } = await prisma.hackathonSponsors.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends HackathonSponsorsDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, HackathonSponsorsDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HackathonSponsors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends HackathonSponsorsUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HackathonSponsors.
+     * @param {HackathonSponsorsUpsertArgs} args - Arguments to update or create a HackathonSponsors.
+     * @example
+     * // Update or create a HackathonSponsors
+     * const hackathonSponsors = await prisma.hackathonSponsors.upsert({
+     *   create: {
+     *     // ... data to create a HackathonSponsors
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HackathonSponsors we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends HackathonSponsorsUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, HackathonSponsorsUpsertArgs<ExtArgs>>
+    ): Prisma__HackathonSponsorsClient<$Result.GetResult<Prisma.$HackathonSponsorsPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of HackathonSponsors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsCountArgs} args - Arguments to filter HackathonSponsors to count.
+     * @example
+     * // Count the number of HackathonSponsors
+     * const count = await prisma.hackathonSponsors.count({
+     *   where: {
+     *     // ... the filter for the HackathonSponsors we want to count
+     *   }
+     * })
+    **/
+    count<T extends HackathonSponsorsCountArgs>(
+      args?: Subset<T, HackathonSponsorsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HackathonSponsorsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HackathonSponsors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HackathonSponsorsAggregateArgs>(args: Subset<T, HackathonSponsorsAggregateArgs>): Prisma.PrismaPromise<GetHackathonSponsorsAggregateType<T>>
+
+    /**
+     * Group by HackathonSponsors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HackathonSponsorsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HackathonSponsorsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HackathonSponsorsGroupByArgs['orderBy'] }
+        : { orderBy?: HackathonSponsorsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HackathonSponsorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHackathonSponsorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HackathonSponsors model
+   */
+  readonly fields: HackathonSponsorsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HackathonSponsors.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HackathonSponsorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    hackathon<T extends HackathonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HackathonDefaultArgs<ExtArgs>>): Prisma__HackathonClient<$Result.GetResult<Prisma.$HackathonPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the HackathonSponsors model
+   */ 
+  interface HackathonSponsorsFieldRefs {
+    readonly id: FieldRef<"HackathonSponsors", 'String'>
+    readonly name: FieldRef<"HackathonSponsors", 'String'>
+    readonly email: FieldRef<"HackathonSponsors", 'String'>
+    readonly image: FieldRef<"HackathonSponsors", 'String'>
+    readonly hackathonId: FieldRef<"HackathonSponsors", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * HackathonSponsors findUnique
+   */
+  export type HackathonSponsorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter, which HackathonSponsors to fetch.
+     */
+    where: HackathonSponsorsWhereUniqueInput
+  }
+
+
+  /**
+   * HackathonSponsors findUniqueOrThrow
+   */
+  export type HackathonSponsorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter, which HackathonSponsors to fetch.
+     */
+    where: HackathonSponsorsWhereUniqueInput
+  }
+
+
+  /**
+   * HackathonSponsors findFirst
+   */
+  export type HackathonSponsorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter, which HackathonSponsors to fetch.
+     */
+    where?: HackathonSponsorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HackathonSponsors to fetch.
+     */
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HackathonSponsors.
+     */
+    cursor?: HackathonSponsorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HackathonSponsors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HackathonSponsors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HackathonSponsors.
+     */
+    distinct?: HackathonSponsorsScalarFieldEnum | HackathonSponsorsScalarFieldEnum[]
+  }
+
+
+  /**
+   * HackathonSponsors findFirstOrThrow
+   */
+  export type HackathonSponsorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter, which HackathonSponsors to fetch.
+     */
+    where?: HackathonSponsorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HackathonSponsors to fetch.
+     */
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HackathonSponsors.
+     */
+    cursor?: HackathonSponsorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HackathonSponsors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HackathonSponsors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HackathonSponsors.
+     */
+    distinct?: HackathonSponsorsScalarFieldEnum | HackathonSponsorsScalarFieldEnum[]
+  }
+
+
+  /**
+   * HackathonSponsors findMany
+   */
+  export type HackathonSponsorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter, which HackathonSponsors to fetch.
+     */
+    where?: HackathonSponsorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HackathonSponsors to fetch.
+     */
+    orderBy?: HackathonSponsorsOrderByWithRelationInput | HackathonSponsorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HackathonSponsors.
+     */
+    cursor?: HackathonSponsorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HackathonSponsors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HackathonSponsors.
+     */
+    skip?: number
+    distinct?: HackathonSponsorsScalarFieldEnum | HackathonSponsorsScalarFieldEnum[]
+  }
+
+
+  /**
+   * HackathonSponsors create
+   */
+  export type HackathonSponsorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HackathonSponsors.
+     */
+    data: XOR<HackathonSponsorsCreateInput, HackathonSponsorsUncheckedCreateInput>
+  }
+
+
+  /**
+   * HackathonSponsors createMany
+   */
+  export type HackathonSponsorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HackathonSponsors.
+     */
+    data: HackathonSponsorsCreateManyInput | HackathonSponsorsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * HackathonSponsors update
+   */
+  export type HackathonSponsorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HackathonSponsors.
+     */
+    data: XOR<HackathonSponsorsUpdateInput, HackathonSponsorsUncheckedUpdateInput>
+    /**
+     * Choose, which HackathonSponsors to update.
+     */
+    where: HackathonSponsorsWhereUniqueInput
+  }
+
+
+  /**
+   * HackathonSponsors updateMany
+   */
+  export type HackathonSponsorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HackathonSponsors.
+     */
+    data: XOR<HackathonSponsorsUpdateManyMutationInput, HackathonSponsorsUncheckedUpdateManyInput>
+    /**
+     * Filter which HackathonSponsors to update
+     */
+    where?: HackathonSponsorsWhereInput
+  }
+
+
+  /**
+   * HackathonSponsors upsert
+   */
+  export type HackathonSponsorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HackathonSponsors to update in case it exists.
+     */
+    where: HackathonSponsorsWhereUniqueInput
+    /**
+     * In case the HackathonSponsors found by the `where` argument doesn't exist, create a new HackathonSponsors with this data.
+     */
+    create: XOR<HackathonSponsorsCreateInput, HackathonSponsorsUncheckedCreateInput>
+    /**
+     * In case the HackathonSponsors was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HackathonSponsorsUpdateInput, HackathonSponsorsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * HackathonSponsors delete
+   */
+  export type HackathonSponsorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+    /**
+     * Filter which HackathonSponsors to delete.
+     */
+    where: HackathonSponsorsWhereUniqueInput
+  }
+
+
+  /**
+   * HackathonSponsors deleteMany
+   */
+  export type HackathonSponsorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HackathonSponsors to delete
+     */
+    where?: HackathonSponsorsWhereInput
+  }
+
+
+  /**
+   * HackathonSponsors without action
+   */
+  export type HackathonSponsorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HackathonSponsors
+     */
+    select?: HackathonSponsorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: HackathonSponsorsInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Model teamMembers
    */
 
@@ -16108,6 +17144,17 @@ export namespace Prisma {
   export type JudgeassessmentsScalarFieldEnum = (typeof JudgeassessmentsScalarFieldEnum)[keyof typeof JudgeassessmentsScalarFieldEnum]
 
 
+  export const HackathonSponsorsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    image: 'image',
+    hackathonId: 'hackathonId'
+  };
+
+  export type HackathonSponsorsScalarFieldEnum = (typeof HackathonSponsorsScalarFieldEnum)[keyof typeof HackathonSponsorsScalarFieldEnum]
+
+
   export const TeamMembersScalarFieldEnum: {
     id: 'id',
     teamId: 'teamId',
@@ -16688,6 +17735,7 @@ export namespace Prisma {
     judge?: JudgeListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
+    hackathonSponsors?: HackathonSponsorsListRelationFilter
   }
 
   export type HackathonOrderByWithRelationInput = {
@@ -16711,6 +17759,7 @@ export namespace Prisma {
     judge?: JudgeOrderByRelationAggregateInput
     creator?: UserOrderByWithRelationInput
     judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
+    hackathonSponsors?: HackathonSponsorsOrderByRelationAggregateInput
   }
 
   export type HackathonWhereUniqueInput = Prisma.AtLeast<{
@@ -16737,6 +17786,7 @@ export namespace Prisma {
     judge?: JudgeListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
+    hackathonSponsors?: HackathonSponsorsListRelationFilter
   }, "id">
 
   export type HackathonOrderByWithAggregationInput = {
@@ -17188,6 +18238,61 @@ export namespace Prisma {
     hackathonId?: StringWithAggregatesFilter<"Judgeassessments"> | string
     projectId?: StringWithAggregatesFilter<"Judgeassessments"> | string
     judgeId?: StringWithAggregatesFilter<"Judgeassessments"> | string
+  }
+
+  export type HackathonSponsorsWhereInput = {
+    AND?: HackathonSponsorsWhereInput | HackathonSponsorsWhereInput[]
+    OR?: HackathonSponsorsWhereInput[]
+    NOT?: HackathonSponsorsWhereInput | HackathonSponsorsWhereInput[]
+    id?: StringFilter<"HackathonSponsors"> | string
+    name?: StringFilter<"HackathonSponsors"> | string
+    email?: StringFilter<"HackathonSponsors"> | string
+    image?: StringFilter<"HackathonSponsors"> | string
+    hackathonId?: StringFilter<"HackathonSponsors"> | string
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+  }
+
+  export type HackathonSponsorsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    image?: SortOrder
+    hackathonId?: SortOrder
+    hackathon?: HackathonOrderByWithRelationInput
+  }
+
+  export type HackathonSponsorsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HackathonSponsorsWhereInput | HackathonSponsorsWhereInput[]
+    OR?: HackathonSponsorsWhereInput[]
+    NOT?: HackathonSponsorsWhereInput | HackathonSponsorsWhereInput[]
+    name?: StringFilter<"HackathonSponsors"> | string
+    email?: StringFilter<"HackathonSponsors"> | string
+    image?: StringFilter<"HackathonSponsors"> | string
+    hackathonId?: StringFilter<"HackathonSponsors"> | string
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+  }, "id">
+
+  export type HackathonSponsorsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    image?: SortOrder
+    hackathonId?: SortOrder
+    _count?: HackathonSponsorsCountOrderByAggregateInput
+    _max?: HackathonSponsorsMaxOrderByAggregateInput
+    _min?: HackathonSponsorsMinOrderByAggregateInput
+  }
+
+  export type HackathonSponsorsScalarWhereWithAggregatesInput = {
+    AND?: HackathonSponsorsScalarWhereWithAggregatesInput | HackathonSponsorsScalarWhereWithAggregatesInput[]
+    OR?: HackathonSponsorsScalarWhereWithAggregatesInput[]
+    NOT?: HackathonSponsorsScalarWhereWithAggregatesInput | HackathonSponsorsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HackathonSponsors"> | string
+    name?: StringWithAggregatesFilter<"HackathonSponsors"> | string
+    email?: StringWithAggregatesFilter<"HackathonSponsors"> | string
+    image?: StringWithAggregatesFilter<"HackathonSponsors"> | string
+    hackathonId?: StringWithAggregatesFilter<"HackathonSponsors"> | string
   }
 
   export type teamMembersWhereInput = {
@@ -17759,6 +18864,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateInput = {
@@ -17781,6 +18887,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUpdateInput = {
@@ -17803,6 +18910,7 @@ export namespace Prisma {
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateInput = {
@@ -17825,6 +18933,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonCreateManyInput = {
@@ -18288,6 +19397,61 @@ export namespace Prisma {
     hackathonId?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     judgeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsCreateInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+    hackathon: HackathonCreateNestedOneWithoutHackathonSponsorsInput
+  }
+
+  export type HackathonSponsorsUncheckedCreateInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+    hackathonId: string
+  }
+
+  export type HackathonSponsorsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    hackathon?: HackathonUpdateOneRequiredWithoutHackathonSponsorsNestedInput
+  }
+
+  export type HackathonSponsorsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsCreateManyInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+    hackathonId: string
+  }
+
+  export type HackathonSponsorsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
   }
 
   export type teamMembersCreateInput = {
@@ -18895,7 +20059,17 @@ export namespace Prisma {
     none?: JudgeassessmentsWhereInput
   }
 
+  export type HackathonSponsorsListRelationFilter = {
+    every?: HackathonSponsorsWhereInput
+    some?: HackathonSponsorsWhereInput
+    none?: HackathonSponsorsWhereInput
+  }
+
   export type JudgeassessmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HackathonSponsorsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19243,6 +20417,30 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type HackathonSponsorsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    image?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type HackathonSponsorsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    image?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type HackathonSponsorsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    image?: SortOrder
+    hackathonId?: SortOrder
   }
 
   export type teamMembersCountOrderByAggregateInput = {
@@ -19859,6 +21057,13 @@ export namespace Prisma {
     connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
   }
 
+  export type HackathonSponsorsCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutHackathonInput = {
     create?: XOR<ProjectCreateWithoutHackathonInput, ProjectUncheckedCreateWithoutHackathonInput> | ProjectCreateWithoutHackathonInput[] | ProjectUncheckedCreateWithoutHackathonInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutHackathonInput | ProjectCreateOrConnectWithoutHackathonInput[]
@@ -19885,6 +21090,13 @@ export namespace Prisma {
     connectOrCreate?: JudgeassessmentsCreateOrConnectWithoutHackathonInput | JudgeassessmentsCreateOrConnectWithoutHackathonInput[]
     createMany?: JudgeassessmentsCreateManyHackathonInputEnvelope
     connect?: JudgeassessmentsWhereUniqueInput | JudgeassessmentsWhereUniqueInput[]
+  }
+
+  export type HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -19955,6 +21167,20 @@ export namespace Prisma {
     deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
   }
 
+  export type HackathonSponsorsUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    upsert?: HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    set?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    disconnect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    delete?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    update?: HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput | HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutHackathonNestedInput = {
     create?: XOR<ProjectCreateWithoutHackathonInput, ProjectUncheckedCreateWithoutHackathonInput> | ProjectCreateWithoutHackathonInput[] | ProjectUncheckedCreateWithoutHackathonInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutHackathonInput | ProjectCreateOrConnectWithoutHackathonInput[]
@@ -20009,6 +21235,20 @@ export namespace Prisma {
     update?: JudgeassessmentsUpdateWithWhereUniqueWithoutHackathonInput | JudgeassessmentsUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutHackathonInput | JudgeassessmentsUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  }
+
+  export type HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput> | HackathonSponsorsCreateWithoutHackathonInput[] | HackathonSponsorsUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: HackathonSponsorsCreateOrConnectWithoutHackathonInput | HackathonSponsorsCreateOrConnectWithoutHackathonInput[]
+    upsert?: HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: HackathonSponsorsCreateManyHackathonInputEnvelope
+    set?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    disconnect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    delete?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    connect?: HackathonSponsorsWhereUniqueInput | HackathonSponsorsWhereUniqueInput[]
+    update?: HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput | HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput | HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
   }
 
   export type HackathonCreateNestedOneWithoutRegistrationsInput = {
@@ -20235,6 +21475,20 @@ export namespace Prisma {
     upsert?: JudgeUpsertWithoutJudgeassessmentsInput
     connect?: JudgeWhereUniqueInput
     update?: XOR<XOR<JudgeUpdateToOneWithWhereWithoutJudgeassessmentsInput, JudgeUpdateWithoutJudgeassessmentsInput>, JudgeUncheckedUpdateWithoutJudgeassessmentsInput>
+  }
+
+  export type HackathonCreateNestedOneWithoutHackathonSponsorsInput = {
+    create?: XOR<HackathonCreateWithoutHackathonSponsorsInput, HackathonUncheckedCreateWithoutHackathonSponsorsInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutHackathonSponsorsInput
+    connect?: HackathonWhereUniqueInput
+  }
+
+  export type HackathonUpdateOneRequiredWithoutHackathonSponsorsNestedInput = {
+    create?: XOR<HackathonCreateWithoutHackathonSponsorsInput, HackathonUncheckedCreateWithoutHackathonSponsorsInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutHackathonSponsorsInput
+    upsert?: HackathonUpsertWithoutHackathonSponsorsInput
+    connect?: HackathonWhereUniqueInput
+    update?: XOR<XOR<HackathonUpdateToOneWithWhereWithoutHackathonSponsorsInput, HackathonUpdateWithoutHackathonSponsorsInput>, HackathonUncheckedUpdateWithoutHackathonSponsorsInput>
   }
 
   export type TeamCreateNestedOneWithoutTeamMembersInput = {
@@ -20783,6 +22037,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutCreatorInput = {
@@ -20804,6 +22059,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutCreatorInput = {
@@ -21677,6 +22933,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HackathonSponsorsCreateWithoutHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
+  export type HackathonSponsorsUncheckedCreateWithoutHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
+  export type HackathonSponsorsCreateOrConnectWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    create: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsCreateManyHackathonInputEnvelope = {
+    data: HackathonSponsorsCreateManyHackathonInput | HackathonSponsorsCreateManyHackathonInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectUpsertWithWhereUniqueWithoutHackathonInput = {
     where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutHackathonInput, ProjectUncheckedUpdateWithoutHackathonInput>
@@ -21815,6 +23095,33 @@ export namespace Prisma {
     judgeId?: StringFilter<"Judgeassessments"> | string
   }
 
+  export type HackathonSponsorsUpsertWithWhereUniqueWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    update: XOR<HackathonSponsorsUpdateWithoutHackathonInput, HackathonSponsorsUncheckedUpdateWithoutHackathonInput>
+    create: XOR<HackathonSponsorsCreateWithoutHackathonInput, HackathonSponsorsUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsUpdateWithWhereUniqueWithoutHackathonInput = {
+    where: HackathonSponsorsWhereUniqueInput
+    data: XOR<HackathonSponsorsUpdateWithoutHackathonInput, HackathonSponsorsUncheckedUpdateWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsUpdateManyWithWhereWithoutHackathonInput = {
+    where: HackathonSponsorsScalarWhereInput
+    data: XOR<HackathonSponsorsUpdateManyMutationInput, HackathonSponsorsUncheckedUpdateManyWithoutHackathonInput>
+  }
+
+  export type HackathonSponsorsScalarWhereInput = {
+    AND?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+    OR?: HackathonSponsorsScalarWhereInput[]
+    NOT?: HackathonSponsorsScalarWhereInput | HackathonSponsorsScalarWhereInput[]
+    id?: StringFilter<"HackathonSponsors"> | string
+    name?: StringFilter<"HackathonSponsors"> | string
+    email?: StringFilter<"HackathonSponsors"> | string
+    image?: StringFilter<"HackathonSponsors"> | string
+    hackathonId?: StringFilter<"HackathonSponsors"> | string
+  }
+
   export type HackathonCreateWithoutRegistrationsInput = {
     id?: string
     createdAt?: Date | string
@@ -21834,6 +23141,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutRegistrationsInput = {
@@ -21855,6 +23163,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutRegistrationsInput = {
@@ -21923,6 +23232,7 @@ export namespace Prisma {
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutRegistrationsInput = {
@@ -21944,6 +23254,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type TeamUpsertWithoutRegistrationsInput = {
@@ -22002,6 +23313,7 @@ export namespace Prisma {
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutProjectsInput = {
@@ -22023,6 +23335,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutProjectsInput = {
@@ -22127,6 +23440,7 @@ export namespace Prisma {
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutProjectsInput = {
@@ -22148,6 +23462,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type JudgeassessmentsUpsertWithWhereUniqueWithoutProjectInput = {
@@ -22273,6 +23588,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutJudgeInput = {
@@ -22294,6 +23610,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutJudgeInput = {
@@ -22424,6 +23741,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutJudgeInput = {
@@ -22445,6 +23763,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type JudgeassessmentsUpsertWithWhereUniqueWithoutJudgeInput = {
@@ -22482,6 +23801,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonUncheckedCreateWithoutJudgeassessmentsInput = {
@@ -22503,6 +23823,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
   export type HackathonCreateOrConnectWithoutJudgeassessmentsInput = {
@@ -22593,6 +23914,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutJudgeassessmentsInput = {
@@ -22614,6 +23936,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type ProjectUpsertWithoutJudgeassessmentsInput = {
@@ -22679,6 +24002,110 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     judgeImage?: StringFieldUpdateOperationsInput | string
     hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonCreateWithoutHackathonSponsorsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    startDate: string
+    endDate: string
+    projects?: ProjectCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
+    creator: UserCreateNestedOneWithoutHackathonsInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonUncheckedCreateWithoutHackathonSponsorsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    creatorId: string
+    startDate: string
+    endDate: string
+    projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonCreateOrConnectWithoutHackathonSponsorsInput = {
+    where: HackathonWhereUniqueInput
+    create: XOR<HackathonCreateWithoutHackathonSponsorsInput, HackathonUncheckedCreateWithoutHackathonSponsorsInput>
+  }
+
+  export type HackathonUpsertWithoutHackathonSponsorsInput = {
+    update: XOR<HackathonUpdateWithoutHackathonSponsorsInput, HackathonUncheckedUpdateWithoutHackathonSponsorsInput>
+    create: XOR<HackathonCreateWithoutHackathonSponsorsInput, HackathonUncheckedCreateWithoutHackathonSponsorsInput>
+    where?: HackathonWhereInput
+  }
+
+  export type HackathonUpdateToOneWithWhereWithoutHackathonSponsorsInput = {
+    where?: HackathonWhereInput
+    data: XOR<HackathonUpdateWithoutHackathonSponsorsInput, HackathonUncheckedUpdateWithoutHackathonSponsorsInput>
+  }
+
+  export type HackathonUpdateWithoutHackathonSponsorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+  }
+
+  export type HackathonUncheckedUpdateWithoutHackathonSponsorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    creatorId?: StringFieldUpdateOperationsInput | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type TeamCreateWithoutTeamMembersInput = {
@@ -23118,6 +24545,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateWithoutCreatorInput = {
@@ -23139,6 +24567,7 @@ export namespace Prisma {
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
   export type HackathonUncheckedUpdateManyWithoutCreatorInput = {
@@ -23494,6 +24923,13 @@ export namespace Prisma {
     judgeId: string
   }
 
+  export type HackathonSponsorsCreateManyHackathonInput = {
+    id?: string
+    name: string
+    email: string
+    image: string
+  }
+
   export type ProjectUpdateWithoutHackathonInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23616,6 +25052,27 @@ export namespace Prisma {
     overall_score?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     projectId?: StringFieldUpdateOperationsInput | string
     judgeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUncheckedUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HackathonSponsorsUncheckedUpdateManyWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
   }
 
   export type JudgeassessmentsCreateManyProjectInput = {
@@ -23795,6 +25252,10 @@ export namespace Prisma {
      * @deprecated Use JudgeassessmentsDefaultArgs instead
      */
     export type JudgeassessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JudgeassessmentsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HackathonSponsorsDefaultArgs instead
+     */
+    export type HackathonSponsorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HackathonSponsorsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use teamMembersDefaultArgs instead
      */

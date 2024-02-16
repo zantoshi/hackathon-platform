@@ -241,6 +241,14 @@ exports.Prisma.JudgeassessmentsScalarFieldEnum = {
   judgeId: 'judgeId'
 };
 
+exports.Prisma.HackathonSponsorsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  image: 'image',
+  hackathonId: 'hackathonId'
+};
+
 exports.Prisma.TeamMembersScalarFieldEnum = {
   id: 'id',
   teamId: 'teamId',
@@ -300,6 +308,7 @@ exports.Prisma.ModelName = {
   Sponsors: 'Sponsors',
   Judge: 'Judge',
   Judgeassessments: 'Judgeassessments',
+  HackathonSponsors: 'HackathonSponsors',
   teamMembers: 'teamMembers',
   teamRequest: 'teamRequest'
 };

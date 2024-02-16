@@ -109,10 +109,11 @@ model Hackathon {
   registrations HackathonRegistration[]
   judge         Judge[]
 
-  published        Boolean            @default(false)
-  creator          User               @relation(fields: [creatorId], references: [id])
-  creatorId        String
-  judgeassessments Judgeassessments[]
+  published Boolean @default(false)
+  creator   User    @relation(fields: [creatorId], references: [id])
+  creatorId String
+    judgeassessments Judgeassessments[]
+    hackathonSponsors  HackathonSponsors[]
 
   startDate String
   endDate   String
@@ -211,6 +212,15 @@ model Judgeassessments {
   judgeId String
 
   @@unique([projectId])
+}
+
+model HackathonSponsors {
+  id      String @id @default(cuid())
+  name  String
+  email String
+  image String
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id])
+  hackathonId String
 }
 
 model teamMembers {
