@@ -234,7 +234,7 @@ export default function Header() {
                     )}
                   </li>
                   <li>
-                {!loading && session?.user && judge && judge.email === session.user.email && (
+                {!loading && session?.user && judge.length > 0 &&(
                   <Link className="hover:text-purple-500" href="/judge">
                     Judge
                   </Link>

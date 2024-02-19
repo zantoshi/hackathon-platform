@@ -82,7 +82,7 @@ const CreateTeamForm = ({ id }) => {
   return (
     <>
       <form onSubmit={create}>
-        <div className="mt-10 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className="mt-10 grid md:grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div className="sm:col-span-4">
             <label
               htmlFor="teamName"
@@ -98,7 +98,7 @@ const CreateTeamForm = ({ id }) => {
                   id="teamName"
                   autoComplete="team-name"
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamName}
                   required
@@ -122,7 +122,7 @@ const CreateTeamForm = ({ id }) => {
                   id="teamDescription"
                   autoComplete="team-description"
                   onChange={(e) => setTeamDescription(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamDescription}
                   required
@@ -146,7 +146,7 @@ const CreateTeamForm = ({ id }) => {
                   id="teamAvatarURL"
                   autoComplete="team-avatar-url"
                   onChange={(e) => setTeamAvatarURL(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamAvatarURL}
                   required
@@ -169,7 +169,7 @@ const CreateTeamForm = ({ id }) => {
                   name="teamMembers"
                   rows={3}
                   onChange={(e) => setTeamMembers(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamMembers}
                   required
@@ -182,9 +182,7 @@ const CreateTeamForm = ({ id }) => {
             </div>
           </div>
         </div>
-       
       </form>
-     
     </>
   );
 };
