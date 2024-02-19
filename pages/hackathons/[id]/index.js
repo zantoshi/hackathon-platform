@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../../components/layout";
 import PageHeader from "@/components/PageHeader";
 import SectionHeader from "@/components/SectionHeader";
@@ -28,6 +28,7 @@ export default function HackathonDetail() {
   const [details, setDetails] = useState([]);
   const [judges, setJudges] = useState([]);
   const [sponsors, setSponsors] = useState([]);
+  const [benefits, setBenefits] = useState([]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -99,6 +100,7 @@ export default function HackathonDetail() {
               ["3rd Place Prize", response.thirdPlacePrize],
             ]);
             setRuleList(response.rules);
+            setBenefits(response.benefits);
           } else {
             console.error(
               "Error fetching Registration Hackthon:",
@@ -239,6 +241,7 @@ export default function HackathonDetail() {
                 </p>
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
+                  
                   {!signedUp || !submit ? (
                     <ButtonPrimary
                       buttonText={"Register"}
@@ -262,7 +265,7 @@ export default function HackathonDetail() {
               </div>
             </div>
           </div>
-          <div className="my-4 mb-8"></div>
+          <div className="my-2 mb-4"></div>
           <div className="mx-auto max-w-4xl gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
             <div className="lg:pr-8 lg:pt-4">
               <p className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -271,21 +274,39 @@ export default function HackathonDetail() {
               <p className="mt-6 text-lg leading-8 ">
                 {bitblockboom.descriptionText}
               </p>
-              <dl className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
-                <div className="relative pl-9 my-4">
+              <div className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
+                <div className="relative">
                   <dt className=" font-semibold">
-                    <Check className="absolute left-1 top-1 h-5 w-5 text-green-400" />
-                    {hackathon.benefits}
+                    <ul className="flex flex-col ">
+                      {typeof benefits === "string" &&
+                        benefits.split("</p><p>").map((benefit) => {
+                          return (
+                            <>
+                              <li
+                                key={benefit}
+                                className="relative flex items-center"
+                              >
+                                <span className="absolute left-0 top-0">
+                                  <Check className="h-5 w-5 text-green-400" />
+                                </span>
+                                <space className="ml-6">
+                                  {benefit.replace(/<p>|<\/p>/g, "")}
+                                </space>
+                              </li>
+                            </>
+                          );
+                        })}
+                    </ul>
                   </dt>
                 </div>
-              </dl>
+              </div>
             </div>
           </div>
           <div className="my-24">
             <SectionHeader headerText={"Rules"} descriptionText={""} />
             <ul className="text-xl list-disc ml-6">
-              {ruleList.split("/N").map((rule) => {
-                return <li>{rule}</li>;
+              {ruleList.split("</p><p>").map((rule) => {
+                return <li>{rule.replace(/<p>|<\/p>/g, "")}</li>;
               })}
             </ul>
           </div>

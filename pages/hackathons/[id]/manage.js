@@ -342,9 +342,9 @@ const judgeGetting = async ()=>{
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-200"></p>
           <form onSubmit={create}>
-            <div className="pt-5 pb-5 flex">
+            <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
               <div
-                class="relative  text-purple-600 w-1/4"
+                class="text-purple-600"
                 data-te-input-wrapper-init
                 id="async"
               >

@@ -39,11 +39,11 @@ model Session {
 }
 
 model User {
-  id                    String      @id @default(cuid())
+  id                    String        @id @default(cuid())
   name                  String?
-  email                 String     @unique
+  email                 String        @unique
   gamertag              String
-  role                  Role        @default(USER)
+  role                  Role          @default(USER)
   hackathons            Hackathon[]
   teams                 Team[]
   emailVerified         Boolean?
@@ -57,9 +57,11 @@ model User {
   social                Json?
   balance               String?
   remainingAmountLimits Json?
-    judge Judge[]
-  
-  @@unique([id,gamertag,email,image])
+  judge                 Judge[]
+  teamMembers           teamMembers[]
+ teamRequest  teamRequest[]
+
+  @@unique([id, gamertag, email, image])
 }
 
 model VerificationToken {
@@ -77,14 +79,15 @@ model Team {
 
   name        String
   description String
-  teamMembers String
   teamAvatar  String
 
   projects      Project[]
   registrations HackathonRegistration[]
 
-  creator   User   @relation(fields: [creatorId], references: [id])
-  creatorId String
+  creator     User          @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  teamMembers teamMembers[]
+  teamRequest  teamRequest[]
 }
 
 model Hackathon {
@@ -104,7 +107,7 @@ model Hackathon {
 
   projects      Project[]
   registrations HackathonRegistration[]
-  judge Judge[]
+  judge         Judge[]
 
   published Boolean @default(false)
   creator   User    @relation(fields: [creatorId], references: [id])
@@ -148,11 +151,11 @@ model Project {
   projectResourceLink String
   comments            String?
 
-  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
-  hackathonId String
+  hackathon        Hackathon          @relation(fields: [hackathonId], references: [id])
+  hackathonId      String
   judgeassessments Judgeassessments[]
-  team   Team   @relation(fields: [teamId], references: [id])
-  teamId String
+  team             Team               @relation(fields: [teamId], references: [id])
+  teamId           String
 
   @@unique([teamId, hackathonId])
 }
@@ -177,39 +180,38 @@ enum Role {
   ADMIN
 }
 
-model Judge{
-id String @id @default(cuid())
-user User @relation(fields: [userId,judgeGamertag,email,judgeImage], references: [id,gamertag,email,image])
-userId String 
-judgeGamertag String
-email String
-judgeImage String
-hackathon Hackathon @relation(fields: [hackathonId], references: [id])
-hackathonId String
-judgeassessments Judgeassessments[]
+model Judge {
+  id               String             @id @default(cuid())
+  user             User               @relation(fields: [userId, judgeGamertag, email, judgeImage], references: [id, gamertag, email, image])
+  userId           String
+  judgeGamertag    String
+  email            String
+  judgeImage       String
+  hackathon        Hackathon          @relation(fields: [hackathonId], references: [id])
+  hackathonId      String
+  judgeassessments Judgeassessments[]
 }
 
 model Judgeassessments {
-id      String @id @default(cuid())
-impact Int
-feasability Int
-user_experience Int
-scalability Int
-innovate Int
-pitch Int
-overall_score Decimal
+  id              String  @id @default(cuid())
+  impact          Int
+  feasability     Int
+  user_experience Int
+  scalability     Int
+  innovate        Int
+  pitch           Int
+  overall_score   Decimal
 
-hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
-hackathonId String
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  hackathonId String
 
-project Project  @relation(fields: [projectId], references: [id])
-projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
 
+  judge   Judge  @relation(fields: [judgeId], references: [id])
+  judgeId String
 
-judge Judge  @relation(fields: [judgeId], references: [id])
-judgeId String
-
-@@unique([ projectId])
+  @@unique([projectId])
 }
 
 model HackathonSponsors {
@@ -219,4 +221,24 @@ model HackathonSponsors {
   image String
   hackathon Hackathon @relation(fields: [hackathonId], references: [id])
   hackathonId String
+}
+
+model teamMembers {
+  id     String @id @default(cuid())
+  team   Team   @relation(fields: [teamId], references: [id])
+  teamId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model teamRequest {
+  id           String  @id @default(cuid())
+  team         Team    @relation(fields: [teamId], references: [id])
+  teamId       String
+  teamName     String
+  user         User    @relation(fields: [userSender], references: [id])
+  userSender   String
+  userSenderName String
+  userReceiver String?
+  state        Boolean //True acepto la solicitud, false no ha aceptado/visto la solictud o le dio no aceptar
 }

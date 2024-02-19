@@ -5,26 +5,28 @@ import PageHeader from "@/components/PageHeader";
 import { ArrowRight } from "lucide-react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { useEffect } from "react";
+import TipTap from "../components/TipTap";
 
-const CreateHackathonForm = ({id}) => {
+const CreateHackathonForm = ({ id }) => {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [benefits, setBenefits] = useState("");
-  const [rules, setRules] = useState("");
+  const [rules, setRules] = useState();
   const [judgingCriteria, setJudgingCriteria] = useState("");
   const [firstPlacePrize, setFirstPlacePrize] = useState("");
   const [secondPlacePrize, setSecondPlacePrize] = useState("");
   const [thirdPlacePrize, setThirdPlacePrize] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const [tiptap, setTiptap] = useState();
+  const [flag, setFlag] = useState();
 
   const create = async (e) => {
     e.preventDefault();
     try {
-      if(id){
+      if (id) {
         const body = {
           title,
           description,
@@ -42,9 +44,9 @@ const CreateHackathonForm = ({id}) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
-  
+
         router.push(`/hackathons/${id}/manage`);
-      }else{
+      } else {
         const body = {
           title,
           description,
@@ -57,13 +59,15 @@ const CreateHackathonForm = ({id}) => {
           startDate,
           endDate,
         };
-  
+
         await fetch(`/api/hackathons/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
+          cache: "no-store",
+          next: { revalidate: 10 },
         });
-  
+
         router.push("/hackathons");
       }
     } catch (error) {
@@ -80,19 +84,23 @@ const CreateHackathonForm = ({id}) => {
           const data = await fetch(`/api/hackathons/${id} `, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+            next: { revalidate: 10 },
           });
           if (data.ok) {
             const response = await data.json();
-            setTitle(response.title)
-            setDescription(response.description)
-            setBenefits(response.benefits)
-            setRules(response.rules)
-            setJudgingCriteria(response.judgingCriteria)
-            setFirstPlacePrize(response.firstPlacePrize)
-            setSecondPlacePrize(response.secondPlacePrize)
-            setThirdPlacePrize(response.thirdPlacePrize)
-            setStartDate(response.startDate)
-            setEndDate(response.endDate)
+            setTitle(response.title);
+            setDescription(response.description);
+            setBenefits(response.benefits);
+            setFlag(response.benefits);
+            setRules(response.rules);
+            setTiptap(response.rules);
+            setJudgingCriteria(response.judgingCriteria);
+            setFirstPlacePrize(response.firstPlacePrize);
+            setSecondPlacePrize(response.secondPlacePrize);
+            setThirdPlacePrize(response.thirdPlacePrize);
+            setStartDate(response.startDate);
+            setEndDate(response.endDate);
           } else {
             console.error(
               "Error fetching Registration Hackthon:",
@@ -112,10 +120,17 @@ const CreateHackathonForm = ({id}) => {
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={"/hackathons"} />
-          <PageHeader
-            headerText={"Create a Hackathon"}
-            descriptionText={"Wohooo! LFG and create a hackathon."}
-          />
+          {!id ? (
+            <PageHeader
+              headerText={"Create a Hackathon"}
+              descriptionText={"Wohooo! LFG and create a hackathon."}
+            />
+          ) : (
+            <PageHeader
+              headerText={`Edit details ` + title + ` hackathon`}
+              descriptionText={"Wohooo! LFG and create a hackathon."}
+            />
+          )}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
@@ -164,14 +179,38 @@ const CreateHackathonForm = ({id}) => {
               </div>
             </div>
 
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="benefits"
-                className="block text-sm font-medium leading-6 "
-              >
-                Benefits
-              </label>
-              <div className="mb-4">
+            {flag === null ||
+              (flag === undefined && (
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="benefits"
+                    className="block text-sm font-medium leading-6 "
+                  >
+                    Benefits (To add a new benefit, insert a line break in this
+                    input.)
+                  </label>
+                  <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TipTap onDataChange={setBenefits} rules={benefits} />
+                  </div>
+                </div>
+              ))}
+
+            {flag !== null && flag !== undefined && (
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="benefits"
+                  className="block text-sm font-medium leading-6 "
+                >
+                  Benefits (To add a new benefit, insert a line break in this
+                  input.)
+                </label>
+                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <TipTap onDataChange={setBenefits} rules={benefits} />
+                </div>
+              </div>
+            )}
+
+            {/* <div className="mb-4">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <textarea
                     id="benefits"
@@ -185,9 +224,9 @@ const CreateHackathonForm = ({id}) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="sm:col-span-4">
+            {/* <div className="sm:col-span-4">
               <label
                 htmlFor="rules"
                 className="block text-sm font-medium leading-6 "
@@ -208,7 +247,37 @@ const CreateHackathonForm = ({id}) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
+
+            {tiptap === null ||
+              (tiptap === undefined && (
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="rules"
+                    className="block text-sm font-medium leading-6"
+                  >
+                    Rules (To add a new rule, insert a line break in this
+                    input.)
+                  </label>
+                  <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TipTap onDataChange={setRules} rules={rules} />
+                  </div>
+                </div>
+              ))}
+
+            {tiptap !== null && tiptap !== undefined && (
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="rules"
+                  className="block text-sm font-medium leading-6"
+                >
+                  Rules (To add a new rule, insert a line break in this input.)
+                </label>
+                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <TipTap rules={rules} onDataChange={setRules} />
+                </div>
+              </div>
+            )}
 
             <div className="sm:col-span-4">
               <label

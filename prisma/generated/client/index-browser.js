@@ -159,7 +159,6 @@ exports.Prisma.TeamScalarFieldEnum = {
   updatedAt: 'updatedAt',
   name: 'name',
   description: 'description',
-  teamMembers: 'teamMembers',
   teamAvatar: 'teamAvatar',
   creatorId: 'creatorId'
 };
@@ -250,6 +249,22 @@ exports.Prisma.HackathonSponsorsScalarFieldEnum = {
   hackathonId: 'hackathonId'
 };
 
+exports.Prisma.TeamMembersScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId'
+};
+
+exports.Prisma.TeamRequestScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  teamName: 'teamName',
+  userSender: 'userSender',
+  userSenderName: 'userSenderName',
+  userReceiver: 'userReceiver',
+  state: 'state'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -293,7 +308,9 @@ exports.Prisma.ModelName = {
   Sponsors: 'Sponsors',
   Judge: 'Judge',
   Judgeassessments: 'Judgeassessments',
-  HackathonSponsors: 'HackathonSponsors'
+  HackathonSponsors: 'HackathonSponsors',
+  teamMembers: 'teamMembers',
+  teamRequest: 'teamRequest'
 };
 
 /**

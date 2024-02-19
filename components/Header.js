@@ -3,15 +3,15 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { X, Menu } from 'lucide-react';
-import { motion, stagger, AnimatePresence } from "framer-motion"
-import userIcon from "../public/user-filled.svg"
-import { fetchingData } from "../util/fetchingData.js"
+import { X, Menu } from "lucide-react";
+import { motion, stagger, AnimatePresence } from "framer-motion";
+import userIcon from "../public/user-filled.svg";
+import { fetchingData } from "../util/fetchingData.js";
 
 export default function Header() {
   const [click, setClick] = useState(false);
   const [gradient, setGradient] = useState("");
-  const [judge, setJudge] = useState([])
+  const [judge, setJudge] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +22,8 @@ export default function Header() {
         console.error("Error fetching judge data:", error);
       }
     };
-    fetchData()
-  }, [])
-
+    fetchData();
+  }, []);
 
   const toggleNavbar = () => {
     setClick(!click);
@@ -76,7 +75,7 @@ export default function Header() {
                 height={42}
               />
             </Link>
-            <ul className="hidden md:flex flex-row space-x-6 items-center">
+            <ul className="hidden lg:flex flex-row space-x-6 items-center">
               <li>
                 <Link className="hover:text-purple-500" href="/hackathons">
                   Hackathons
@@ -113,7 +112,7 @@ export default function Header() {
                 )}
               </li>
               <li>
-                {!loading && session?.user && judge.length > 0 &&(
+                {!loading && session?.user && judge.length > 0 && (
                   <Link className="hover:text-purple-500" href="/judge">
                     Judge
                   </Link>
@@ -122,7 +121,7 @@ export default function Header() {
             </ul>
           </div>
 
-          <div className="md:block hidden">
+          <div className="lg:block hidden">
             {!loading && !session && (
               <ButtonSecondary
                 buttonText={"Log In"}
@@ -132,26 +131,24 @@ export default function Header() {
             {!loading && session?.user && (
               <div className="flex flex-row">
                 <span>
-                  <Link href="/team">
-                    {
-                      session.user.image !== null ? (
-                        <Image
-                          src={session.user.image}
-                          alt="User Profile Image"
-                          className="h-12 w-12 rounded-full mr-2 inline-block"
-                          width={128}
-                          height={128}
-                        />
-                      ) : (
-                        <Image
-                          src={userIcon}
-                          alt="User Profile Image"
-                          className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
-                          width={128}
-                          height={128}
-                        />
-                      )
-                    }
+                  <Link href="/user">
+                    {session.user.image !== null ? (
+                      <Image
+                        src={session.user.image}
+                        alt="User Profile Image"
+                        className="h-12 w-12 rounded-full mr-2 inline-block"
+                        width={128}
+                        height={128}
+                      />
+                    ) : (
+                      <Image
+                        src={userIcon}
+                        alt="User Profile Image"
+                        className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                        width={128}
+                        height={128}
+                      />
+                    )}
                   </Link>
                 </span>
                 <span>
@@ -167,7 +164,7 @@ export default function Header() {
               </div>
             )}
           </div>
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               className="inline-flex items-center justify-center rounded-md text-white md:text-white hover:text-white focus:ring-3 focus:ring-inset focus:ring-white z-50"
               onClick={toggleNavbar}
@@ -182,115 +179,135 @@ export default function Header() {
               )}
             </button>
           </div>
-          {click && (<AnimatePresence>
-            <motion.div
-              className="md:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 border-b-2  border-black py-20 shadow-lg "
-              style={{ background: gradient }}
-              transition={{ duration: 0.5 }}
-              initial={{ opacity: 0, }}
-              exit={{ opacity: 0, y: 50 }}
-              animate={{ opacity: click ? 1 : 0 }}
-            >
+          {click && (
+            <AnimatePresence>
               <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: { opacity: 0, y: 10 },
-                  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
-                }}
-                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                className="lg:hidden absolute inset-x-0 transform -translate-y-1/2 z-20 mt-52 border-b-2  border-black py-20 shadow-lg "
+                style={{ background: gradient }}
+                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                animate={{ opacity: click ? 1 : 0 }}
               >
-                <motion.ul variants={stagger(0.1)} className="gap-3 font-bold text-lg flex flex-col items-center justify-center ">
-                  <li>
-                    <Link className="hover:text-purple-500" href="/hackathons">
-                      Hackathons
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:text-purple-500" href="https://emeralize.app/marketplace">
-                      Learn
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:text-purple-500" href="/organizers">
-                      Organizers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:text-purple-500" href="/sponsor">
-                      Sponsor
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:text-purple-500" href="/contact">
-                      Contact
-                    </Link>
-                  </li>
-                  <li>
-                    {!loading && session?.user && (
-                      <Link className="hover:text-purple-500" href="/team">
-                        Team
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { staggerChildren: 0.1 },
+                    },
+                  }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <motion.ul
+                    variants={stagger(0.1)}
+                    className="gap-3 font-bold text-lg flex flex-col items-center justify-center "
+                  >
+                    <li>
+                      <Link
+                        className="hover:text-purple-500"
+                        href="/hackathons"
+                      >
+                        Hackathons
                       </Link>
-                    )}
-                  </li>
-                  <li>
-                {!loading && session?.user && judge && judge.email === session.user.email && (
-                  <Link className="hover:text-purple-500" href="/judge">
-                    Judge
-                  </Link>
-                )}
-              </li>
-                  <li>
-                    <div className="md:hidden mt-10">
-                      {!loading && !session && (
-                        <ButtonSecondary
-                          buttonText={"Log In"}
-                          functionCall={signInHandler}
-                        />
-                      )}
+                    </li>
+                    <li>
+                      <Link
+                        className="hover:text-purple-500"
+                        href="https://emeralize.app/marketplace"
+                      >
+                        Learn
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="hover:text-purple-500"
+                        href="/organizers"
+                      >
+                        Organizers
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="hover:text-purple-500" href="/sponsor">
+                        Sponsor
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="hover:text-purple-500" href="/contact">
+                        Contact
+                      </Link>
+                    </li>
+                    <li>
                       {!loading && session?.user && (
-                        <div className="flex flex-row">
-                          <span>
-                            <Link href="/team">
-                              {
-                                session.user.image !== null ? (
+                        <Link className="hover:text-purple-500" href="/team">
+                          Team
+                        </Link>
+                      )}
+                    </li>
+                    <li>
+                      {!loading && session?.user && judge.length > 0 && (
+                        <Link className="hover:text-purple-500" href="/judge">
+                          Judge
+                        </Link>
+                      )}
+                    </li>
+                    <li>
+                      <div className="lg:hidden mt-10">
+                        {!loading && !session && (
+                          <ButtonSecondary
+                            buttonText={"Log In"}
+                            functionCall={signInHandler}
+                          />
+                        )}
+                        {!loading && session?.user && (
+                          <div className="flex flex-row">
+                            <span>
+                              <Link href="/user">
+                                {session.user.image !== null ? (
                                   <Image
                                     src={session.user.image}
                                     alt="User Profile Image"
                                     className="h-12 w-12 rounded-full mr-2 inline-block"
-                                    width={12}
-                                    height={12}
+                                    width={128}
+                                    height={128}
                                   />
                                 ) : (
                                   <Image
                                     src={userIcon}
                                     alt="User Profile Image"
                                     className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
-                                    width={12}
-                                    height={12}
+                                    width={128}
+                                    height={128}
                                   />
-                                )
-                              }
-                            </Link>
-                          </span>
-                          <span>
-                            {session.user && (
-                              <div className="align-middle px-5">
-                                <ButtonSecondary
-                                  buttonText={"Log Out"}
-                                  functionCall={signOutHandler}
-                                />
-                              </div>
-                            )}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                </motion.ul>
+                                )}
+                              </Link>
+                            </span>
+                            <span>
+                              {session.user && (
+                                <div className="align-middle px-5">
+                                  <ButtonSecondary
+                                    buttonText={"Log Out"}
+                                    functionCall={signOutHandler}
+                                  />
+                                </div>
+                              )}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  </motion.ul>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          </AnimatePresence>)}
+            </AnimatePresence>
+          )}
         </nav>
       </header>
     </div>

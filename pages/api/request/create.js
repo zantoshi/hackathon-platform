@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const { teamName, teamDescription, teamAvatarURL } = req.body;
+    const { teamId, teamName, UserReciever } = req.body;
 
     if (!session) {
       return res.status(401).json({ error: "Unauthorized" });
@@ -17,12 +17,13 @@ export default async function handle(req, res) {
       },
     });
 
-    const result = await prisma.team.create({
+    const result = await prisma.teamRequest.create({
       data: {
-        name: teamName,
-        description: teamDescription,
-        teamAvatar: teamAvatarURL,
-        creatorId: user[0].id,
+        teamId,
+        teamName,
+        userSender: user[0].id,
+        userSenderName: user[0].gamertag,
+        UserReciever
       },
     });
     res.json(result);
