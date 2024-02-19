@@ -25,7 +25,7 @@ function edit() {
           <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
           <PageHeader
             headerText={"Teams"}
-            descriptionText={"Create a team in order to compete in hackathons."}
+            descriptionText={"Edit some features of the team and get ready to compete."}
           />
           <CreateTeamForm id={id}></CreateTeamForm>
         </div>

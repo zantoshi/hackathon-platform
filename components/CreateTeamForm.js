@@ -82,7 +82,7 @@ const CreateTeamForm = ({ id }) => {
   return (
     <>
       <form onSubmit={create}>
-        <div className="mt-10 grid md:grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-1">
+        <div className="mt-10 grid md:grid-cols-7 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div className="sm:col-span-4">
             <label
               htmlFor="teamName"
