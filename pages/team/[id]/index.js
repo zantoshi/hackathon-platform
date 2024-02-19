@@ -73,7 +73,7 @@ function Index() {
                 Team Members
               </h2>
               <p className="block text-sm font-medium leading-6 text-white">
-                {team.teamMembers}
+              <ButtonSecondary buttonText={"Add members"} buttonLink={`/team/${id}/members`} />
               </p>
             </div>
           </div>

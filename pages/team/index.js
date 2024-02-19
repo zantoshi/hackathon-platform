@@ -39,7 +39,7 @@ export default function TeamsPage() {
           <div className="my-2">
             <h1 className="font-bold custom-text-shadow text-4xl">Teams</h1>
             <p className="text-gray-400 font-semibold text-lg ">
-              Create a team in order to compete in hackathons.
+              Create a team in order to compete in hackathons and also edit and add members to your team in order to participate.
             </p>
           </div>
 

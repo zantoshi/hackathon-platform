@@ -35,10 +35,6 @@ function AddUserTeam() {
     fetchJudgeUser();
   }, []);
 
-  const handleTabClick = (tabName) => {
-    setSelectedTab(tabName);
-  };
-
   const handleChange = (search) => {
     setValue(search);
   };

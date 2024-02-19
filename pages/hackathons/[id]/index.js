@@ -274,8 +274,8 @@ export default function HackathonDetail() {
               <p className="mt-6 text-lg leading-8 ">
                 {bitblockboom.descriptionText}
               </p>
-              <dl className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
-                <div className="relative pl-9 my-4">
+              <div className="grid grid-cols-1 lg:grid-cols-3 my-10 text-base leading-7  lg:max-w-none ">
+                <div className="relative">
                   <dt className=" font-semibold">
                     <ul className="flex flex-col ">
                       {typeof benefits === "string" &&
@@ -299,7 +299,7 @@ export default function HackathonDetail() {
                     </ul>
                   </dt>
                 </div>
-              </dl>
+              </div>
             </div>
           </div>
           <div className="my-24">

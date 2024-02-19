@@ -7,6 +7,8 @@ import ButtonPrimary from "./ButtonPrimary";
 import AddUserTeam from "./AddUserTeam";
 
 const CreateTeamForm = ({ id }) => {
+  //make a POST endpoint for the table teamMembers, this is gonna insert when the team are inserted too
+  //bring the AddUserTeam to this components cuz i dont know how to bring the options/values to this form team component
   const router = useRouter();
 
   const [teamName, setTeamName] = useState("");
@@ -23,7 +25,6 @@ const CreateTeamForm = ({ id }) => {
           teamName,
           teamDescription,
           teamAvatarURL,
-          teamMembers,
         };
         await fetch(`/api/team/${id}/update`, {
           method: "PUT",
@@ -82,7 +83,7 @@ const CreateTeamForm = ({ id }) => {
   return (
     <>
       <form onSubmit={create}>
-        <div className="mt-10 grid md:grid-cols-7 gap-x-6 gap-y-8 sm:grid-cols-1">
+        <div className="mt-10 grid md:grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div className="sm:col-span-4">
             <label
               htmlFor="teamName"
@@ -91,14 +92,14 @@ const CreateTeamForm = ({ id }) => {
               Team Name
             </label>
             <div className="mb-2">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md ">
                 <input
                   type="text"
                   name="teamName"
                   id="teamName"
                   autoComplete="team-name"
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamName}
                   required
@@ -122,7 +123,7 @@ const CreateTeamForm = ({ id }) => {
                   id="teamDescription"
                   autoComplete="team-description"
                   onChange={(e) => setTeamDescription(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamDescription}
                   required
@@ -146,7 +147,7 @@ const CreateTeamForm = ({ id }) => {
                   id="teamAvatarURL"
                   autoComplete="team-avatar-url"
                   onChange={(e) => setTeamAvatarURL(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field md:w-80 placeholder:opacity-60 placeholder:font-semibold w-full"
+                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field  placeholder:opacity-60 placeholder:font-semibold w-full"
                   defaultValue={""}
                   value={teamAvatarURL}
                   required
@@ -156,14 +157,14 @@ const CreateTeamForm = ({ id }) => {
           </div>
 
           <div className="sm:col-span-4">
-            <label
+          {id &&   <label
               htmlFor="teamMembers"
               className="block text-sm font-medium leading-6 text-white"
             >
               Team Member Names & Contact Info
-            </label>
+            </label>}
             <div className="mb-4">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+              {/* <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                 <textarea
                   id="teamMembers"
                   name="teamMembers"
@@ -174,8 +175,8 @@ const CreateTeamForm = ({ id }) => {
                   value={teamMembers}
                   required
                 />
-              </div>
-              {/*<AddUserTeam></AddUserTeam> */}
+              </div> */}
+              {id && <AddUserTeam></AddUserTeam>}
               <div className="mb-4 mt-6">
                 <ButtonPrimary buttonText={"Finish"} />
               </div>
