@@ -34,12 +34,13 @@ export default function TeamsPage() {
 
   return (
     <Layout>
-        <div>
+      <div>
         <div className="mx-auto px-6 lg:px-8">
           <div className="my-2">
             <h1 className="font-bold custom-text-shadow text-4xl">Teams</h1>
             <p className="text-gray-400 font-semibold text-lg ">
-              Create a team in order to compete in hackathons and also edit and add members to your team in order to participate.
+              Create a team in order to compete in hackathons and also edit and
+              add members to your team in order to participate.
             </p>
           </div>
 
@@ -55,13 +56,15 @@ export default function TeamsPage() {
               <HackathonCard
                 headerText={team.name}
                 descriptionText={team.description}
-                buttonLink={`/team/${team.id}`}
+                hackathonLink={`/team/${team.id}`}
+                buttonLink={`/team/${team.id}/members`}
+                buttonText={"Add to"}
               />
             ))}
           </div>
         </div>
       </div>
-     { !loading && !session && signIn()}
+      {!loading && !session && signIn()}
     </Layout>
   );
 }

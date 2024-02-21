@@ -156,10 +156,10 @@ const CreateTeamForm = ({ id }) => {
             </div>
           </div>
 
-          <div className="sm:col-span-4">
+          <div className="sm:col-span-6">
           {id &&   <label
               htmlFor="teamMembers"
-              className="block text-sm font-medium leading-6 text-white"
+              className="block text-sm font-medium leading-6 text-white w-full"
             >
               Team Member Names & Contact Info
             </label>}
@@ -176,7 +176,7 @@ const CreateTeamForm = ({ id }) => {
                   required
                 />
               </div> */}
-              {id && <AddUserTeam></AddUserTeam>}
+              {id && <AddUserTeam id={id}></AddUserTeam>}
               <div className="mb-4 mt-6">
                 <ButtonPrimary buttonText={"Finish"} />
               </div>

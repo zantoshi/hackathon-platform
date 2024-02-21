@@ -26,13 +26,15 @@
     "@tiptap/starter-kit": "^2.2.2",
     "framer-motion": "^10.16.16",
     "lucide-react": "^0.292.0",
-    "next": "^14.0.1",
+    "next": "^14.1.0",
     "next-auth": "^4.24.4",
     "next-auth-zbd-provider": "^0.3.8",
     "prisma": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-select": "^5.8.0"
+    "react-select": "^5.8.0",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@types/node": "^18.16.2",
