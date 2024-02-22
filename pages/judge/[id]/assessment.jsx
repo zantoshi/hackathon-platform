@@ -75,6 +75,18 @@ function assessment() {
             <p className="text-gray-400 font-semibold  text-lg ">
             Interested in helping us spreading innovation? Reach out.
           </p>
+          <table>
+            <thead>
+              <tr className=" max-[435px]:grid grid-cols-2">
+                <th>
+                <ButtonSecondary buttonText={"Back to Hackathon"} buttonLink={`/hackathons/${hackathon.id}/manage`} />
+                </th>
+                <th>
+                <ButtonSecondary buttonText={"Back to Project Details"} buttonLink={`/projects/${projects.id}`} />
+                </th>
+              </tr>
+            </thead>
+          </table>
      
         <CreateAssessForm hackathonId={hackathon.id} projectId={projects.id}></CreateAssessForm>
             </div>
