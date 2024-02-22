@@ -118,7 +118,7 @@ export default function TeamsPage() {
                   {myteams.map((myteam) => {
                     return (
                       <>
-                        {myteam.teamId === Alltm.id && (
+                        {myteam.teamId === Alltm.id && myteam.userId !==  Alltm.creatorId &&(
                           <HackathonCard
                             headerText={Alltm.name}
                             descriptionText={Alltm.description}
