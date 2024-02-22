@@ -211,7 +211,6 @@ model Judgeassessments {
   judge   Judge  @relation(fields: [judgeId], references: [id])
   judgeId String
 
-  @@unique([projectId])
 }
 
 model HackathonSponsors {

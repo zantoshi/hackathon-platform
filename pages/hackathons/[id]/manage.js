@@ -23,9 +23,25 @@ export default function ManageHackathon() {
   const [assess,setAssess] = useState([])
   const [sponsors,setSponsors] = useState([])
 
+  useEffect(() => {
+   
+    const savedTab = localStorage.getItem("selectedTab");
+    if (savedTab) {
+      setSelectedTab(savedTab);
+    }
+  }, []);
+
+  useEffect(() => {
+  
+    localStorage.setItem("selectedTab", selectedTab);
+  }, [selectedTab]);
+
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
+    
   };
+  
+  
 
   const handleChange = (search) => {
     setValue(search);
@@ -543,65 +559,65 @@ const judgeGetting = async ()=>{
     case "scores":
       content = (
         <div>
-          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {hackathon.title} Hackathon Information (Scores)
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-200 pt-5">
-           {
-            assess.map(score=>{
-              return(<>
-                {
-                  projects.map(project =>{
-                    return (<>
-                      {
-                       details.map(detail=>{
-                        return (<>
-                          {score.hackathonId === id && score.projectId == project.id  && detail.id ===  project.teamId && (
-                            <>
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Project Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Team Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Overall Score
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {project.name}
-                </th>
-                <td class="px-6 py-4">
-                  {detail.name}
-                </td>
-                <td class="px-6 py-4">
-                {score.overall_score}
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
-</div>
-                            </>
-                          )}
-                        </>)
-                       })
-                      }
-                    </>)
-                  })
-                }
-              </>)
-            })
-           }
-          </p>
+        </h2>
+        
+        <br></br>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="min-w-full  text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-3 py-3">
+                            Project Name
+                        </th>
+                        <th scope="col" class="px-3 py-3">
+                            Team Name
+                        </th>
+                        <th scope="col" class="px-3 py-3">
+                            Judge 
+                        </th>
+                        <th scope="col" class="px-3 py-3">
+                            Overall Score
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {assess.map(score => {
+                        const overall_score_rounded = parseFloat(score.overall_score).toFixed(2);
+                        return projects.map(project => {
+                            return judges.map(judge => {
+                                return details.map(detail => {
+                                    return (
+                                        score.hackathonId === id && 
+                                        score.projectId == project.id &&
+                                        detail.id === project.teamId && 
+                                        score.judgeId === judge.id && (
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {project.name}
+                                                </th>
+                                                <td class="px-3 py-4">
+                                                    {detail.name}
+                                                </td>
+                                                <td class="px-3 py-4">
+                                                    {judge.judgeGamertag}
+                                                </td>
+                                                <td class="px-3 py-4">
+                                                    {overall_score_rounded}
+                                                </td>
+                                            </tr>
+                                        )
+                                    );
+                                });
+                            });
+                        });
+                    })}
+                </tbody>
+            </table>
         </div>
+    </div>
+    
       );
       break;
     default:
@@ -620,7 +636,7 @@ const judgeGetting = async ()=>{
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
-        <div className="min-w-full w-auto md:pl-14 text-white px-5 h-screen ">
+        <div className="min-w-full w-auto md:pl-14 text-white px-5 h-lvh  ">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information
           </h2>

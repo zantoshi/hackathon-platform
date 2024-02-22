@@ -40,11 +40,15 @@ function Project() {
   return (
     <div className=''>
       <Layout>
+    
         {console.log(projects)}
         <>
+        
           {
             id && projects && (<div className='w-full md:pl-14 text-white px-5'>
-            <h1 className='text-3xl font-bold '>{projects.name}</h1>
+              <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${projects.hackathonId}/manage`} />
+               
+            <h1 className='text-3xl font-bold pt-4'>{projects.name}</h1>
             <br></br>
             <h1 className='text-2xl font-bold '>{projects.description}</h1>
             <br></br>

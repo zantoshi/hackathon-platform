@@ -68,7 +68,7 @@ const CreateHackathonForm = ({ id }) => {
           next: { revalidate: 10 },
         });
 
-        router.push("/hackathons");
+        router.push("/hackathons/");
       }
     } catch (error) {
       console.error(error);
@@ -119,7 +119,7 @@ const CreateHackathonForm = ({ id }) => {
     <form onSubmit={create}>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ButtonSecondary buttonText={"Back"} buttonLink={"/hackathons"} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/manage`} />
           {!id ? (
             <PageHeader
               headerText={"Create a Hackathon"}

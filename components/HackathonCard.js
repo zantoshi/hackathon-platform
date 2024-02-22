@@ -3,7 +3,7 @@ import ButtonSecondary from "@/components/ButtonSecondary";
 
 const HackathonCard = ({ headerText, descriptionText, buttonLink = "#" ,buttonText,hackathonLink}) => {
   return (
-    <div className="w-full mt-4 md:w-60 h-100 rounded-md border-solid border-2 border-purple-600 flex flex-col text-left overflow-hidden transition duration-300 ease-out shadow-2xl hover:shadow-3xl hover:bg-black">
+    <div className="w-full mt-4 rounded-md border-solid border-2 border-purple-600 flex flex-col text-left overflow-hidden transition duration-300 ease-out shadow-2xl hover:shadow-3xl hover:bg-black">
       <img
         className="w-full h-24 object-cover object-center border-solid border-b-2 border-purple-500"
         src="/hackathon-card.svg"
