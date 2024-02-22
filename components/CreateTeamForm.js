@@ -39,10 +39,22 @@ const CreateTeamForm = ({ id }) => {
           teamAvatarURL,
           teamMembers,
         };
-        await fetch(`/api/team/create`, {
+        const response = await fetch(`/api/team/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
+        });
+        const data = await response.json();
+        const leader = {
+          teamId: data.id,
+          userId: data.creatorId,
+        };
+        await fetch(`/api/members/addMember`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(leader),
+          next: { revalidate: 1 },
+          cache: "no-store",
         });
         router.push("/team");
       }

@@ -11,7 +11,7 @@ function Index() {
   const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
   const [members, setMembers] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     if (router.isReady) {
@@ -88,7 +88,7 @@ function Index() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/users/users`, {
+        const response = await fetch(`/api/users`, {
           cache: "no-store",
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -177,18 +177,20 @@ function Index() {
             </div>
           </div>
         </div>
-        {user.map((myuser) => {
-          return (
-            <>
-              { team && team.creatorId === myuser.id  && (
-                <ButtonSecondary
+                {console.log(user)}
+          {
+            user && (   <React.Fragment key={user.id}>
+               
+              {user.id === team.creatorId  && (
+                <>
+               <ButtonSecondary
                   buttonText={"Edit"}
                   buttonLink={`/team/${id}/edit`}
                 />
+                </>
               )}
-            </>
-          );
-        })}
+            </React.Fragment>)
+          }
       </Layout>
     </>
   );
