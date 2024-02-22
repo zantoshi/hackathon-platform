@@ -11,6 +11,7 @@ function Index() {
   const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
   const [members, setMembers] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -84,6 +85,31 @@ function Index() {
     fetchJudgeUser();
   }, []);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`/api/users/users`, {
+          cache: "no-store",
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          next: { revalidate: 1 },
+        });
+
+        if (response) {
+          const data = await response.json();
+          setUser(data);
+        } else {
+          console.error(
+            "this is Error for fetching users:",
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("this is Error for fetching users:", error);
+      }
+    };
+    fetchUser();
+  }, []);
   return (
     <>
       <Layout>
@@ -119,29 +145,31 @@ function Index() {
             <div className="px-5 py-2">
               <h2 className="font-semibold  text-lg ">Team Members</h2>
               {members ? (
-               <div className="text-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
-               {members.map((member) => {
-                 const user = users.find((user) => user.id === member.userId);
-                 return (
-                   <React.Fragment key={user.id}>
-                     {user && (
-                       <div className="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-                         <img
-                           className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
-                           src={user.image}
-                         />
-                         <div className="text-center space-y-2 sm:text-left">
-                           <div className="space-y-0.5 flex-cols items-center">
-                             <p className="text-xl text-white font-semibold">
-                               {user.gamertag}
-                             </p>
-                           </div>
-                         </div>
-                       </div>
-                     )}
-                   </React.Fragment>
-                 );
-               })}
+                <div className="text-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
+                  {members.map((member) => {
+                    const user = users.find(
+                      (user) => user.id === member.userId
+                    );
+                    return (
+                      <React.Fragment key={user.id}>
+                        {user && (
+                          <div className="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+                            <img
+                              className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                              src={user.image}
+                            />
+                            <div className="text-center space-y-2 sm:text-left">
+                              <div className="space-y-0.5 flex-cols items-center">
+                                <p className="text-xl text-white font-semibold">
+                                  {user.gamertag}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </div>
               ) : (
                 <div></div>
@@ -149,7 +177,18 @@ function Index() {
             </div>
           </div>
         </div>
-        <ButtonSecondary buttonText={"Edit"} buttonLink={`/team/${id}/edit`} />
+        {user.map((myuser) => {
+          return (
+            <>
+              { team && team.creatorId === myuser.id  && (
+                <ButtonSecondary
+                  buttonText={"Edit"}
+                  buttonLink={`/team/${id}/edit`}
+                />
+              )}
+            </>
+          );
+        })}
       </Layout>
     </>
   );

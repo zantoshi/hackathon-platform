@@ -28,7 +28,7 @@ function members() {
             </p>
           </div>
         </div>
-        <div className="flex  items-center justify-center mb-4">
+        <div className="flex items-center justify-center mb-4">
           <AddUserTeam id={id}></AddUserTeam>
         </div>
 

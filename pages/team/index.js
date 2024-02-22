@@ -7,8 +7,32 @@ import HackathonCard from "@/components/HackathonCard";
 import { useRouter } from "next/navigation";
 export default function TeamsPage() {
   const [teams, setTeams] = useState([]);
+  const [myteams, setMyTeams] = useState([]);
+  const [allteams, setAllTeams] = useState([]);
   const { data: session, status } = useSession();
   const loading = status === "loading";
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teams = await fetch(`/api/team/teams`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (teams.ok) {
+          const teamsData = await teams.json();
+          setAllTeams(teamsData);
+        } else {
+          console.error("Error fetching teams:", teams.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams(); // Call the fetchTeams function
+  }, []);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -32,8 +56,31 @@ export default function TeamsPage() {
     fetchTeams(); // Call the fetchTeams function
   }, []); // Empty dependency array to ensure the effect runs only once on mount
 
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teams = await fetch(`/api/team/teamsUser/`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (teams.ok) {
+          const teamsData = await teams.json();
+          setMyTeams(teamsData);
+        } else {
+          console.error("Error fetching teams:", teams.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams(); // Call the fetchTeams function
+  }, []); //
+
   return (
     <Layout>
+      {console.log("")}
       <div>
         <div className="mx-auto px-6 lg:px-8">
           <div className="my-2">
@@ -52,15 +99,38 @@ export default function TeamsPage() {
           </div>
 
           <div className=" grid grid-cols-1 md:grid-cols-3 gap-8 h-full">
-            {teams.map((team) => (
-              <HackathonCard
-                headerText={team.name}
-                descriptionText={team.description}
-                hackathonLink={`/team/${team.id}`}
-                buttonLink={`/team/${team.id}/members`}
-                buttonText={"Add to"}
-              />
-            ))}
+            {teams.map((team) => {
+              return (
+                <>
+                  <HackathonCard
+                    headerText={team.name}
+                    descriptionText={team.description}
+                    hackathonLink={`/team/${team.id}`}
+                    buttonLink={`/team/${team.id}/members`}
+                    buttonText={"Add to"}
+                  />
+                </>
+              );
+            })}
+            {allteams.map((Alltm) => {
+              return (
+                <>
+                  {myteams.map((myteam) => {
+                    return (
+                      <>
+                        {myteam.teamId === Alltm.id && (
+                          <HackathonCard
+                            headerText={Alltm.name}
+                            descriptionText={Alltm.description}
+                            buttonLink={`/team/${Alltm.id}`}
+                          />
+                        )}
+                      </>
+                    );
+                  })}
+                </>
+              );
+            })}
           </div>
         </div>
       </div>

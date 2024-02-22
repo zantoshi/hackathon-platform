@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import RequestTeam from "./RequestTeam";
 
 function NotificationBell() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ function NotificationBell() {
           </div>
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
             {/* Aquí van tus elementos de notificación */}
-            hola
+            <RequestTeam></RequestTeam>
           </div>
           <a
             href="#"

@@ -82,7 +82,7 @@ const CreateTeamForm = ({ id }) => {
 
   return (
     <>
-      <form onSubmit={create}>
+      <form onSubmit={create} className="">
         <div className="mt-10 grid md:grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div className="sm:col-span-4">
             <label
@@ -157,12 +157,14 @@ const CreateTeamForm = ({ id }) => {
           </div>
 
           <div className="sm:col-span-6">
-          {id &&   <label
-              htmlFor="teamMembers"
-              className="block text-sm font-medium leading-6 text-white w-full"
-            >
-              Team Member Names & Contact Info
-            </label>}
+            {id && (
+              <label
+                htmlFor="teamMembers"
+                className="block text-sm font-medium leading-6 text-white w-full"
+              >
+                Team Member Names & Contact Info
+              </label>
+            )}
             <div className="mb-4">
               {/* <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                 <textarea
@@ -176,7 +178,7 @@ const CreateTeamForm = ({ id }) => {
                   required
                 />
               </div> */}
-              {id && <AddUserTeam id={id}></AddUserTeam>}
+              {id && <AddUserTeam id={id} editPage={true}></AddUserTeam>}
               <div className="mb-4 mt-6">
                 <ButtonPrimary buttonText={"Finish"} />
               </div>
