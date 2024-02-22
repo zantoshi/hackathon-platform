@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import ButtonPrimary from "./ButtonPrimary";
+import ButtonSecondary from "./ButtonSecondary";
 import PageHeader from "@/components/PageHeader";
 
 const SponsorSubmissionForm = ({sponsorid,id}) => {
@@ -27,7 +28,7 @@ const SponsorSubmissionForm = ({sponsorid,id}) => {
           body: JSON.stringify(body),
         });
   
-        router.push(`/hackathons/${id}/manage`);
+        router.push(`/hackathons/${id}/manage#sponsor`);
       }else{
         const body = {
           sponsorName,
@@ -41,7 +42,7 @@ const SponsorSubmissionForm = ({sponsorid,id}) => {
           body: JSON.stringify(body),
         });
   
-        router.push(`/hackathons/${id}/manage`);
+        router.push(`/hackathons/${id}/manage#sponsor`);
       }
     } catch (error) {
       console.error(error);
@@ -100,10 +101,11 @@ const SponsorSubmissionForm = ({sponsorid,id}) => {
   
     <form onSubmit={create}>
       {console.log(sponsorName)}
+      <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/manage`} />
       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
       <PageHeader
             headerText={"Add Sponsor"}
-            descriptionText={"Wohooo! LFG and create a hackathon."}
+            descriptionText={"Add a new sponsor to this hackathon."}
           />
         <div className="sm:col-span-4">
           <label

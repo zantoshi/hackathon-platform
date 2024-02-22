@@ -53,7 +53,7 @@ function CreateAssessForm({ hackathonId, projectId }) {
           }),
         });
         console.log(response);
-        router.push("/");
+        router.push(`/hackathons/${hackathonId}/manage`);
       }
     } catch (error) {
       console.error(error);
