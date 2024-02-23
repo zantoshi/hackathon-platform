@@ -177,9 +177,8 @@ function Index() {
             </div>
           </div>
         </div>
-                {console.log(user)}
-          {
-            user && (   <React.Fragment key={user.id}>
+              {
+            user && ( <React.Fragment >
                
               {user.id === team.creatorId  && (
                 <>
