@@ -7,6 +7,7 @@ import { X, Menu } from "lucide-react";
 import { motion, stagger, AnimatePresence } from "framer-motion";
 import userIcon from "../public/user-filled.svg";
 import { fetchingData } from "../util/fetchingData.js";
+import NotificationBell from "./NotificationBell";
 
 export default function Header() {
   const [click, setClick] = useState(false);
@@ -130,6 +131,7 @@ export default function Header() {
             )}
             {!loading && session?.user && (
               <div className="flex flex-row">
+                <NotificationBell ></NotificationBell>
                 <span>
                   <Link href="/user">
                     {session.user.image !== null ? (
@@ -161,6 +163,7 @@ export default function Header() {
                     </div>
                   )}
                 </span>
+                
               </div>
             )}
           </div>
@@ -299,6 +302,7 @@ export default function Header() {
                                 </div>
                               )}
                             </span>
+                                <NotificationBell ></NotificationBell>
                           </div>
                         )}
                       </div>

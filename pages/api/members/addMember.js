@@ -5,26 +5,17 @@ import { getServerSession } from "next-auth";
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const { teamId, teamName, userReceiver } = req.body;
 
     if (!session) {
       return res.status(401).json({ error: "Unauthorized" });
     }
+    const { teamId, userId } = req.body;
 
-    const user = await prisma.user.findMany({
-      where: {
-        email: session.user.email,
-      },
-    });
 
-    const result = await prisma.teamRequest.create({
+    const result = await prisma.teamMembers.create({
       data: {
         teamId,
-        teamName,
-        userSender: user[0].id,
-        userSenderName: user[0].gamertag,
-        userReceiver,
-        state:true
+        userId
       },
     });
     res.json(result);
