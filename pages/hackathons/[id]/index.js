@@ -323,6 +323,85 @@ export default function HackathonDetail() {
             </ul>
           </div>
           <div className="mt-24">
+            <SectionHeader headerText={"Teams"} />
+            {registration.length ? (
+              <>
+                <SectionHeader
+                  descriptionText={
+                    "Teams and their projects already registered for this hackathon  "
+                  }
+                />
+                <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                  {registration.map((registration) => {
+                    return (
+                      <>
+                        <div class="">
+                          <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-5 flex flex-col justify-center items-center text-center">
+                            <div key={registration.id}>
+                              {details.map((detail) => {
+                                return (
+                                  <>
+                                    {registration.teamId === detail.id && (
+                                      <div key={detail.id}>
+                                        <p class="text-base text-gray-400 font-normal">
+                                          {detail.name}
+                                        </p>
+                                        <br></br>
+                                        <div class="mb-8">
+                                          <img
+                                            class="object-center object-cover rounded-full h-32 w-32"
+                                            src={detail.teamAvatar}
+                                            alt="photo"
+                                          ></img>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })}
+                            </div>
+
+                            <div class="text-center">
+                              <p class="text-xl text-white font-bold mb-2">
+                                {" "}
+                                
+                              </p>
+                              <p class="text-base text-gray-400 font-normal">
+                                
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              <div class="p-4 mb-4 text-white border border-purple-800 rounded-lg bg-gray-900">
+                <div class="flex items-center">
+                  <svg
+                    class="flex-shrink-0 w-4 h-4 me-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  <h3 class="text-lg font-medium">
+                    No teams registered yet
+                  </h3>
+                </div>
+                <div class="mt-2 mb-4 text-sm">
+                  There are no teams registered yet for this Hackathon. Be
+                  the first to register your team now!
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="mt-24">
             <SectionHeader headerText={"Contestants"} />
             {projects.length ? (
               <>
@@ -391,12 +470,12 @@ export default function HackathonDetail() {
                   </svg>
                   <span class="sr-only">Info</span>
                   <h3 class="text-lg font-medium">
-                    No projects or teams registered
+                    No projects registered yet
                   </h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
                   There are no projects registered yet for this Hackathon. Be
-                  the first to register your project now!
+                  the first to submit your project now!
                 </div>
               </div>
             )}
@@ -493,12 +572,11 @@ export default function HackathonDetail() {
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                   </svg>
                   <span class="sr-only">Info</span>
-                  <h3 class="text-lg font-medium">No judges assigned yet</h3>
+                  <h3 class="text-lg font-medium">No sponsors assigned yet</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                  There are no judges registered for this Hackathon. Make sure
-                  to check once in a while to see who is going to evaluate your
-                  project
+                  There are no sponsors assigned for this Hackathon yet. Make sure
+                  to check once in a while to see who is going to sponsor this wonderful competition
                 </div>
               </div>
             )}

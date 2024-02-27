@@ -9,6 +9,7 @@ import Select from "react-select";
 export default function ManageHackathon() {
   const [hackathon, setHackathon] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [registration, setRegistration] = useState([]);
   const [details, setDetails] = useState([]);
   const [projects, setProject] = useState([]);
   const [selectedTab, setSelectedTab] = useState("");
@@ -100,6 +101,33 @@ export default function ManageHackathon() {
 
     fetchUsers();
   }, []);
+
+
+  useEffect(() => {
+    const fetchRegistrationHackathon = async () => {
+      try {
+        if (id) {
+          const registration = await fetch(`/api/hackathonRegister/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          if (registration.ok) {
+            const registrationData = await registration.json();
+            setRegistration(registrationData);
+          } else {
+            console.error(
+              "Error fetching Registration Hackthon:",
+              registration.statusText
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching the data:", error);
+      }
+    };
+    fetchRegistrationHackathon();
+  }, [id]);
+
 
   useEffect(() => {
     const fetchJudgeUser = async () => {
@@ -417,11 +445,88 @@ const judgeGetting = async ()=>{
         </div>
       );
       break;
-    case "teams":
+      case "teams":
       content = (
         <div>
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information (Teams)
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-200">
+            Manage the Hackathon - Teams
+          </p>
+          <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            {registration.map((registration) => {
+              return (
+                <>
+                  <div class="">
+                    <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-5 flex flex-col justify-center items-center text-center">
+                      <div key={registration.id}>
+                        {details.map((detail) => {
+                          return (
+                            <>
+                              {registration.teamId === detail.id && (
+                                <div key={detail.id}>
+                                  <p class="text-base text-gray-400 font-normal">
+                                    {detail.name}
+                                  </p>
+                                  <br></br>
+                                  <div class="mb-8">
+                                    <img
+                                      class="object-center object-cover rounded-full h-32 w-32"
+                                      src={detail.teamAvatar}
+                                      alt="photo"
+                                    ></img>
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          );
+                        })}
+                      </div>
+
+                      <div class="text-center">
+                        <p class="text-xl text-white font-bold mb-2">
+                          {" "}
+                         
+                        </p>
+                        <p class="text-base text-gray-400 font-normal">
+                         
+                        </p>
+                      </div>
+                      <br></br>
+                        <div className="space-x-5"> 
+                        <button
+                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          handleClickProject(project.id);
+                        }}
+                      >
+                        Remove
+                      </button>
+                      <button
+                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          router.push(`/projects/${project.id}`)
+                        }}
+                      >
+                        Details
+                      </button>
+                          </div>
+
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        </div>
+      );
+      break;
+    case "projects":
+      content = (
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+            {hackathon.title} Hackathon Information (Projects)
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-200">
             Manage the Hackathon - Teams
@@ -583,17 +688,25 @@ const judgeGetting = async ()=>{
                     </tr>
                 </thead>
                 <tbody>
+                  
                     {assess.map(score => {
                         const overall_score_rounded = parseFloat(score.overall_score).toFixed(2);
+
+                      
                         return projects.map(project => {
+                        
                             return judges.map(judge => {
+                              
                                 return details.map(detail => {
+                              
                                     return (
                                         score.hackathonId === id && 
                                         score.projectId == project.id &&
                                         detail.id === project.teamId && 
-                                        score.judgeId === judge.id && (
+                                        judge.id  === score.judgeId && 
+                                        (
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                  {console.log(judge)}
                                                 <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {project.name}
                                                 </th>
@@ -664,6 +777,12 @@ const judgeGetting = async ()=>{
                   <ButtonSecondary
                     functionCall={() => handleTabClick("teams")}
                     buttonText="Teams"
+                  ></ButtonSecondary>
+                </th>
+                <th>
+                  <ButtonSecondary
+                    functionCall={() => handleTabClick("projects")}
+                    buttonText="Projects"
                   ></ButtonSecondary>
                 </th>
                 <th>

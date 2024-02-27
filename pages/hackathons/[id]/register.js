@@ -43,7 +43,7 @@ export default function HackathonRegistration() {
     <Layout>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ButtonSecondary buttonText={"Back"} buttonLink={"/"} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/`} />
           <PageHeader
             headerText={`Confirm Registration for ${hackathon.title} Hackathon `}
             descriptionText={"Fill out the form to complete your registration."}
