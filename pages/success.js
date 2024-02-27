@@ -22,7 +22,7 @@ export default function HackathonList() {
                 "You've succesfully signed-up for the hackathon."
               }
             />
-            <ButtonSecondary buttonText={"Finish"} buttonLink={"/"} />
+            <ButtonSecondary buttonText={"Finish"} buttonLink={"/hackathons"} />
           </div>
         </div>
       </div>
