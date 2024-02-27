@@ -29,8 +29,6 @@ function Index() {
           });
           const data = await response.json();
           setMembers(data);
-        } else {
-          console.log(`there's no id for team ${id} `);
         }
       } catch (error) {
         console.log(error);
@@ -114,7 +112,7 @@ function Index() {
     <>
       <Layout>
         <div className="w-full md:pl-14 text-white px-5">
-          <ButtonSecondary buttonText={"Back"} buttonLink={"/"} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
           <div className="mb-2 mt-5">
             <div className="px-5 mb-3">
               {team.teamAvatar && team && team.teamAvatar === "" ? (
@@ -151,7 +149,7 @@ function Index() {
                       (user) => user.id === member.userId
                     );
                     return (
-                      <React.Fragment key={user.id}>
+                      <React.Fragment >
                         {user && (
                           <div className="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
                             <img

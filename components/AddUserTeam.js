@@ -85,9 +85,7 @@ function AddUserTeam({ id, editPage }) {
           });
           const data = await response.json();
           setMembers(data);
-        } else {
-          console.log(`there's no id for team ${id} `);
-        }
+        } 
       } catch (error) {
         console.log(error);
       }

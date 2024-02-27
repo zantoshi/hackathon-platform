@@ -99,6 +99,9 @@ function RequestTeam() {
               return (
                 <>
                   <div class="w-full ps-3 p-2">
+                    <div className="font-semibold text-center">
+                      This team has sent you a request
+                    </div>
                     <div className="flex justify-between">
                       <div>
                         <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">

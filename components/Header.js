@@ -13,6 +13,59 @@ export default function Header() {
   const [click, setClick] = useState(false);
   const [gradient, setGradient] = useState("");
   const [judge, setJudge] = useState([]);
+  const [user, setUser] = useState();
+  const [request, setRequest] = useState([]);
+
+  const getUser = async () => {
+    try {
+      const response = await fetch(`/api/users`, {
+        cache: "no-store",
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        next: { revalidate: 10 },
+      });
+
+      if (response) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.error("this is Error for fetching users:", response.statusText);
+      }
+    } catch (error) {
+      console.error("this is Error for fetching users:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      getUser();
+    };
+    fetchUser();
+  }, []);
+
+  const getRequest = async () => {
+    try {
+      if (user) {
+        const response = await fetch(`/api/request/${user.id}/userRequest`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          next: { revalidate: 10 },
+          cache: "no-store",
+        });
+        const data = await response.json();
+        setRequest(data);
+      }
+    } catch (error) {
+      console.error("Error fetching team data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      getRequest();
+    };
+    fetchRequests();
+  }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,7 +184,7 @@ export default function Header() {
             )}
             {!loading && session?.user && (
               <div className="flex flex-row">
-                <NotificationBell ></NotificationBell>
+                <NotificationBell point={request}></NotificationBell>
                 <span>
                   <Link href="/user">
                     {session.user.image !== null ? (
@@ -163,7 +216,6 @@ export default function Header() {
                     </div>
                   )}
                 </span>
-                
               </div>
             )}
           </div>
@@ -302,7 +354,7 @@ export default function Header() {
                                 </div>
                               )}
                             </span>
-                                <NotificationBell ></NotificationBell>
+                            <NotificationBell point={request}></NotificationBell>
                           </div>
                         )}
                       </div>
