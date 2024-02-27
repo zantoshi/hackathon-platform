@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
+import ButtonSecondary from "@/components/ButtonSecondary";
 import { useRouter } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import { ArrowRight } from "lucide-react";
-import ButtonSecondary from "@/components/ButtonSecondary";
 import { useEffect } from "react";
 import TipTap from "../components/TipTap";
 
@@ -119,7 +118,7 @@ const CreateHackathonForm = ({ id }) => {
     <form onSubmit={create}>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/manage`} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/`} />
           {!id ? (
             <PageHeader
               headerText={"Create a Hackathon"}
@@ -416,18 +415,7 @@ const CreateHackathonForm = ({ id }) => {
               </div>
               <div className="mb-4 mt-6">
                 <div>
-                  <button className="w-15 md:w-30 bg-lime-400 hover:bg-lime-600 text-white border-solid border-2 border-black font-bold py-2 px-6 rounded-full">
-                    <div className="flex justify-between align-middle">
-                      <span className="mr-2 text-black xl:text-lg lg:text-lg md:text-lg sm:text-sm xs:text-xs ">
-                        Finish
-                      </span>
-                      <ArrowRight
-                        color="black"
-                        size={28}
-                        className="hidden sm:inline-block border-solid border-2 border-black bg-white hover:bg-gray-300 rounded-full"
-                      />
-                    </div>
-                  </button>
+                  <ButtonSecondary buttonText={"Finish"} functionCall={create}></ButtonSecondary>
                 </div>
               </div>
             </div>
