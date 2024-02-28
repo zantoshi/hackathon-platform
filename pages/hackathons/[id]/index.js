@@ -7,6 +7,7 @@ import bitblockboom from "@/data/content/bitBlockBoom.json";
 import sponsors from "@/data/content/sponsors.json";
 import Sponsors from "@/components/Sponsors";
 import { Check } from "lucide-react";
+import { Dot } from 'lucide-react';
 import PrizePool from "@/components/PrizePool";
 import ButtonPrimary from "@/components/ButtonPrimary";
 import ButtonSecondary from "@/components/ButtonSecondary";
@@ -29,6 +30,7 @@ export default function HackathonDetail() {
   const [judges, setJudges] = useState([]);
   const [sponsors, setSponsors] = useState([]);
   const [benefits, setBenefits] = useState([]);
+  const [judgeCriteria, setjudgeCriteria] = useState([]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -101,6 +103,7 @@ export default function HackathonDetail() {
             ]);
             setRuleList(response.rules);
             setBenefits(response.benefits);
+            setjudgeCriteria(response.judgingCriteria);
           } else {
             console.error(
               "Error fetching Registration Hackthon:",
@@ -241,7 +244,6 @@ export default function HackathonDetail() {
                 </p>
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
-                  
                   {!signedUp || !submit ? (
                     <ButtonPrimary
                       buttonText={"Register"}
@@ -279,23 +281,20 @@ export default function HackathonDetail() {
                   <dt className=" font-semibold">
                     <ul className="flex flex-col ">
                       {typeof benefits === "string" &&
-                        benefits.split("</p><p>").map((benefit) => {
-                          return (
-                            <>
-                              <li
-                                key={benefit}
-                                className="relative flex items-center"
-                              >
-                                <span className="absolute left-0 top-0">
-                                  <Check className="h-5 w-5 text-green-400" />
-                                </span>
-                                <space className="ml-6">
-                                  {benefit.replace(/<p>|<\/p>/g, "")}
-                                </space>
-                              </li>
-                            </>
-                          );
-                        })}
+                        benefits.split("</p><p>").map((benefit, index) => (
+                          <li
+                            key={index}
+                            className="relative flex items-center"
+                          >
+                            <span className="absolute left-0 top-0">
+                              <Check className="h-5 w-5 text-green-400" />
+                            </span>
+                            <span
+                              className="ml-6"
+                              dangerouslySetInnerHTML={{ __html: benefit }}
+                            />
+                          </li>
+                        ))}
                     </ul>
                   </dt>
                 </div>
@@ -305,9 +304,12 @@ export default function HackathonDetail() {
           <div className="my-24">
             <SectionHeader headerText={"Rules"} descriptionText={""} />
             <ul className="text-xl list-disc ml-6">
-              {ruleList.split("</p><p>").map((rule) => {
-                return <li>{rule.replace(/<p>|<\/p>/g, "")}</li>;
-              })}
+              {typeof ruleList === "string" &&
+                ruleList.split("</p><p>").map((rule, index) => (
+                  <li key={index}>
+                    <span dangerouslySetInnerHTML={{ __html: rule }} />
+                  </li>
+                ))}
             </ul>
           </div>
           <PrizePool data={prices} />
@@ -318,8 +320,13 @@ export default function HackathonDetail() {
                 "The judges will evaluate your project submission using the following criteria."
               }
             />
-            <ul className="text-xl list-disc ml-6">
-              <li>{hackathon.judgingCriteria}</li>
+            <ul className="text-xl  list-disc ml-6">
+              {typeof judgeCriteria === "string" &&
+                judgeCriteria.split("</p><p>").map((criteria, index) => (
+                  <li key={index}>
+                    <span dangerouslySetInnerHTML={{ __html: criteria }} />
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="mt-24">

@@ -1,18 +1,13 @@
-// En TipTap.js
-
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import BulletList from "@tiptap/extension-bullet-list";
 import Document from "@tiptap/extension-document";
-import ListItem from "@tiptap/extension-list-item";
-import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import React from "react";
 
 const TipTap = ({ onDataChange, rules }) => {
   const editor = useEditor({
     content: rules,
-    extensions: [Document, Paragraph, Text, BulletList, ListItem, StarterKit],
+    extensions: [Document, Text, StarterKit],
     editorProps: {
       attributes: {
         class:
@@ -20,10 +15,9 @@ const TipTap = ({ onDataChange, rules }) => {
       },
     },
     onUpdate: ({ editor }) => {
-      const rules = editor.getHTML(); 
-      onDataChange(rules); 
+      const rules = editor.getHTML();
+      onDataChange(rules);
     },
-    
   });
 
   if (!editor) {
@@ -32,7 +26,7 @@ const TipTap = ({ onDataChange, rules }) => {
 
   return (
     <>
-       <EditorContent editor={editor} />
+      <EditorContent editor={editor} />
     </>
   );
 };

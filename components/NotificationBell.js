@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RequestTeam from "./RequestTeam";
 
-function NotificationBell() {
+function NotificationBell({point}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -27,31 +27,28 @@ function NotificationBell() {
         </svg>
 
         {/*Este la advertencia cuando el punto esta  */}
-        {/* <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5 dark:border-gray-900"></div> */}
+      {point.length && (  <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5 dark:border-gray-900"></div> )}
       </button>
 
       {isOpen && (
         <div
           id="dropdownNotification"
-          className="z-20 w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700 absolute right-0 mt-1 md:mx-5"
+          className="z-20 w-full max-w-sm divide-y bg-gray-950 divide-purple-400/[.20] border-2 border-solid border-purple-400/[.20] rounded-lg shadow  absolute right-0 mt-1 md:mx-5"
           aria-labelledby="dropdownNotificationButton"
         >
-          <div className="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+          <div className="block px-4 py-2 font-medium text-center  rounded-t-lg  ark:text-white text-white">
             Notifications
           </div>
-          <div className="divide-y divide-gray-100 dark:divide-gray-700">
+          <div className="divide-y divide-purple-400/[.20] ">
             {/* Aquí van tus elementos de notificación */}
             <RequestTeam></RequestTeam>
           </div>
-          <a
+          <div
             href="#"
-            className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+            className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-5 dark:text-white"
           >
-            <div className="inline-flex items-center ">
-             
-             
-            </div>
-          </a>
+            <div className="inline-flex items-center "></div>
+          </div>
         </div>
       )}
     </div>

@@ -22,7 +22,7 @@ function edit() {
     <Layout>
       <div className="">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
+          <ButtonSecondary buttonText={"Back"} buttonLink={`/team/${id}`} />
           <PageHeader
             headerText={"Teams"}
             descriptionText={"Edit some features of the team and get ready to compete."}

@@ -99,7 +99,10 @@ function RequestTeam() {
               return (
                 <>
                   <div class="w-full ps-3 p-2">
-                    <div className="flex justify-between">
+                    <div className="font-semibold text-center">
+                      This team has sent you a request
+                    </div>
+                    <div className="flex justify-between mt-2">
                       <div>
                         <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                           <span class="font-semibold text-gray-900 dark:text-white">
@@ -112,6 +115,7 @@ function RequestTeam() {
                       </div>
                       <div className="px-5 space-x-4">
                         <button
+                          className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
                           onClick={() => {
                             AddUserTeam(rq.teamId, rq.userReceiver, rq.id);
                           }}
@@ -119,7 +123,7 @@ function RequestTeam() {
                           Accept
                         </button>
                         <button
-                          className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                          className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                           onClick={() => {
                             deleteRequest(rq.id);
                           }}

@@ -277,7 +277,7 @@ const CreateHackathonForm = ({ id }) => {
                 </div>
               </div>
             )}
-
+            {/* 
             <div className="sm:col-span-4">
               <label
                 htmlFor="judgingCriteria"
@@ -299,7 +299,44 @@ const CreateHackathonForm = ({ id }) => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
+
+            {tiptap === null ||
+              (tiptap === undefined && (
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="rules"
+                    className="block text-sm font-medium leading-6"
+                  >
+                    Judging Criteria (To add a new rule, insert a line break in
+                    this input.)
+                  </label>
+                  <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    <TipTap
+                      onDataChange={setJudgingCriteria}
+                      rules={judgingCriteria}
+                    />
+                  </div>
+                </div>
+              ))}
+
+            {tiptap !== null && tiptap !== undefined && (
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="rules"
+                  className="block text-sm font-medium leading-6"
+                >
+                  Judging Criteria (To add a new rule, insert a line break in
+                  this input.)
+                </label>
+                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <TipTap
+                    onDataChange={setJudgingCriteria}
+                    rules={judgingCriteria}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="sm:col-span-4">
               <label
