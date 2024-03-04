@@ -177,7 +177,7 @@ function AddUserTeam({ id, editPage }) {
               type="text"
               className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600  "
               id="exampleFormControlInput3"
-              placeholder="Type the gamertag of the user to make him judge"
+              placeholder="Type the gamertag of the user you want to invite your team"
               options={options}
               defaultValue={search}
               onChange={handleChange}
@@ -194,7 +194,7 @@ function AddUserTeam({ id, editPage }) {
               type="text"
               className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600  "
               id="exampleFormControlInput3"
-              placeholder="Type the gamertag of the user to make him judge"
+              placeholder="Type the gamertag of the user you want to invite your team"
               options={options}
               defaultValue={search}
               onChange={handleChange}
@@ -211,8 +211,9 @@ function AddUserTeam({ id, editPage }) {
         {members.map((member) => {
           const user = users.find((user) => user.id === member.userId);
           return (
-            <React.Fragment key={user.id}>
+           <>
               {user && (
+                <React.Fragment key={user.id}>
                 <div className="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
                   <img
                     className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
@@ -239,15 +240,17 @@ function AddUserTeam({ id, editPage }) {
                     </div>
                   </div>
                 </div>
+                </React.Fragment>
               )}
-            </React.Fragment>
+            </>
           );
         })}
         {requests.map((request) => {
           const user = users.find((user) => user.id === request.userReceiver);
           return (
-            <React.Fragment key={request.id}>
+            <>
               {user && (
+                <React.Fragment key={request.id}>
                 <div className="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
                   <img
                     className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
@@ -275,8 +278,9 @@ function AddUserTeam({ id, editPage }) {
                     </div>
                   </div>
                 </div>
+                </React.Fragment>
               )}
-            </React.Fragment>
+            </>
           );
         })}
       </div>
