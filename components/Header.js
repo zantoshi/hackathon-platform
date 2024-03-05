@@ -14,7 +14,11 @@ export default function Header() {
   const [gradient, setGradient] = useState("");
   const [judge, setJudge] = useState([]);
   const [user, setUser] = useState();
+  const [userImage, setImage] = useState();
   const [request, setRequest] = useState([]);
+
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   const getUser = async () => {
     try {
@@ -28,6 +32,7 @@ export default function Header() {
       if (response) {
         const data = await response.json();
         setUser(data);
+        setImage(data.image);
       } else {
         console.error("this is Error for fetching users:", response.statusText);
       }
@@ -79,6 +84,30 @@ export default function Header() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const UpdateImage = async () => {
+      try {
+        if (userImage === null ) {
+          const body = {
+            image:
+              "/user-filled.svg",
+          };
+          const response = await fetch("/api/users/addUserImage", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          console.log(response)
+          const data = await response.json()
+          
+        }
+      } catch (error) {
+        console.error("Error updateing user table for image field ");
+      }
+    };
+    UpdateImage();
+  }, [userImage]);
+
   const toggleNavbar = () => {
     setClick(!click);
     if (!click) {
@@ -102,9 +131,6 @@ export default function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
 
   const signInHandler = (e) => {
     e.preventDefault();
@@ -329,7 +355,7 @@ export default function Header() {
                                   <Image
                                     src={session.user.image}
                                     alt="User Profile Image"
-                                    className="h-12 w-12 rounded-full mr-2 inline-block"
+                                    className="h-12 w-12 rounded-full mr-2 inline-block "
                                     width={128}
                                     height={128}
                                   />
@@ -337,7 +363,7 @@ export default function Header() {
                                   <Image
                                     src={userIcon}
                                     alt="User Profile Image"
-                                    className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                                    className="h-12 w-12 rounded-full mr-2 inline-block"
                                     width={128}
                                     height={128}
                                   />
@@ -354,7 +380,9 @@ export default function Header() {
                                 </div>
                               )}
                             </span>
-                            <NotificationBell point={request}></NotificationBell>
+                            <NotificationBell
+                              point={request}
+                            ></NotificationBell>
                           </div>
                         )}
                       </div>
