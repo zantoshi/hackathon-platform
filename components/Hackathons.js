@@ -78,7 +78,9 @@ const Hackathons = ({ data }) => {
                 headerText={hackathon.title}
                 descriptionText={hackathon.description}
                 buttonText={"Manage"}
+                state = {hackathon.endDate}
                 buttonLink={`/hackathons/${hackathon.id}/manage`}
+                flagDate={true}
                 hackathonLink={`/hackathons/${hackathon.id}`}
               />
             ))}
@@ -104,6 +106,8 @@ const Hackathons = ({ data }) => {
                 key={hackathon.id}
                 headerText={hackathon.title}
                 descriptionText={hackathon.description}
+                state = {hackathon.endDate}
+                flagDate={true}
                 buttonLink={`/hackathons/${hackathon.id}`}
               />
             ))}

@@ -39,8 +39,17 @@ export default async function handle(req, res) {
       },
     });
 
+      //getting the current date
+      const currentDate = new Date();
+      const formattedCurrentDate = currentDate.toISOString().split("T")[0];
+
+      const hackathon = await prisma.hackathon.findFirst({
+        where: {
+          id: id,
+        },
+      });
   
-    if (registration.length > 0) {
+    if (registration.length > 0 && formattedCurrentDate <= hackathon.endDate) {
       const {
         projectName,
         projectDescription,

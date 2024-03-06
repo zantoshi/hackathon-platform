@@ -4,11 +4,14 @@ import RegisterTeamForm from "@/components/RegisterTeamForm";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { redirect } from 'next/navigation'
 
 export default function HackathonRegistration() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [hackathon,setHackathon] = useState([])
+  const currentDate = new Date();
+  const formattedCurrentDate = currentDate.toISOString().split("T")[0];
 
   useEffect(() => {
     if (router.isReady) {
@@ -39,9 +42,15 @@ export default function HackathonRegistration() {
     fetchHackathon()
   },[id])
 
+  useEffect(() => {
+    if (formattedCurrentDate > hackathon.startDate) {
+      router.push("/");
+    }
+  }, [formattedCurrentDate, hackathon.startDate]);
+
   return (
     <Layout>
-      <div className="py-4 sm:py-12">
+      {formattedCurrentDate <= hackathon.startDate && (  <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/`} />
           <PageHeader
@@ -50,7 +59,7 @@ export default function HackathonRegistration() {
           />
           <RegisterTeamForm hackathonId={id} />
         </div>
-      </div>
+      </div>)}
     </Layout>
   );
 }
