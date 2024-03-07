@@ -22,6 +22,7 @@ export default function HackathonDetail() {
   const [registration, setRegistration] = useState([]);
   const [hackathon, setHackathon] = useState([]);
   const [submit, setSubmit] = useState();
+  const [edit,setEdit]=  useState();
   const [prices, setPrices] = useState([]);
   const signedUp = teams.length > 0;
   const [ruleList, setRuleList] = useState("");
@@ -136,6 +137,24 @@ export default function HackathonDetail() {
 
     findTeam(teams, registration);
   }, [teams, registration]);
+
+  useEffect(()=>{
+    const findTeam = (team, projects) => {
+      let isMatching = false;
+      for (const t2 of projects) {
+        const matching = team.some((t1) => t1.id === t2.teamId);
+        if (matching) {
+          isMatching = true;
+          break;
+        }
+      }
+      setEdit(isMatching);
+    };
+
+    findTeam(teams, projects);
+  },[teams,projects])
+
+  
 
   useEffect(() => {
     const fetchHackathonProjects = async () => {
@@ -256,7 +275,7 @@ export default function HackathonDetail() {
                     ) : (
                       <></>
                     )
-                  ) : (
+                  ) : !edit? (
                     formattedCurrentDate <=
                     hackathon.endDate &&(
                       <ButtonPrimary
@@ -264,7 +283,15 @@ export default function HackathonDetail() {
                         buttonLink={`/hackathons/${id}/submit`}
                       />
                     )
-                  )}
+                  ):
+                  (formattedCurrentDate <=
+                    hackathon.endDate &&(
+                      <ButtonPrimary
+                        buttonText={"Edit Project Submission"}
+                        buttonLink={`/hackathons/${id}/submit`}
+                      />
+                    ))
+                  }
                   {/* <ButtonPrimary
                     buttonText={"Register"}
                     buttonLink={`/hackathons/${id}/register`}

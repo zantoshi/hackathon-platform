@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import ButtonPrimary from "./ButtonPrimary";
 
-const ProjectSubmissionForm = ({ hackathonId }) => {
+const ProjectSubmissionForm = ({ hackathonId, project }) => {
   const router = useRouter();
 
   const [projectName, setProjectName] = useState("");
@@ -13,30 +13,66 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
   const [pitchLink, setPitchLink] = useState("");
   const [projectResourceLink, setProjectResourceLink] = useState("");
   const [comments, setComments] = useState("");
-
+  const [htId,setHackathonId]=useState("")
   const create = async (e) => {
     e.preventDefault();
     try {
-      const body = {
-        projectName,
-        projectDescription,
-        loomLink,
-        pitchLink,
-        projectResourceLink,
-        comments,
-      };
+      if(project.length){
+        const body = {
+          projectName,
+          projectDescription,
+          loomLink,
+          pitchLink,
+          projectResourceLink,
+          comments,
+          htId
+        };
+       const response= await fetch(`/api/projects/${project[0].id}/update`,{ 
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)},
+          )
+          const data =await response.json()
 
-      await fetch(`/api/hackathons/${hackathonId}/submit`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      router.push("/success");
+      router.push(`/hackathons/${htId}`)
+      
+      }else{
+        const body = {
+          projectName,
+          projectDescription,
+          loomLink,
+          pitchLink,
+          projectResourceLink,
+          comments,
+        };
+  
+        await fetch(`/api/hackathons/${hackathonId}/submit`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+  
+        router.push("/success");
+      }
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const setVariables = () => {
+      if (project.length) {
+        setProjectName(project[0].name);
+        setProjectDescription(project[0].description)
+        setLoomLink(project[0].loomLink)
+        setPitchLink(project[0].pitchLink)
+        setProjectResourceLink(project[0].projectResourceLink)
+        setComments(project[0].comments)
+        setHackathonId(project[0].hackathonId)
+      }
+    };
+    setVariables();
+  }, [project]);
 
   return (
     <form onSubmit={create}>
@@ -58,6 +94,7 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 onChange={(e) => setProjectName(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 required
+                value={projectName}
               />
             </div>
           </div>
@@ -79,6 +116,7 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 onChange={(e) => setProjectDescription(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 required
+                value={projectDescription}
               />
             </div>
           </div>
@@ -100,6 +138,7 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 onChange={(e) => setLoomLink(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 required
+                value={loomLink}
               />
             </div>
           </div>
@@ -121,6 +160,7 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 onChange={(e) => setPitchLink(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
                 required
+                value={pitchLink}
               />
             </div>
           </div>
@@ -141,6 +181,7 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 autoComplete="project-resource-link"
                 onChange={(e) => setProjectResourceLink(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                value={projectResourceLink}
               />
             </div>
           </div>
@@ -160,8 +201,8 @@ const ProjectSubmissionForm = ({ hackathonId }) => {
                 rows={3}
                 onChange={(e) => setComments(e.target.value)}
                 className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
-                defaultValue={""}
                 required
+                value={comments}
               />
             </div>
           </div>
