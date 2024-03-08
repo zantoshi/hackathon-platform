@@ -10,6 +10,7 @@ export default function SubmitProject() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [hackathon, setHackathon] = useState([]);
+  const [project,setProject]= useState([])
 
   useEffect(() => {
     if (router.isReady) {
@@ -42,20 +43,44 @@ export default function SubmitProject() {
     fetchHackathon();
   }, [id]);
 
+  useEffect(()=>{
+    const fetchProject = async ()=>{
+      try{
+        if(id){
+          const response = await fetch(`/api/projects/${id}/projectUser`,{
+            method:"GET",
+            cache: 'no-store' ,
+            headers: { "Content-Type": "application/json" },
+            next: { revalidate: 1 },
+          })
+          if(response.ok){
+            const data= await response.json();
+            setProject(data)
+          }else{
+            console.error("Error fetching hackathon:", response.statusText);
+          }
+        }
+      }catch(error){
+        console.error("Error fetching the data:", error);
+      }
+    }
+    fetchProject()
+  },[id])
+
   return (
     <Layout>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}`} />
           <PageHeader
-            headerText={"Submit Project for " + hackathon.title + " Hackathon"}
+            headerText={"Submit Project for " + hackathon.title }
             descriptionText={"Fill out the form to complete the hackathon! :)"}
           />
         
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ProjectSubmissionForm hackathonId={id} />
+            <ProjectSubmissionForm hackathonId={id} project={project} />
           )}
         </div>
       </div>
