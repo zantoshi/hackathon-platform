@@ -16,7 +16,7 @@ function members() {
 
   return (
     <Layout>
-      <div className="h-screen p-5">
+      <div className="h-full p-5">
         <div className="mx-auto px-6 lg:px-8 ">
           <div className="my-2">
             <h1 className="font-bold custom-text-shadow text-4xl text-center">
