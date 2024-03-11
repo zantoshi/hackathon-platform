@@ -306,6 +306,22 @@ const judgeGetting = async ()=>{
     }
   };
 
+  const handleClickDeleteRegistration = async (id) => {
+    try {
+      if (id) {
+        const response = await fetch(`/api/hackathonRegister/${id}/delete`, {
+          cache: 'no-store',
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        setRegistration(prevRegistration => prevRegistration.filter(registration => registration.id !== id));
+
+      }
+    } catch (error) {
+      console.log("this is the error for deleting a sponsor: " + error);
+    }
+  };
+
   const handleClickProject = async (id) => {
     try {
       if (id) {
@@ -331,7 +347,7 @@ const judgeGetting = async ()=>{
     const fetchAssessment = async () => {
       try {
         if (id) {
-          const response = await fetch(`/api/assessment`, {
+          const response = await fetch(`/api/assessment/${id}`, {
             cache: 'no-store' ,
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -374,6 +390,18 @@ const judgeGetting = async ()=>{
 
     fetchSponsors(); // Call the fetchTeams function
   }, [id]);
+
+  const handleSort = (order) => {
+    const sortedAssess = [...assess].sort((a, b) => {
+      // Sorting by overall score
+      if (order === "asc") {
+        return parseFloat(a.overall_score) - parseFloat(b.overall_score);
+      } else {
+        return parseFloat(b.overall_score) - parseFloat(a.overall_score);
+      }
+    });
+    setAssess(sortedAssess);
+  };
 
 
   let content;
@@ -498,19 +526,12 @@ const judgeGetting = async ()=>{
                         <button
                         className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                         onClick={() => {
-                          handleClickProject(project.id);
+                          handleClickDeleteRegistration(registration.id);
                         }}
                       >
                         Remove
                       </button>
-                      <button
-                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          router.push(`/projects/${project.id}`)
-                        }}
-                      >
-                        Details
-                      </button>
+                     
                           </div>
 
                     </div>
@@ -669,21 +690,37 @@ const judgeGetting = async ()=>{
         </h2>
         
         <br></br>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="min-w-full  text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+       
+        <div class="relative w-lvw overflow-x-auto shadow-md sm:rounded-lg">
+          
+        <Select
+         className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              options={[
+                { value: "asc", label: "Low to High" },
+                { value: "desc", label: "High to Low" },
+              ]}
+              defaultValue={{ value: "asc", label: "Low to High" }}
+              onChange={(selectedOption) => handleSort(selectedOption.value)}
+            />
+            
+            <br></br>
+            <table class="min-w-full w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="px-0.5 py-2">
                             Project Name
                         </th>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="px-0.5 py-2">
                             Team Name
                         </th>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="px-0.5 py-2">
                             Judge 
                         </th>
-                        <th scope="col" class="px-3 py-3">
+                        <th scope="col" class="px-0.5 py-2">
                             Overall Score
+                        </th>
+                        <th scope="col" class="px-0.5 py-2">
+                            Details
                         </th>
                     </tr>
                 </thead>
@@ -700,24 +737,27 @@ const judgeGetting = async ()=>{
                                 return details.map(detail => {
                               
                                     return (
-                                        score.hackathonId === id && 
+                                        score.hackathonId === hackathon.id &&
+                                        project.teamId === detail.id &&
                                         score.projectId == project.id &&
-                                        detail.id === project.teamId && 
-                                        judge.id  === score.judgeId && 
+                                        score.judgeId === judge.id && 
                                         (
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                  {console.log(judge)}
-                                                <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <tr key={score.id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                  {console.log(score)}
+                                                <th scope="row" class="px-0.5 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {project.name}
                                                 </th>
-                                                <td class="px-3 py-4">
+                                                <td class="px-0.5 py-2">
                                                     {detail.name}
                                                 </td>
-                                                <td class="px-3 py-4">
+                                                <td class="px-0.5 py-2">
                                                     {judge.judgeGamertag}
                                                 </td>
-                                                <td class="px-3 py-4">
+                                                <td class="px-0.5 py-2">
                                                     {overall_score_rounded}
+                                                </td>
+                                                <td class="px-0.5 py-2">
+                                                    <a href={`/assessment/${score.id}`}>Details</a>
                                                 </td>
                                             </tr>
                                         )

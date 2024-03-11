@@ -26,17 +26,17 @@ function CreateAssessForm({ hackathonId, projectId }) {
     e.preventDefault();
     try {
       if (values) {
-        // Convertir los valores de cadena en enteros
+    
         const impact = parseInt(values.impact);
         const feasability = parseInt(values.feasability);
         const user_experience = parseInt(values.user_experience);
         const scalability = parseInt(values.scalability);
         const innovate = parseInt(values.innovate);
         const pitch = parseInt(values.pitch);
-        // Calcular el puntaje general
+ 
         const overall_score = (impact + feasability + user_experience + scalability + innovate + pitch) / 6;
 
-        // Crear un nuevo judgeassessment con el hackathon proporcionado
+    
         const response = await fetch(`/api/assessment/create`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ function CreateAssessForm({ hackathonId, projectId }) {
           }),
         });
         console.log(response);
-        router.push(`/hackathons/${hackathonId}/manage`);
+        router.push(`/judge`);
       }
     } catch (error) {
       console.error(error);
