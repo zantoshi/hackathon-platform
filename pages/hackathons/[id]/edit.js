@@ -4,7 +4,9 @@ import Layout from "@/components/layout";
 import AccessDenied from "@/components/access-denied";
 import CreateHackathonForm from "@/components/CreateHackathonForm";
 import { useRouter} from "next/router";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 export default function CreateHackathon() {
   const { data: session } = useSession();
   const [Userdetails, setUserdetails] = useState([]);

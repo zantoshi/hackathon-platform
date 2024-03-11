@@ -3,7 +3,9 @@ import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import HackathonCard from "@/components/HackathonCard";
 import { fetchingData } from "../../../util/fetchingData";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 function dashboard() {
   const [projects, setProject] = useState([]);
   const router = useRouter();
