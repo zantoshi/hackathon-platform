@@ -212,7 +212,7 @@ function dashboard() {
             </h2>
             {assess.length > 0 ? (
               <div className="flex flex-col items-center justify-center">
-                 <div className="h-lvh w-lvw w-1/2">     <Select
+                 <div className="h-lvh w-lvw ">     <Select
   className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
   options={[
     { value: "", label: "Default" }, // Opción por defecto
@@ -225,7 +225,7 @@ function dashboard() {
   }
 /></div>
                 <br></br>
-                  <table class="min-w-full w-full w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                  <table class="min-w-full  w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
                         <th scope="col" class="px-1 py-2">

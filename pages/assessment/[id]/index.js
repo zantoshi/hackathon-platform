@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import HackathonCard from "@/components/HackathonCard";
 import ButtonSecondary from "@/components/ButtonSecondary";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 function Assessment() {
   const [Userdetails, setUserdetails] = useState([]);
   const router = useRouter();
