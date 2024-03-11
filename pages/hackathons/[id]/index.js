@@ -439,7 +439,7 @@ export default function HackathonDetail() {
             )}
           </div>
           <div className="mt-24">
-            <SectionHeader headerText={"Contestants"} />
+            <SectionHeader headerText={"Projects"} />
             {projects.length ? (
               <>
                 <SectionHeader
