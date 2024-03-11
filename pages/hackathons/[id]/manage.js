@@ -5,7 +5,9 @@ import Layout from "@/components/layout";
 import AccessDenied from "@/components/access-denied";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Select from "react-select";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 export default function ManageHackathon() {
   const [hackathon, setHackathon] = useState([]);
   const [teams, setTeams] = useState([]);

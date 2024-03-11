@@ -5,12 +5,14 @@ import PageHeader from "@/components/PageHeader";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import HackathonCard from "@/components/HackathonCard";
 import { useRouter } from "next/navigation";
-export default function TeamsPage() {
+import { getServerSideProps } from "../../util/authUtils";
+
+export { getServerSideProps };
+
+export default function TeamsPage({ session }) {
   const [teams, setTeams] = useState([]);
   const [myteams, setMyTeams] = useState([]);
   const [allteams, setAllTeams] = useState([]);
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -118,13 +120,14 @@ export default function TeamsPage() {
                   {myteams.map((myteam) => {
                     return (
                       <>
-                        {myteam.teamId === Alltm.id && myteam.userId !==  Alltm.creatorId &&(
-                          <HackathonCard
-                            headerText={Alltm.name}
-                            descriptionText={Alltm.description}
-                            buttonLink={`/team/${Alltm.id}`}
-                          />
-                        )}
+                        {myteam.teamId === Alltm.id &&
+                          myteam.userId !== Alltm.creatorId && (
+                            <HackathonCard
+                              headerText={Alltm.name}
+                              descriptionText={Alltm.description}
+                              buttonLink={`/team/${Alltm.id}`}
+                            />
+                          )}
                       </>
                     );
                   })}
@@ -134,7 +137,6 @@ export default function TeamsPage() {
           </div>
         </div>
       </div>
-      {!loading && !session && signIn()}
     </Layout>
   );
 }

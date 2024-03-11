@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../../components/layout";
 import AddUserTeam from "@/components/AddUserTeam";
 import { useRouter } from "next/router";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 function members() {
   const router = useRouter();
   const [id, setId] = useState("");
@@ -16,7 +18,7 @@ function members() {
 
   return (
     <Layout>
-      <div className="h-screen p-5">
+      <div className="h-full p-5">
         <div className="mx-auto px-6 lg:px-8 ">
           <div className="my-2">
             <h1 className="font-bold custom-text-shadow text-4xl text-center">

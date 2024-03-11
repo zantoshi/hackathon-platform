@@ -6,7 +6,9 @@ import CreateTeamForm from "@/components/CreateTeamForm";
 import { useRouter } from "next/router";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import PageHeader from "@/components/PageHeader";
+import { getServerSideProps } from "../../../util/authUtils";
 
+export { getServerSideProps };
 function edit() {
   const router = useRouter();
   const [id, setId] = useState("");

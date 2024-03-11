@@ -36,7 +36,7 @@ function NotificationBell({point}) {
           className="z-20 w-full max-w-sm divide-y bg-gray-950 divide-purple-400/[.20] border-2 border-solid border-purple-400/[.20] rounded-lg shadow  absolute right-0 mt-1 md:mx-5"
           aria-labelledby="dropdownNotificationButton"
         >
-          <div className="block px-4 py-2 font-medium text-center  rounded-t-lg  ark:text-white text-white">
+          <div className="block px-4 py-2 font-medium text-center  rounded-t-lg  text-white">
             Notifications
           </div>
           <div className="divide-y divide-purple-400/[.20] ">
@@ -45,7 +45,7 @@ function NotificationBell({point}) {
           </div>
           <div
             href="#"
-            className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-5 dark:text-white"
+            className="block py-2 text-sm font-medium text-center rounded-b-lg bg-gray-5 text-white"
           >
             <div className="inline-flex items-center "></div>
           </div>

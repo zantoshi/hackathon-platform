@@ -31,6 +31,18 @@ export default async function handle(req, res) {
       },
     });
 
+    const assessment = await prisma.judgeassessments.findMany({
+      where:{
+        hackathonId,
+        projectId,
+        judgeId: judge[0].id
+      }
+    })
+
+    if(assessment.length){
+      return res.status(409).json({message:"you already score this project"})
+    }
+
     const result = await prisma.judgeassessments.create({
       data: {
         impact,
@@ -45,7 +57,7 @@ export default async function handle(req, res) {
         overall_score
       },
     });
-    res.json(result);
+   return res.json(result);
   } catch (error) {
     console.log(error);
   }

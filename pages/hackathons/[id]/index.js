@@ -7,7 +7,7 @@ import bitblockboom from "@/data/content/bitBlockBoom.json";
 import sponsors from "@/data/content/sponsors.json";
 import Sponsors from "@/components/Sponsors";
 import { Check } from "lucide-react";
-import { Dot } from 'lucide-react';
+import { Dot } from "lucide-react";
 import PrizePool from "@/components/PrizePool";
 import ButtonPrimary from "@/components/ButtonPrimary";
 import ButtonSecondary from "@/components/ButtonSecondary";
@@ -22,6 +22,7 @@ export default function HackathonDetail() {
   const [registration, setRegistration] = useState([]);
   const [hackathon, setHackathon] = useState([]);
   const [submit, setSubmit] = useState();
+  const [edit,setEdit]=  useState();
   const [prices, setPrices] = useState([]);
   const signedUp = teams.length > 0;
   const [ruleList, setRuleList] = useState("");
@@ -31,6 +32,9 @@ export default function HackathonDetail() {
   const [sponsors, setSponsors] = useState([]);
   const [benefits, setBenefits] = useState([]);
   const [judgeCriteria, setjudgeCriteria] = useState([]);
+
+  const currentDate = new Date();
+  const formattedCurrentDate = currentDate.toISOString().split("T")[0];
 
   useEffect(() => {
     if (router.isReady) {
@@ -133,6 +137,24 @@ export default function HackathonDetail() {
 
     findTeam(teams, registration);
   }, [teams, registration]);
+
+  useEffect(()=>{
+    const findTeam = (team, projects) => {
+      let isMatching = false;
+      for (const t2 of projects) {
+        const matching = team.some((t1) => t1.id === t2.teamId);
+        if (matching) {
+          isMatching = true;
+          break;
+        }
+      }
+      setEdit(isMatching);
+    };
+
+    findTeam(teams, projects);
+  },[teams,projects])
+
+  
 
   useEffect(() => {
     const fetchHackathonProjects = async () => {
@@ -245,16 +267,31 @@ export default function HackathonDetail() {
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
                   {!signedUp || !submit ? (
-                    <ButtonPrimary
-                      buttonText={"Register"}
-                      buttonLink={`/hackathons/${id}/register`}
-                    />
-                  ) : (
-                    <ButtonPrimary
-                      buttonText={"Submit Project"}
-                      buttonLink={`/hackathons/${id}/submit`}
-                    />
-                  )}
+                    formattedCurrentDate <= hackathon.startDate ? (
+                      <ButtonPrimary
+                        buttonText={"Register"}
+                        buttonLink={`/hackathons/${id}/register`}
+                      />
+                    ) : (
+                      <></>
+                    )
+                  ) : !edit? (
+                    formattedCurrentDate <=
+                    hackathon.endDate &&(
+                      <ButtonPrimary
+                        buttonText={"Submit Project"}
+                        buttonLink={`/hackathons/${id}/submit`}
+                      />
+                    )
+                  ):
+                  (formattedCurrentDate <=
+                    hackathon.endDate &&(
+                      <ButtonPrimary
+                        buttonText={"Edit Project Submission"}
+                        buttonLink={`/hackathons/${id}/submit`}
+                      />
+                    ))
+                  }
                   {/* <ButtonPrimary
                     buttonText={"Register"}
                     buttonLink={`/hackathons/${id}/register`}
@@ -369,13 +406,8 @@ export default function HackathonDetail() {
                             </div>
 
                             <div class="text-center">
-                              <p class="text-xl text-white font-bold mb-2">
-                                {" "}
-                                
-                              </p>
-                              <p class="text-base text-gray-400 font-normal">
-                                
-                              </p>
+                              <p class="text-xl text-white font-bold mb-2"> </p>
+                              <p class="text-base text-gray-400 font-normal"></p>
                             </div>
                           </div>
                         </div>
@@ -397,19 +429,17 @@ export default function HackathonDetail() {
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                   </svg>
                   <span class="sr-only">Info</span>
-                  <h3 class="text-lg font-medium">
-                    No teams registered yet
-                  </h3>
+                  <h3 class="text-lg font-medium">No teams registered yet</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                  There are no teams registered yet for this Hackathon. Be
-                  the first to register your team now!
+                  There are no teams registered yet for this Hackathon. Be the
+                  first to register your team now!
                 </div>
               </div>
             )}
           </div>
           <div className="mt-24">
-            <SectionHeader headerText={"Contestants"} />
+            <SectionHeader headerText={"Projects"} />
             {projects.length ? (
               <>
                 <SectionHeader
@@ -582,8 +612,9 @@ export default function HackathonDetail() {
                   <h3 class="text-lg font-medium">No sponsors assigned yet</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                  There are no sponsors assigned for this Hackathon yet. Make sure
-                  to check once in a while to see who is going to sponsor this wonderful competition
+                  There are no sponsors assigned for this Hackathon yet. Make
+                  sure to check once in a while to see who is going to sponsor
+                  this wonderful competition
                 </div>
               </div>
             )}
