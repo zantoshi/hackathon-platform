@@ -5,7 +5,9 @@ import avatarUser from "../../public/user-filled.svg";
 import avatarTeam from "../../public/users-group.svg";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Link from "next/link";
+import { getServerSideProps } from "../../util/authUtils";
 
+export { getServerSideProps };
 function index() {
   const [user, setUser] = useState({});
   const [teams, setTeams] = useState([]);

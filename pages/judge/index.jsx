@@ -5,7 +5,9 @@ import hackathons from "@/data/content/hackathons.json";
 import { useEffect, useState } from "react";
 import { fetchingData } from "../../util/fetchingData";
 import AccessDenied from "@/components/access-denied";
+import { getServerSideProps } from "../../util/authUtils";
 
+export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
   
