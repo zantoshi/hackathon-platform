@@ -10,11 +10,7 @@ export default async function handle(req, res) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const judge = await prisma.judge.findMany({
-      where: {
-        email: session.user.email,
-      },
-    });
+    
 
     const {
       impact,
@@ -27,6 +23,13 @@ export default async function handle(req, res) {
       projectId,
       overall_score
     } = req.body;
+
+    const judge = await prisma.judge.findMany({
+      where: {
+        email: session.user.email,
+        hackathonId
+      },
+    });
 
     const assessment = await prisma.judgeassessments.findMany({
       where:{
