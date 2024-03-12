@@ -13,6 +13,12 @@ export default async function handle(req, res) {
       query: { id },
     } = req;
 
+    const assessProject = await prisma.judgeassessments.deleteMany({
+      where:{
+        projectId:id
+      }
+    })
+
     const project = await prisma.project.delete({
       where:{
        id: id

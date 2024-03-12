@@ -317,7 +317,8 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
         });
         setRegistration(prevRegistration => prevRegistration.filter(registration => registration.id !== id));
-
+        const data=await response.json()
+        setProject(prevProject => prevProject.filter(projects => projects.id !== data.id));
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
