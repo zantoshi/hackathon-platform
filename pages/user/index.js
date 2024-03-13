@@ -11,6 +11,8 @@ export { getServerSideProps };
 function index() {
   const [user, setUser] = useState({});
   const [teams, setTeams] = useState([]);
+  const [myteams, setMyTeams] = useState([]);
+  const [allteams, setAllTeams] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,7 +31,7 @@ function index() {
   }, []);
 
   useEffect(() => {
-    const getUser = async () => {
+    const getTeam = async () => {
       try {
         const response = await fetch("/api/team", {
           method: "GET",
@@ -41,7 +43,51 @@ function index() {
         console.log("Error getting data from table user ", error);
       }
     };
-    getUser();
+    getTeam();
+  }, []);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teams = await fetch(`/api/team/teamsUser/`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (teams.ok) {
+          const teamsData = await teams.json();
+          setMyTeams(teamsData);
+        } else {
+          console.error("Error fetching teams:", teams.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams(); // Call the fetchTeams function
+  }, []); //
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teams = await fetch(`/api/team/teams`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (teams.ok) {
+          const teamsData = await teams.json();
+          setAllTeams(teamsData);
+        } else {
+          console.error("Error fetching teams:", teams.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams(); // Call the fetchTeams function
   }, []);
 
   return (
@@ -81,45 +127,84 @@ function index() {
               {user.email}
             </p>
           </div>
-          <div className="px-5 py-2">
-                  <h2 className="font-semibold  text-lg ">My teams</h2>
-          {teams.map((team) => {
-            return (
-              <>
-              
-               <Link href={`/team/${team.id}`}>
-               <div className="flex items-center space-x-5">
-                    <p className="block text-sm font-medium leading-6 text-white">
-                      {team.name}
-                    </p>
-                    {team.teamAvatar && team && team.teamAvatar === "" ? (
+          <div className="px-5 py-2 space-y-5">
+            <h2 className="font-semibold  text-lg ">My teams</h2>
+            {teams.map((team) => {
+              return (
+                <>
+                  <Link href={`/team/${team.id}`}>
+                    <div className="flex items-center space-x-5 space-y-2">
+                      <p className="block text-sm font-medium leading-6 text-white">
+                        {team.name}
+                      </p>
 
-                      <Image
-                        src={team.teamAvatar}
-                        alt="Avatar profile"
-                        className="h-12 w-12 rounded-full mr-2 inline-block"
-                        width={12}
-                        height={12}
-                      />
-                    ) : (
-                      <Image
-                        src={avatarTeam}
-                        alt="Avatar profile"
-                        className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
-                        width={30}
-                        height={30}
-                      />
-                    )}
-                  </div>
-               </Link>
-              
-              </>
-            );
-          })}
-            </div>
+                      {team.teamAvatar && team && team.teamAvatar !== null ? (
+                        <img
+                          src={team.teamAvatar}
+                          alt="Avatar profile"
+                          className="h-12 w-12 rounded-full mr-2 inline-block"
+                          width={12}
+                          height={12}
+                        />
+                      ) : (
+                        <Image
+                          src={avatarTeam}
+                          alt="Avatar profile"
+                          className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                          width={30}
+                          height={30}
+                        />
+                      )}
+                    </div>
+                  </Link>
+                </>
+              );
+            })}
+            {allteams.map((Alltm) => {
+              return (
+                <>
+                  {myteams.map((myteam) => {
+                    return (
+                      <>
+                        {myteam.teamId === Alltm.id &&
+                          myteam.userId !== Alltm.creatorId && (
+                            <>
+                              <Link href={`/team/${Alltm.id}`}>
+                                <div className="flex items-center space-x-5 space-y-2">
+                                  <p className="block text-sm font-medium leading-6 text-white">
+                                    {Alltm.name}
+                                  </p>
+
+                                  {Alltm.teamAvatar !== null ? (
+                                    <img
+                                      src={Alltm.teamAvatar}
+                                      alt="Avatar profile"
+                                      className="h-12 w-12 rounded-full mr-2 inline-block"
+                                      width={12}
+                                      height={12}
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={avatarTeam}
+                                      alt="Avatar profile"
+                                      className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
+                                      width={30}
+                                      height={30}
+                                    />
+                                  )}
+                                </div>
+                              </Link>
+                            </>
+                          )}
+                      </>
+                    );
+                  })}
+                </>
+              );
+            })}
+          </div>
         </div>
       </div>
-
     </Layout>
   );
 }

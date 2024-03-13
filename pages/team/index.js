@@ -82,7 +82,6 @@ export default function TeamsPage({ session }) {
 
   return (
     <Layout>
-      {console.log("")}
       <div>
         <div className="mx-auto px-6 lg:px-8">
           <div className="my-2">
