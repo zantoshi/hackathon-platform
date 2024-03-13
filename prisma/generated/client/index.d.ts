@@ -69,6 +69,11 @@ export type Sponsors = $Result.DefaultSelection<Prisma.$SponsorsPayload>
  */
 export type Judge = $Result.DefaultSelection<Prisma.$JudgePayload>
 /**
+ * Model Mentor
+ * 
+ */
+export type Mentor = $Result.DefaultSelection<Prisma.$MentorPayload>
+/**
  * Model Judgeassessments
  * 
  */
@@ -337,6 +342,16 @@ export class PrismaClient<
     * ```
     */
   get judge(): Prisma.JudgeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.mentor`: Exposes CRUD operations for the **Mentor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Mentors
+    * const mentors = await prisma.mentor.findMany()
+    * ```
+    */
+  get mentor(): Prisma.MentorDelegate<ExtArgs>;
 
   /**
    * `prisma.judgeassessments`: Exposes CRUD operations for the **Judgeassessments** model.
@@ -858,6 +873,7 @@ export namespace Prisma {
     Contact: 'Contact',
     Sponsors: 'Sponsors',
     Judge: 'Judge',
+    Mentor: 'Mentor',
     Judgeassessments: 'Judgeassessments',
     HackathonSponsors: 'HackathonSponsors',
     teamMembers: 'teamMembers',
@@ -878,7 +894,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judge' | 'judgeassessments' | 'hackathonSponsors' | 'teamMembers' | 'teamRequest'
+      modelProps: 'account' | 'session' | 'user' | 'verificationToken' | 'team' | 'hackathon' | 'hackathonRegistration' | 'project' | 'contact' | 'sponsors' | 'judge' | 'mentor' | 'judgeassessments' | 'hackathonSponsors' | 'teamMembers' | 'teamRequest'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1608,6 +1624,72 @@ export namespace Prisma {
           }
         }
       }
+      Mentor: {
+        payload: Prisma.$MentorPayload<ExtArgs>
+        fields: Prisma.MentorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MentorFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MentorFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          findFirst: {
+            args: Prisma.MentorFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MentorFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          findMany: {
+            args: Prisma.MentorFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>[]
+          }
+          create: {
+            args: Prisma.MentorCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          createMany: {
+            args: Prisma.MentorCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MentorDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          update: {
+            args: Prisma.MentorUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          deleteMany: {
+            args: Prisma.MentorDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MentorUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MentorUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MentorPayload>
+          }
+          aggregate: {
+            args: Prisma.MentorAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMentor>
+          }
+          groupBy: {
+            args: Prisma.MentorGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MentorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MentorCountArgs<ExtArgs>,
+            result: $Utils.Optional<MentorCountAggregateOutputType> | number
+          }
+        }
+      }
       Judgeassessments: {
         payload: Prisma.$JudgeassessmentsPayload<ExtArgs>
         fields: Prisma.JudgeassessmentsFieldRefs
@@ -2026,6 +2108,7 @@ export namespace Prisma {
     accounts: number
     sessions: number
     judge: number
+    mentor: number
     teamMembers: number
     teamRequest: number
   }
@@ -2036,6 +2119,7 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     judge?: boolean | UserCountOutputTypeCountJudgeArgs
+    mentor?: boolean | UserCountOutputTypeCountMentorArgs
     teamMembers?: boolean | UserCountOutputTypeCountTeamMembersArgs
     teamRequest?: boolean | UserCountOutputTypeCountTeamRequestArgs
   }
@@ -2090,6 +2174,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountJudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JudgeWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMentorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorWhereInput
   }
 
 
@@ -2182,6 +2274,7 @@ export namespace Prisma {
     projects: number
     registrations: number
     judge: number
+    mentor: number
     judgeassessments: number
     hackathonSponsors: number
   }
@@ -2190,6 +2283,7 @@ export namespace Prisma {
     projects?: boolean | HackathonCountOutputTypeCountProjectsArgs
     registrations?: boolean | HackathonCountOutputTypeCountRegistrationsArgs
     judge?: boolean | HackathonCountOutputTypeCountJudgeArgs
+    mentor?: boolean | HackathonCountOutputTypeCountMentorArgs
     judgeassessments?: boolean | HackathonCountOutputTypeCountJudgeassessmentsArgs
     hackathonSponsors?: boolean | HackathonCountOutputTypeCountHackathonSponsorsArgs
   }
@@ -2228,6 +2322,14 @@ export namespace Prisma {
    */
   export type HackathonCountOutputTypeCountJudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JudgeWhereInput
+  }
+
+
+  /**
+   * HackathonCountOutputType without action
+   */
+  export type HackathonCountOutputTypeCountMentorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorWhereInput
   }
 
 
@@ -4504,6 +4606,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     judge?: boolean | User$judgeArgs<ExtArgs>
+    mentor?: boolean | User$mentorArgs<ExtArgs>
     teamMembers?: boolean | User$teamMembersArgs<ExtArgs>
     teamRequest?: boolean | User$teamRequestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4532,6 +4635,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     judge?: boolean | User$judgeArgs<ExtArgs>
+    mentor?: boolean | User$mentorArgs<ExtArgs>
     teamMembers?: boolean | User$teamMembersArgs<ExtArgs>
     teamRequest?: boolean | User$teamRequestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4546,6 +4650,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       judge: Prisma.$JudgePayload<ExtArgs>[]
+      mentor: Prisma.$MentorPayload<ExtArgs>[]
       teamMembers: Prisma.$teamMembersPayload<ExtArgs>[]
       teamRequest: Prisma.$teamRequestPayload<ExtArgs>[]
     }
@@ -4938,6 +5043,8 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     judge<T extends User$judgeArgs<ExtArgs> = {}>(args?: Subset<T, User$judgeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    mentor<T extends User$mentorArgs<ExtArgs> = {}>(args?: Subset<T, User$mentorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     teamMembers<T extends User$teamMembersArgs<ExtArgs> = {}>(args?: Subset<T, User$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$teamMembersPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -5398,6 +5505,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.mentor
+   */
+  export type User$mentorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    where?: MentorWhereInput
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    cursor?: MentorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MentorScalarFieldEnum | MentorScalarFieldEnum[]
   }
 
 
@@ -7600,6 +7728,7 @@ export namespace Prisma {
     projects?: boolean | Hackathon$projectsArgs<ExtArgs>
     registrations?: boolean | Hackathon$registrationsArgs<ExtArgs>
     judge?: boolean | Hackathon$judgeArgs<ExtArgs>
+    mentor?: boolean | Hackathon$mentorArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
@@ -7628,6 +7757,7 @@ export namespace Prisma {
     projects?: boolean | Hackathon$projectsArgs<ExtArgs>
     registrations?: boolean | Hackathon$registrationsArgs<ExtArgs>
     judge?: boolean | Hackathon$judgeArgs<ExtArgs>
+    mentor?: boolean | Hackathon$mentorArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     judgeassessments?: boolean | Hackathon$judgeassessmentsArgs<ExtArgs>
     hackathonSponsors?: boolean | Hackathon$hackathonSponsorsArgs<ExtArgs>
@@ -7641,6 +7771,7 @@ export namespace Prisma {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       registrations: Prisma.$HackathonRegistrationPayload<ExtArgs>[]
       judge: Prisma.$JudgePayload<ExtArgs>[]
+      mentor: Prisma.$MentorPayload<ExtArgs>[]
       creator: Prisma.$UserPayload<ExtArgs>
       judgeassessments: Prisma.$JudgeassessmentsPayload<ExtArgs>[]
       hackathonSponsors: Prisma.$HackathonSponsorsPayload<ExtArgs>[]
@@ -8031,6 +8162,8 @@ export namespace Prisma {
     registrations<T extends Hackathon$registrationsArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HackathonRegistrationPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     judge<T extends Hackathon$judgeArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$judgeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JudgePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    mentor<T extends Hackathon$mentorArgs<ExtArgs> = {}>(args?: Subset<T, Hackathon$mentorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -8452,6 +8585,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JudgeScalarFieldEnum | JudgeScalarFieldEnum[]
+  }
+
+
+  /**
+   * Hackathon.mentor
+   */
+  export type Hackathon$mentorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    where?: MentorWhereInput
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    cursor?: MentorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MentorScalarFieldEnum | MentorScalarFieldEnum[]
   }
 
 
@@ -13145,6 +13299,940 @@ export namespace Prisma {
 
 
   /**
+   * Model Mentor
+   */
+
+  export type AggregateMentor = {
+    _count: MentorCountAggregateOutputType | null
+    _min: MentorMinAggregateOutputType | null
+    _max: MentorMaxAggregateOutputType | null
+  }
+
+  export type MentorMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    mentorGamertag: string | null
+    email: string | null
+    mentorImage: string | null
+    hackathonId: string | null
+  }
+
+  export type MentorMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    mentorGamertag: string | null
+    email: string | null
+    mentorImage: string | null
+    hackathonId: string | null
+  }
+
+  export type MentorCountAggregateOutputType = {
+    id: number
+    userId: number
+    mentorGamertag: number
+    email: number
+    mentorImage: number
+    hackathonId: number
+    _all: number
+  }
+
+
+  export type MentorMinAggregateInputType = {
+    id?: true
+    userId?: true
+    mentorGamertag?: true
+    email?: true
+    mentorImage?: true
+    hackathonId?: true
+  }
+
+  export type MentorMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    mentorGamertag?: true
+    email?: true
+    mentorImage?: true
+    hackathonId?: true
+  }
+
+  export type MentorCountAggregateInputType = {
+    id?: true
+    userId?: true
+    mentorGamertag?: true
+    email?: true
+    mentorImage?: true
+    hackathonId?: true
+    _all?: true
+  }
+
+  export type MentorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Mentor to aggregate.
+     */
+    where?: MentorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Mentors to fetch.
+     */
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MentorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Mentors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Mentors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Mentors
+    **/
+    _count?: true | MentorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MentorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MentorMaxAggregateInputType
+  }
+
+  export type GetMentorAggregateType<T extends MentorAggregateArgs> = {
+        [P in keyof T & keyof AggregateMentor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMentor[P]>
+      : GetScalarType<T[P], AggregateMentor[P]>
+  }
+
+
+
+
+  export type MentorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MentorWhereInput
+    orderBy?: MentorOrderByWithAggregationInput | MentorOrderByWithAggregationInput[]
+    by: MentorScalarFieldEnum[] | MentorScalarFieldEnum
+    having?: MentorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MentorCountAggregateInputType | true
+    _min?: MentorMinAggregateInputType
+    _max?: MentorMaxAggregateInputType
+  }
+
+  export type MentorGroupByOutputType = {
+    id: string
+    userId: string
+    mentorGamertag: string
+    email: string
+    mentorImage: string
+    hackathonId: string
+    _count: MentorCountAggregateOutputType | null
+    _min: MentorMinAggregateOutputType | null
+    _max: MentorMaxAggregateOutputType | null
+  }
+
+  type GetMentorGroupByPayload<T extends MentorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MentorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MentorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MentorGroupByOutputType[P]>
+            : GetScalarType<T[P], MentorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MentorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    mentorGamertag?: boolean
+    email?: boolean
+    mentorImage?: boolean
+    hackathonId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mentor"]>
+
+  export type MentorSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    mentorGamertag?: boolean
+    email?: boolean
+    mentorImage?: boolean
+    hackathonId?: boolean
+  }
+
+  export type MentorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    hackathon?: boolean | HackathonDefaultArgs<ExtArgs>
+  }
+
+
+  export type $MentorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Mentor"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      hackathon: Prisma.$HackathonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      mentorGamertag: string
+      email: string
+      mentorImage: string
+      hackathonId: string
+    }, ExtArgs["result"]["mentor"]>
+    composites: {}
+  }
+
+
+  type MentorGetPayload<S extends boolean | null | undefined | MentorDefaultArgs> = $Result.GetResult<Prisma.$MentorPayload, S>
+
+  type MentorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MentorFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: MentorCountAggregateInputType | true
+    }
+
+  export interface MentorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Mentor'], meta: { name: 'Mentor' } }
+    /**
+     * Find zero or one Mentor that matches the filter.
+     * @param {MentorFindUniqueArgs} args - Arguments to find a Mentor
+     * @example
+     * // Get one Mentor
+     * const mentor = await prisma.mentor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MentorFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorFindUniqueArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Mentor that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MentorFindUniqueOrThrowArgs} args - Arguments to find a Mentor
+     * @example
+     * // Get one Mentor
+     * const mentor = await prisma.mentor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MentorFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Mentor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorFindFirstArgs} args - Arguments to find a Mentor
+     * @example
+     * // Get one Mentor
+     * const mentor = await prisma.mentor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MentorFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorFindFirstArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Mentor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorFindFirstOrThrowArgs} args - Arguments to find a Mentor
+     * @example
+     * // Get one Mentor
+     * const mentor = await prisma.mentor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MentorFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Mentors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Mentors
+     * const mentors = await prisma.mentor.findMany()
+     * 
+     * // Get first 10 Mentors
+     * const mentors = await prisma.mentor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mentorWithIdOnly = await prisma.mentor.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MentorFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Mentor.
+     * @param {MentorCreateArgs} args - Arguments to create a Mentor.
+     * @example
+     * // Create one Mentor
+     * const Mentor = await prisma.mentor.create({
+     *   data: {
+     *     // ... data to create a Mentor
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MentorCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorCreateArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Mentors.
+     *     @param {MentorCreateManyArgs} args - Arguments to create many Mentors.
+     *     @example
+     *     // Create many Mentors
+     *     const mentor = await prisma.mentor.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MentorCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Mentor.
+     * @param {MentorDeleteArgs} args - Arguments to delete one Mentor.
+     * @example
+     * // Delete one Mentor
+     * const Mentor = await prisma.mentor.delete({
+     *   where: {
+     *     // ... filter to delete one Mentor
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MentorDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorDeleteArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Mentor.
+     * @param {MentorUpdateArgs} args - Arguments to update one Mentor.
+     * @example
+     * // Update one Mentor
+     * const mentor = await prisma.mentor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MentorUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorUpdateArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Mentors.
+     * @param {MentorDeleteManyArgs} args - Arguments to filter Mentors to delete.
+     * @example
+     * // Delete a few Mentors
+     * const { count } = await prisma.mentor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MentorDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MentorDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Mentors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Mentors
+     * const mentor = await prisma.mentor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MentorUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Mentor.
+     * @param {MentorUpsertArgs} args - Arguments to update or create a Mentor.
+     * @example
+     * // Update or create a Mentor
+     * const mentor = await prisma.mentor.upsert({
+     *   create: {
+     *     // ... data to create a Mentor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Mentor we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MentorUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MentorUpsertArgs<ExtArgs>>
+    ): Prisma__MentorClient<$Result.GetResult<Prisma.$MentorPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Mentors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorCountArgs} args - Arguments to filter Mentors to count.
+     * @example
+     * // Count the number of Mentors
+     * const count = await prisma.mentor.count({
+     *   where: {
+     *     // ... the filter for the Mentors we want to count
+     *   }
+     * })
+    **/
+    count<T extends MentorCountArgs>(
+      args?: Subset<T, MentorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MentorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Mentor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MentorAggregateArgs>(args: Subset<T, MentorAggregateArgs>): Prisma.PrismaPromise<GetMentorAggregateType<T>>
+
+    /**
+     * Group by Mentor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MentorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MentorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MentorGroupByArgs['orderBy'] }
+        : { orderBy?: MentorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MentorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMentorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Mentor model
+   */
+  readonly fields: MentorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Mentor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MentorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    hackathon<T extends HackathonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HackathonDefaultArgs<ExtArgs>>): Prisma__HackathonClient<$Result.GetResult<Prisma.$HackathonPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Mentor model
+   */ 
+  interface MentorFieldRefs {
+    readonly id: FieldRef<"Mentor", 'String'>
+    readonly userId: FieldRef<"Mentor", 'String'>
+    readonly mentorGamertag: FieldRef<"Mentor", 'String'>
+    readonly email: FieldRef<"Mentor", 'String'>
+    readonly mentorImage: FieldRef<"Mentor", 'String'>
+    readonly hackathonId: FieldRef<"Mentor", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Mentor findUnique
+   */
+  export type MentorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter, which Mentor to fetch.
+     */
+    where: MentorWhereUniqueInput
+  }
+
+
+  /**
+   * Mentor findUniqueOrThrow
+   */
+  export type MentorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter, which Mentor to fetch.
+     */
+    where: MentorWhereUniqueInput
+  }
+
+
+  /**
+   * Mentor findFirst
+   */
+  export type MentorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter, which Mentor to fetch.
+     */
+    where?: MentorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Mentors to fetch.
+     */
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Mentors.
+     */
+    cursor?: MentorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Mentors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Mentors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Mentors.
+     */
+    distinct?: MentorScalarFieldEnum | MentorScalarFieldEnum[]
+  }
+
+
+  /**
+   * Mentor findFirstOrThrow
+   */
+  export type MentorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter, which Mentor to fetch.
+     */
+    where?: MentorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Mentors to fetch.
+     */
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Mentors.
+     */
+    cursor?: MentorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Mentors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Mentors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Mentors.
+     */
+    distinct?: MentorScalarFieldEnum | MentorScalarFieldEnum[]
+  }
+
+
+  /**
+   * Mentor findMany
+   */
+  export type MentorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter, which Mentors to fetch.
+     */
+    where?: MentorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Mentors to fetch.
+     */
+    orderBy?: MentorOrderByWithRelationInput | MentorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Mentors.
+     */
+    cursor?: MentorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Mentors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Mentors.
+     */
+    skip?: number
+    distinct?: MentorScalarFieldEnum | MentorScalarFieldEnum[]
+  }
+
+
+  /**
+   * Mentor create
+   */
+  export type MentorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Mentor.
+     */
+    data: XOR<MentorCreateInput, MentorUncheckedCreateInput>
+  }
+
+
+  /**
+   * Mentor createMany
+   */
+  export type MentorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Mentors.
+     */
+    data: MentorCreateManyInput | MentorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Mentor update
+   */
+  export type MentorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Mentor.
+     */
+    data: XOR<MentorUpdateInput, MentorUncheckedUpdateInput>
+    /**
+     * Choose, which Mentor to update.
+     */
+    where: MentorWhereUniqueInput
+  }
+
+
+  /**
+   * Mentor updateMany
+   */
+  export type MentorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Mentors.
+     */
+    data: XOR<MentorUpdateManyMutationInput, MentorUncheckedUpdateManyInput>
+    /**
+     * Filter which Mentors to update
+     */
+    where?: MentorWhereInput
+  }
+
+
+  /**
+   * Mentor upsert
+   */
+  export type MentorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Mentor to update in case it exists.
+     */
+    where: MentorWhereUniqueInput
+    /**
+     * In case the Mentor found by the `where` argument doesn't exist, create a new Mentor with this data.
+     */
+    create: XOR<MentorCreateInput, MentorUncheckedCreateInput>
+    /**
+     * In case the Mentor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MentorUpdateInput, MentorUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Mentor delete
+   */
+  export type MentorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+    /**
+     * Filter which Mentor to delete.
+     */
+    where: MentorWhereUniqueInput
+  }
+
+
+  /**
+   * Mentor deleteMany
+   */
+  export type MentorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Mentors to delete
+     */
+    where?: MentorWhereInput
+  }
+
+
+  /**
+   * Mentor without action
+   */
+  export type MentorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Mentor
+     */
+    select?: MentorSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MentorInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Model Judgeassessments
    */
 
@@ -17127,6 +18215,18 @@ export namespace Prisma {
   export type JudgeScalarFieldEnum = (typeof JudgeScalarFieldEnum)[keyof typeof JudgeScalarFieldEnum]
 
 
+  export const MentorScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    mentorGamertag: 'mentorGamertag',
+    email: 'email',
+    mentorImage: 'mentorImage',
+    hackathonId: 'hackathonId'
+  };
+
+  export type MentorScalarFieldEnum = (typeof MentorScalarFieldEnum)[keyof typeof MentorScalarFieldEnum]
+
+
   export const JudgeassessmentsScalarFieldEnum: {
     id: 'id',
     impact: 'impact',
@@ -17495,6 +18595,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     judge?: JudgeListRelationFilter
+    mentor?: MentorListRelationFilter
     teamMembers?: TeamMembersListRelationFilter
     teamRequest?: TeamRequestListRelationFilter
   }
@@ -17519,6 +18620,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     judge?: JudgeOrderByRelationAggregateInput
+    mentor?: MentorOrderByRelationAggregateInput
     teamMembers?: teamMembersOrderByRelationAggregateInput
     teamRequest?: teamRequestOrderByRelationAggregateInput
   }
@@ -17547,6 +18649,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     judge?: JudgeListRelationFilter
+    mentor?: MentorListRelationFilter
     teamMembers?: TeamMembersListRelationFilter
     teamRequest?: TeamRequestListRelationFilter
   }, "id" | "email" | "id_gamertag_email_image">
@@ -17733,6 +18836,7 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
     judge?: JudgeListRelationFilter
+    mentor?: MentorListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
     hackathonSponsors?: HackathonSponsorsListRelationFilter
@@ -17757,6 +18861,7 @@ export namespace Prisma {
     projects?: ProjectOrderByRelationAggregateInput
     registrations?: HackathonRegistrationOrderByRelationAggregateInput
     judge?: JudgeOrderByRelationAggregateInput
+    mentor?: MentorOrderByRelationAggregateInput
     creator?: UserOrderByWithRelationInput
     judgeassessments?: JudgeassessmentsOrderByRelationAggregateInput
     hackathonSponsors?: HackathonSponsorsOrderByRelationAggregateInput
@@ -17784,6 +18889,7 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
     judge?: JudgeListRelationFilter
+    mentor?: MentorListRelationFilter
     creator?: XOR<UserRelationFilter, UserWhereInput>
     judgeassessments?: JudgeassessmentsListRelationFilter
     hackathonSponsors?: HackathonSponsorsListRelationFilter
@@ -18145,6 +19251,69 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Judge"> | string
     judgeImage?: StringWithAggregatesFilter<"Judge"> | string
     hackathonId?: StringWithAggregatesFilter<"Judge"> | string
+  }
+
+  export type MentorWhereInput = {
+    AND?: MentorWhereInput | MentorWhereInput[]
+    OR?: MentorWhereInput[]
+    NOT?: MentorWhereInput | MentorWhereInput[]
+    id?: StringFilter<"Mentor"> | string
+    userId?: StringFilter<"Mentor"> | string
+    mentorGamertag?: StringFilter<"Mentor"> | string
+    email?: StringFilter<"Mentor"> | string
+    mentorImage?: StringFilter<"Mentor"> | string
+    hackathonId?: StringFilter<"Mentor"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+  }
+
+  export type MentorOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    mentorGamertag?: SortOrder
+    email?: SortOrder
+    mentorImage?: SortOrder
+    hackathonId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    hackathon?: HackathonOrderByWithRelationInput
+  }
+
+  export type MentorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MentorWhereInput | MentorWhereInput[]
+    OR?: MentorWhereInput[]
+    NOT?: MentorWhereInput | MentorWhereInput[]
+    userId?: StringFilter<"Mentor"> | string
+    mentorGamertag?: StringFilter<"Mentor"> | string
+    email?: StringFilter<"Mentor"> | string
+    mentorImage?: StringFilter<"Mentor"> | string
+    hackathonId?: StringFilter<"Mentor"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    hackathon?: XOR<HackathonRelationFilter, HackathonWhereInput>
+  }, "id">
+
+  export type MentorOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    mentorGamertag?: SortOrder
+    email?: SortOrder
+    mentorImage?: SortOrder
+    hackathonId?: SortOrder
+    _count?: MentorCountOrderByAggregateInput
+    _max?: MentorMaxOrderByAggregateInput
+    _min?: MentorMinOrderByAggregateInput
+  }
+
+  export type MentorScalarWhereWithAggregatesInput = {
+    AND?: MentorScalarWhereWithAggregatesInput | MentorScalarWhereWithAggregatesInput[]
+    OR?: MentorScalarWhereWithAggregatesInput[]
+    NOT?: MentorScalarWhereWithAggregatesInput | MentorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Mentor"> | string
+    userId?: StringWithAggregatesFilter<"Mentor"> | string
+    mentorGamertag?: StringWithAggregatesFilter<"Mentor"> | string
+    email?: StringWithAggregatesFilter<"Mentor"> | string
+    mentorImage?: StringWithAggregatesFilter<"Mentor"> | string
+    hackathonId?: StringWithAggregatesFilter<"Mentor"> | string
   }
 
   export type JudgeassessmentsWhereInput = {
@@ -18590,6 +19759,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -18614,6 +19784,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -18638,6 +19809,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -18662,6 +19834,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -18862,6 +20035,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
@@ -18886,6 +20060,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
@@ -18908,6 +20083,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
@@ -18932,6 +20108,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
@@ -19301,6 +20478,58 @@ export namespace Prisma {
     judgeGamertag?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     judgeImage?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorCreateInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutMentorInput
+    hackathon: HackathonCreateNestedOneWithoutMentorInput
+  }
+
+  export type MentorUncheckedCreateInput = {
+    id?: string
+    userId: string
+    mentorGamertag: string
+    email: string
+    mentorImage: string
+    hackathonId: string
+  }
+
+  export type MentorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMentorNestedInput
+    hackathon?: HackathonUpdateOneRequiredWithoutMentorNestedInput
+  }
+
+  export type MentorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    mentorGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    mentorImage?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorCreateManyInput = {
+    id?: string
+    userId: string
+    mentorGamertag: string
+    email: string
+    mentorImage: string
+    hackathonId: string
+  }
+
+  export type MentorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    mentorGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    mentorImage?: StringFieldUpdateOperationsInput | string
     hackathonId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -19838,6 +21067,12 @@ export namespace Prisma {
     none?: JudgeWhereInput
   }
 
+  export type MentorListRelationFilter = {
+    every?: MentorWhereInput
+    some?: MentorWhereInput
+    none?: MentorWhereInput
+  }
+
   export type TeamMembersListRelationFilter = {
     every?: teamMembersWhereInput
     some?: teamMembersWhereInput
@@ -19867,6 +21102,10 @@ export namespace Prisma {
   }
 
   export type JudgeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MentorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20293,6 +21532,33 @@ export namespace Prisma {
     hackathonId?: SortOrder
   }
 
+  export type MentorCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    mentorGamertag?: SortOrder
+    email?: SortOrder
+    mentorImage?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type MentorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    mentorGamertag?: SortOrder
+    email?: SortOrder
+    mentorImage?: SortOrder
+    hackathonId?: SortOrder
+  }
+
+  export type MentorMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    mentorGamertag?: SortOrder
+    email?: SortOrder
+    mentorImage?: SortOrder
+    hackathonId?: SortOrder
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -20574,6 +21840,13 @@ export namespace Prisma {
     connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
   }
 
+  export type MentorCreateNestedManyWithoutUserInput = {
+    create?: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput> | MentorCreateWithoutUserInput[] | MentorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutUserInput | MentorCreateOrConnectWithoutUserInput[]
+    createMany?: MentorCreateManyUserInputEnvelope
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+  }
+
   export type teamMembersCreateNestedManyWithoutUserInput = {
     create?: XOR<teamMembersCreateWithoutUserInput, teamMembersUncheckedCreateWithoutUserInput> | teamMembersCreateWithoutUserInput[] | teamMembersUncheckedCreateWithoutUserInput[]
     connectOrCreate?: teamMembersCreateOrConnectWithoutUserInput | teamMembersCreateOrConnectWithoutUserInput[]
@@ -20621,6 +21894,13 @@ export namespace Prisma {
     connectOrCreate?: JudgeCreateOrConnectWithoutUserInput | JudgeCreateOrConnectWithoutUserInput[]
     createMany?: JudgeCreateManyUserInputEnvelope
     connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+  }
+
+  export type MentorUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput> | MentorCreateWithoutUserInput[] | MentorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutUserInput | MentorCreateOrConnectWithoutUserInput[]
+    createMany?: MentorCreateManyUserInputEnvelope
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
   }
 
   export type teamMembersUncheckedCreateNestedManyWithoutUserInput = {
@@ -20713,6 +21993,20 @@ export namespace Prisma {
     update?: JudgeUpdateWithWhereUniqueWithoutUserInput | JudgeUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: JudgeUpdateManyWithWhereWithoutUserInput | JudgeUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+  }
+
+  export type MentorUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput> | MentorCreateWithoutUserInput[] | MentorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutUserInput | MentorCreateOrConnectWithoutUserInput[]
+    upsert?: MentorUpsertWithWhereUniqueWithoutUserInput | MentorUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MentorCreateManyUserInputEnvelope
+    set?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    disconnect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    delete?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    update?: MentorUpdateWithWhereUniqueWithoutUserInput | MentorUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MentorUpdateManyWithWhereWithoutUserInput | MentorUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MentorScalarWhereInput | MentorScalarWhereInput[]
   }
 
   export type teamMembersUpdateManyWithoutUserNestedInput = {
@@ -20811,6 +22105,20 @@ export namespace Prisma {
     update?: JudgeUpdateWithWhereUniqueWithoutUserInput | JudgeUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: JudgeUpdateManyWithWhereWithoutUserInput | JudgeUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+  }
+
+  export type MentorUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput> | MentorCreateWithoutUserInput[] | MentorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutUserInput | MentorCreateOrConnectWithoutUserInput[]
+    upsert?: MentorUpsertWithWhereUniqueWithoutUserInput | MentorUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MentorCreateManyUserInputEnvelope
+    set?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    disconnect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    delete?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    update?: MentorUpdateWithWhereUniqueWithoutUserInput | MentorUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MentorUpdateManyWithWhereWithoutUserInput | MentorUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MentorScalarWhereInput | MentorScalarWhereInput[]
   }
 
   export type teamMembersUncheckedUpdateManyWithoutUserNestedInput = {
@@ -21044,6 +22352,13 @@ export namespace Prisma {
     connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
   }
 
+  export type MentorCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput> | MentorCreateWithoutHackathonInput[] | MentorUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutHackathonInput | MentorCreateOrConnectWithoutHackathonInput[]
+    createMany?: MentorCreateManyHackathonInputEnvelope
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutHackathonsInput = {
     create?: XOR<UserCreateWithoutHackathonsInput, UserUncheckedCreateWithoutHackathonsInput>
     connectOrCreate?: UserCreateOrConnectWithoutHackathonsInput
@@ -21083,6 +22398,13 @@ export namespace Prisma {
     connectOrCreate?: JudgeCreateOrConnectWithoutHackathonInput | JudgeCreateOrConnectWithoutHackathonInput[]
     createMany?: JudgeCreateManyHackathonInputEnvelope
     connect?: JudgeWhereUniqueInput | JudgeWhereUniqueInput[]
+  }
+
+  export type MentorUncheckedCreateNestedManyWithoutHackathonInput = {
+    create?: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput> | MentorCreateWithoutHackathonInput[] | MentorUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutHackathonInput | MentorCreateOrConnectWithoutHackathonInput[]
+    createMany?: MentorCreateManyHackathonInputEnvelope
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
   }
 
   export type JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput = {
@@ -21143,6 +22465,20 @@ export namespace Prisma {
     update?: JudgeUpdateWithWhereUniqueWithoutHackathonInput | JudgeUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: JudgeUpdateManyWithWhereWithoutHackathonInput | JudgeUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+  }
+
+  export type MentorUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput> | MentorCreateWithoutHackathonInput[] | MentorUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutHackathonInput | MentorCreateOrConnectWithoutHackathonInput[]
+    upsert?: MentorUpsertWithWhereUniqueWithoutHackathonInput | MentorUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: MentorCreateManyHackathonInputEnvelope
+    set?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    disconnect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    delete?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    update?: MentorUpdateWithWhereUniqueWithoutHackathonInput | MentorUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: MentorUpdateManyWithWhereWithoutHackathonInput | MentorUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: MentorScalarWhereInput | MentorScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutHackathonsNestedInput = {
@@ -21221,6 +22557,20 @@ export namespace Prisma {
     update?: JudgeUpdateWithWhereUniqueWithoutHackathonInput | JudgeUpdateWithWhereUniqueWithoutHackathonInput[]
     updateMany?: JudgeUpdateManyWithWhereWithoutHackathonInput | JudgeUpdateManyWithWhereWithoutHackathonInput[]
     deleteMany?: JudgeScalarWhereInput | JudgeScalarWhereInput[]
+  }
+
+  export type MentorUncheckedUpdateManyWithoutHackathonNestedInput = {
+    create?: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput> | MentorCreateWithoutHackathonInput[] | MentorUncheckedCreateWithoutHackathonInput[]
+    connectOrCreate?: MentorCreateOrConnectWithoutHackathonInput | MentorCreateOrConnectWithoutHackathonInput[]
+    upsert?: MentorUpsertWithWhereUniqueWithoutHackathonInput | MentorUpsertWithWhereUniqueWithoutHackathonInput[]
+    createMany?: MentorCreateManyHackathonInputEnvelope
+    set?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    disconnect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    delete?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    connect?: MentorWhereUniqueInput | MentorWhereUniqueInput[]
+    update?: MentorUpdateWithWhereUniqueWithoutHackathonInput | MentorUpdateWithWhereUniqueWithoutHackathonInput[]
+    updateMany?: MentorUpdateManyWithWhereWithoutHackathonInput | MentorUpdateManyWithWhereWithoutHackathonInput[]
+    deleteMany?: MentorScalarWhereInput | MentorScalarWhereInput[]
   }
 
   export type JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput = {
@@ -21417,6 +22767,34 @@ export namespace Prisma {
     update?: JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput | JudgeassessmentsUpdateWithWhereUniqueWithoutJudgeInput[]
     updateMany?: JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput | JudgeassessmentsUpdateManyWithWhereWithoutJudgeInput[]
     deleteMany?: JudgeassessmentsScalarWhereInput | JudgeassessmentsScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMentorInput = {
+    create?: XOR<UserCreateWithoutMentorInput, UserUncheckedCreateWithoutMentorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMentorInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type HackathonCreateNestedOneWithoutMentorInput = {
+    create?: XOR<HackathonCreateWithoutMentorInput, HackathonUncheckedCreateWithoutMentorInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutMentorInput
+    connect?: HackathonWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMentorNestedInput = {
+    create?: XOR<UserCreateWithoutMentorInput, UserUncheckedCreateWithoutMentorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMentorInput
+    upsert?: UserUpsertWithoutMentorInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMentorInput, UserUpdateWithoutMentorInput>, UserUncheckedUpdateWithoutMentorInput>
+  }
+
+  export type HackathonUpdateOneRequiredWithoutMentorNestedInput = {
+    create?: XOR<HackathonCreateWithoutMentorInput, HackathonUncheckedCreateWithoutMentorInput>
+    connectOrCreate?: HackathonCreateOrConnectWithoutMentorInput
+    upsert?: HackathonUpsertWithoutMentorInput
+    connect?: HackathonWhereUniqueInput
+    update?: XOR<XOR<HackathonUpdateToOneWithWhereWithoutMentorInput, HackathonUpdateWithoutMentorInput>, HackathonUncheckedUpdateWithoutMentorInput>
   }
 
   export type HackathonCreateNestedOneWithoutJudgeassessmentsInput = {
@@ -21821,6 +23199,7 @@ export namespace Prisma {
     teams?: TeamCreateNestedManyWithoutCreatorInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -21844,6 +23223,7 @@ export namespace Prisma {
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21883,6 +23263,7 @@ export namespace Prisma {
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -21906,6 +23287,7 @@ export namespace Prisma {
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -21929,6 +23311,7 @@ export namespace Prisma {
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -21952,6 +23335,7 @@ export namespace Prisma {
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21991,6 +23375,7 @@ export namespace Prisma {
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -22014,6 +23399,7 @@ export namespace Prisma {
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22036,6 +23422,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
@@ -22058,6 +23445,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
@@ -22189,6 +23577,26 @@ export namespace Prisma {
 
   export type JudgeCreateManyUserInputEnvelope = {
     data: JudgeCreateManyUserInput | JudgeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MentorCreateWithoutUserInput = {
+    id?: string
+    hackathon: HackathonCreateNestedOneWithoutMentorInput
+  }
+
+  export type MentorUncheckedCreateWithoutUserInput = {
+    id?: string
+    hackathonId: string
+  }
+
+  export type MentorCreateOrConnectWithoutUserInput = {
+    where: MentorWhereUniqueInput
+    create: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput>
+  }
+
+  export type MentorCreateManyUserInputEnvelope = {
+    data: MentorCreateManyUserInput | MentorCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -22395,6 +23803,34 @@ export namespace Prisma {
     hackathonId?: StringFilter<"Judge"> | string
   }
 
+  export type MentorUpsertWithWhereUniqueWithoutUserInput = {
+    where: MentorWhereUniqueInput
+    update: XOR<MentorUpdateWithoutUserInput, MentorUncheckedUpdateWithoutUserInput>
+    create: XOR<MentorCreateWithoutUserInput, MentorUncheckedCreateWithoutUserInput>
+  }
+
+  export type MentorUpdateWithWhereUniqueWithoutUserInput = {
+    where: MentorWhereUniqueInput
+    data: XOR<MentorUpdateWithoutUserInput, MentorUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MentorUpdateManyWithWhereWithoutUserInput = {
+    where: MentorScalarWhereInput
+    data: XOR<MentorUpdateManyMutationInput, MentorUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MentorScalarWhereInput = {
+    AND?: MentorScalarWhereInput | MentorScalarWhereInput[]
+    OR?: MentorScalarWhereInput[]
+    NOT?: MentorScalarWhereInput | MentorScalarWhereInput[]
+    id?: StringFilter<"Mentor"> | string
+    userId?: StringFilter<"Mentor"> | string
+    mentorGamertag?: StringFilter<"Mentor"> | string
+    email?: StringFilter<"Mentor"> | string
+    mentorImage?: StringFilter<"Mentor"> | string
+    hackathonId?: StringFilter<"Mentor"> | string
+  }
+
   export type teamMembersUpsertWithWhereUniqueWithoutUserInput = {
     where: teamMembersWhereUniqueInput
     update: XOR<teamMembersUpdateWithoutUserInput, teamMembersUncheckedUpdateWithoutUserInput>
@@ -22530,6 +23966,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -22553,6 +23990,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22700,6 +24138,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -22723,6 +24162,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22846,6 +24286,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MentorCreateWithoutHackathonInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutMentorInput
+  }
+
+  export type MentorUncheckedCreateWithoutHackathonInput = {
+    id?: string
+    userId: string
+    mentorGamertag: string
+    email: string
+    mentorImage: string
+  }
+
+  export type MentorCreateOrConnectWithoutHackathonInput = {
+    where: MentorWhereUniqueInput
+    create: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type MentorCreateManyHackathonInputEnvelope = {
+    data: MentorCreateManyHackathonInput | MentorCreateManyHackathonInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserCreateWithoutHackathonsInput = {
     id?: string
     name?: string | null
@@ -22865,6 +24328,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -22888,6 +24352,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23005,6 +24470,22 @@ export namespace Prisma {
     data: XOR<JudgeUpdateManyMutationInput, JudgeUncheckedUpdateManyWithoutHackathonInput>
   }
 
+  export type MentorUpsertWithWhereUniqueWithoutHackathonInput = {
+    where: MentorWhereUniqueInput
+    update: XOR<MentorUpdateWithoutHackathonInput, MentorUncheckedUpdateWithoutHackathonInput>
+    create: XOR<MentorCreateWithoutHackathonInput, MentorUncheckedCreateWithoutHackathonInput>
+  }
+
+  export type MentorUpdateWithWhereUniqueWithoutHackathonInput = {
+    where: MentorWhereUniqueInput
+    data: XOR<MentorUpdateWithoutHackathonInput, MentorUncheckedUpdateWithoutHackathonInput>
+  }
+
+  export type MentorUpdateManyWithWhereWithoutHackathonInput = {
+    where: MentorScalarWhereInput
+    data: XOR<MentorUpdateManyMutationInput, MentorUncheckedUpdateManyWithoutHackathonInput>
+  }
+
   export type UserUpsertWithoutHackathonsInput = {
     update: XOR<UserUpdateWithoutHackathonsInput, UserUncheckedUpdateWithoutHackathonsInput>
     create: XOR<UserCreateWithoutHackathonsInput, UserUncheckedCreateWithoutHackathonsInput>
@@ -23035,6 +24516,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -23058,6 +24540,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23139,6 +24622,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
@@ -23162,6 +24646,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
@@ -23230,6 +24715,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
@@ -23253,6 +24739,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
@@ -23311,6 +24798,7 @@ export namespace Prisma {
     endDate: string
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
@@ -23334,6 +24822,7 @@ export namespace Prisma {
     endDate: string
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
@@ -23438,6 +24927,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
@@ -23461,6 +24951,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
@@ -23537,6 +25028,7 @@ export namespace Prisma {
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
@@ -23560,6 +25052,7 @@ export namespace Prisma {
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23586,6 +25079,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
@@ -23609,6 +25103,7 @@ export namespace Prisma {
     endDate: string
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
@@ -23684,6 +25179,7 @@ export namespace Prisma {
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
@@ -23707,6 +25203,7 @@ export namespace Prisma {
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23739,6 +25236,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
@@ -23762,6 +25260,7 @@ export namespace Prisma {
     endDate?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
@@ -23782,6 +25281,226 @@ export namespace Prisma {
     data: XOR<JudgeassessmentsUpdateManyMutationInput, JudgeassessmentsUncheckedUpdateManyWithoutJudgeInput>
   }
 
+  export type UserCreateWithoutMentorInput = {
+    id?: string
+    name?: string | null
+    email: string
+    gamertag: string
+    role?: $Enums.Role
+    emailVerified?: boolean | null
+    image?: string | null
+    isVerified?: boolean | null
+    lightningAddress?: string | null
+    publicBio?: string | null
+    publicStaticCharge?: string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonCreateNestedManyWithoutCreatorInput
+    teams?: TeamCreateNestedManyWithoutCreatorInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    judge?: JudgeCreateNestedManyWithoutUserInput
+    teamMembers?: teamMembersCreateNestedManyWithoutUserInput
+    teamRequest?: teamRequestCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMentorInput = {
+    id?: string
+    name?: string | null
+    email: string
+    gamertag: string
+    role?: $Enums.Role
+    emailVerified?: boolean | null
+    image?: string | null
+    isVerified?: boolean | null
+    lightningAddress?: string | null
+    publicBio?: string | null
+    publicStaticCharge?: string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
+    teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
+    teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMentorInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMentorInput, UserUncheckedCreateWithoutMentorInput>
+  }
+
+  export type HackathonCreateWithoutMentorInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    startDate: string
+    endDate: string
+    projects?: ProjectCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
+    judge?: JudgeCreateNestedManyWithoutHackathonInput
+    creator: UserCreateNestedOneWithoutHackathonsInput
+    judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonUncheckedCreateWithoutMentorInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    title: string
+    description: string
+    benefits: string
+    rules: string
+    judgingCriteria: string
+    firstPlacePrize: string
+    secondPlacePrize: string
+    thirdPlacePrize: string
+    published?: boolean
+    creatorId: string
+    startDate: string
+    endDate: string
+    projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
+    registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
+    judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
+    hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
+  }
+
+  export type HackathonCreateOrConnectWithoutMentorInput = {
+    where: HackathonWhereUniqueInput
+    create: XOR<HackathonCreateWithoutMentorInput, HackathonUncheckedCreateWithoutMentorInput>
+  }
+
+  export type UserUpsertWithoutMentorInput = {
+    update: XOR<UserUpdateWithoutMentorInput, UserUncheckedUpdateWithoutMentorInput>
+    create: XOR<UserCreateWithoutMentorInput, UserUncheckedCreateWithoutMentorInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMentorInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMentorInput, UserUncheckedUpdateWithoutMentorInput>
+  }
+
+  export type UserUpdateWithoutMentorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    gamertag?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
+    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: NullableStringFieldUpdateOperationsInput | string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
+    teams?: TeamUpdateManyWithoutCreatorNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    judge?: JudgeUpdateManyWithoutUserNestedInput
+    teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
+    teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMentorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    gamertag?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    lightningAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    publicBio?: NullableStringFieldUpdateOperationsInput | string | null
+    publicStaticCharge?: NullableStringFieldUpdateOperationsInput | string | null
+    social?: NullableJsonNullValueInput | InputJsonValue
+    balance?: NullableStringFieldUpdateOperationsInput | string | null
+    remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
+    teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type HackathonUpsertWithoutMentorInput = {
+    update: XOR<HackathonUpdateWithoutMentorInput, HackathonUncheckedUpdateWithoutMentorInput>
+    create: XOR<HackathonCreateWithoutMentorInput, HackathonUncheckedCreateWithoutMentorInput>
+    where?: HackathonWhereInput
+  }
+
+  export type HackathonUpdateToOneWithWhereWithoutMentorInput = {
+    where?: HackathonWhereInput
+    data: XOR<HackathonUpdateWithoutMentorInput, HackathonUncheckedUpdateWithoutMentorInput>
+  }
+
+  export type HackathonUpdateWithoutMentorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
+    judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
+  }
+
+  export type HackathonUncheckedUpdateWithoutMentorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    benefits?: StringFieldUpdateOperationsInput | string
+    rules?: StringFieldUpdateOperationsInput | string
+    judgingCriteria?: StringFieldUpdateOperationsInput | string
+    firstPlacePrize?: StringFieldUpdateOperationsInput | string
+    secondPlacePrize?: StringFieldUpdateOperationsInput | string
+    thirdPlacePrize?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    creatorId?: StringFieldUpdateOperationsInput | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
+    registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
+    judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
+    hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
+  }
+
   export type HackathonCreateWithoutJudgeassessmentsInput = {
     id?: string
     createdAt?: Date | string
@@ -23800,6 +25519,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     hackathonSponsors?: HackathonSponsorsCreateNestedManyWithoutHackathonInput
   }
@@ -23823,6 +25543,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     hackathonSponsors?: HackathonSponsorsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -23913,6 +25634,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
@@ -23936,6 +25658,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -24022,6 +25745,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutHackathonInput
     judge?: JudgeCreateNestedManyWithoutHackathonInput
+    mentor?: MentorCreateNestedManyWithoutHackathonInput
     creator: UserCreateNestedOneWithoutHackathonsInput
     judgeassessments?: JudgeassessmentsCreateNestedManyWithoutHackathonInput
   }
@@ -24045,6 +25769,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutHackathonInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutHackathonInput
     judge?: JudgeUncheckedCreateNestedManyWithoutHackathonInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutHackathonInput
     judgeassessments?: JudgeassessmentsUncheckedCreateNestedManyWithoutHackathonInput
   }
 
@@ -24082,6 +25807,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     creator?: UserUpdateOneRequiredWithoutHackathonsNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
   }
@@ -24105,6 +25831,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
   }
 
@@ -24159,6 +25886,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestCreateNestedManyWithoutUserInput
   }
 
@@ -24182,6 +25910,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamRequest?: teamRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -24258,6 +25987,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUpdateManyWithoutUserNestedInput
   }
 
@@ -24281,6 +26011,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamRequest?: teamRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24335,6 +26066,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     judge?: JudgeCreateNestedManyWithoutUserInput
+    mentor?: MentorCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersCreateNestedManyWithoutUserInput
   }
 
@@ -24358,6 +26090,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     judge?: JudgeUncheckedCreateNestedManyWithoutUserInput
+    mentor?: MentorUncheckedCreateNestedManyWithoutUserInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -24434,6 +26167,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     judge?: JudgeUpdateManyWithoutUserNestedInput
+    mentor?: MentorUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUpdateManyWithoutUserNestedInput
   }
 
@@ -24457,6 +26191,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutUserNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutUserNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24512,6 +26247,11 @@ export namespace Prisma {
     hackathonId: string
   }
 
+  export type MentorCreateManyUserInput = {
+    id?: string
+    hackathonId: string
+  }
+
   export type teamMembersCreateManyUserInput = {
     id?: string
     teamId: string
@@ -24544,6 +26284,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUpdateManyWithoutHackathonNestedInput
   }
@@ -24566,6 +26307,7 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutHackathonNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutHackathonNestedInput
     judge?: JudgeUncheckedUpdateManyWithoutHackathonNestedInput
+    mentor?: MentorUncheckedUpdateManyWithoutHackathonNestedInput
     judgeassessments?: JudgeassessmentsUncheckedUpdateManyWithoutHackathonNestedInput
     hackathonSponsors?: HackathonSponsorsUncheckedUpdateManyWithoutHackathonNestedInput
   }
@@ -24698,6 +26440,21 @@ export namespace Prisma {
   }
 
   export type JudgeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hackathon?: HackathonUpdateOneRequiredWithoutMentorNestedInput
+  }
+
+  export type MentorUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hackathonId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     hackathonId?: StringFieldUpdateOperationsInput | string
   }
@@ -24910,6 +26667,14 @@ export namespace Prisma {
     judgeImage: string
   }
 
+  export type MentorCreateManyHackathonInput = {
+    id?: string
+    userId: string
+    mentorGamertag: string
+    email: string
+    mentorImage: string
+  }
+
   export type JudgeassessmentsCreateManyHackathonInput = {
     id?: string
     impact: number
@@ -25013,6 +26778,27 @@ export namespace Prisma {
     judgeGamertag?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     judgeImage?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMentorNestedInput
+  }
+
+  export type MentorUncheckedUpdateWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    mentorGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    mentorImage?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MentorUncheckedUpdateManyWithoutHackathonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    mentorGamertag?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    mentorImage?: StringFieldUpdateOperationsInput | string
   }
 
   export type JudgeassessmentsUpdateWithoutHackathonInput = {
@@ -25248,6 +27034,10 @@ export namespace Prisma {
      * @deprecated Use JudgeDefaultArgs instead
      */
     export type JudgeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JudgeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MentorDefaultArgs instead
+     */
+    export type MentorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MentorDefaultArgs<ExtArgs>
     /**
      * @deprecated Use JudgeassessmentsDefaultArgs instead
      */

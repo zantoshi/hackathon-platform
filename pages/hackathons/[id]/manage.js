@@ -17,6 +17,7 @@ export default function ManageHackathon() {
   const [selectedTab, setSelectedTab] = useState("");
   const [Userdetails, setUserdetails] = useState([]);
   const [judges, setJudges] = useState([]);
+  const [mentors, setMentors] = useState([]);
   const [id, setId] = useState("");
   const router = useRouter();
   const [search, setSearch] = useState("");
@@ -238,6 +239,38 @@ const judgeGetting = async ()=>{
   
   }, [id]);
 
+  const mentorGetting = async ()=>{
+    try {
+      if (id) {
+        const response = await fetch(`/api/mentors/${id}/hackathonDetails`, {
+          cache: 'no-store',
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          next: { revalidate: 1 },
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setMentors(data);
+        } else {
+          console.error("Error fetching mentors:", response.statusText);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching Mentors:", error);
+    }
+  }
+  
+    useEffect(() => {
+      const fetchMentors = async () => {
+        mentorGetting()
+      };
+    
+      fetchMentors();
+    
+    }, [id]);
+  
+
   const create = async (e) => {
     e.preventDefault();
     try {
@@ -258,6 +291,34 @@ const judgeGetting = async ()=>{
           cache: 'no-store'
         });
         judgeGetting()
+        
+        console.log(values.value);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createMentor = async (e) => {
+    e.preventDefault();
+    try {
+      if (id) {
+        const body = {
+          userId: values.value,
+          mentorGamertag: values.label,
+          email: values.email,
+          mentorImage: values.image,
+          hackathonId: id,
+        };
+
+        await fetch(`/api/mentors/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+          next: { revalidate: 1 },
+          cache: 'no-store'
+        });
+        mentorGetting()
         
         console.log(values.value);
       }
@@ -289,6 +350,22 @@ const judgeGetting = async ()=>{
       }
     } catch (error) {
       console.log("this is the error for deleting a judge: " + error);
+    }
+  };
+
+  const handleClickMentor = async (id) => {
+    try {
+      if (id) {
+        const response = await fetch(`/api/mentors/${id}/delete`, {
+          cache: 'no-store',
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        setMentors(prevMentors => prevMentors.filter(mentor => mentor.id !== id));
+
+      }
+    } catch (error) {
+      console.log("this is the error for deleting a mentor: " + error);
     }
   };
 
@@ -463,6 +540,73 @@ const judgeGetting = async ()=>{
                       className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                       onClick={() => {
                         handleClickJudge(judge.id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+      break;
+      case "mentors":
+      content = (
+        <div className="">
+          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+            {hackathon.title} Hackathon Information (Mentors)
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-200"></p>
+          <form onSubmit={createMentor}>
+            <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
+              <div
+                class="text-purple-600"
+                data-te-input-wrapper-init
+                id="async"
+              >
+                <Select
+                  type="text"
+                  className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
+                  id="exampleFormControlInput3"
+                  placeholder="Type the gamertag of the user to assign it as a mentor"
+                  options={options}
+                  defaultValue={search}
+                  onChange={handleChange}
+                  values={options}
+                ></Select>
+
+              </div>
+              <ButtonSecondary
+                functionCall={createMentor}
+                buttonText="Add mentor"
+              ></ButtonSecondary>
+            </div>
+          </form>
+          <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {mentors.map((mentor) => {
+              return (
+                <div
+                  class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+                  key={setMentors.id}
+                >
+                  <img
+                    class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                    src={mentor.mentorImage}
+                  ></img>
+
+                  <div class="text-center space-y-2 sm:text-left">
+                    <div class="space-y-0.5 flex-cols items-center">
+                      <p class="text-xl text-white font-semibold">
+                        {mentor.mentorGamertag}
+                      </p>
+                    </div>
+
+                    <button
+                      className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                      onClick={() => {
+                        handleClickMentor(mentor.id);
                       }}
                     >
                       Remove
@@ -812,6 +956,13 @@ const judgeGetting = async ()=>{
                   <ButtonSecondary
                     functionCall={() => handleTabClick("judges")}
                     buttonText="Judges"
+                  
+                  ></ButtonSecondary>
+                </th>
+                <th>
+                  <ButtonSecondary
+                    functionCall={() => handleTabClick("mentors")}
+                    buttonText="Mentors"
                   
                   ></ButtonSecondary>
                 </th>

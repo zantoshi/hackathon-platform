@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import HackathonCard from "@/components/HackathonCard";
+
 import ButtonSecondary from "@/components/ButtonSecondary";
 import CreateAssessForm from "@/components/CreateAssessForm";
 import { getServerSideProps } from "../../../util/authUtils";
 
 export { getServerSideProps };
 function assessment() {
-  const [projects, setProject] = useState();
-  const [hackathon, setHackathon] = useState();
+ 
   const router = useRouter();
   const [Userdetails, setUserdetails] = useState([]);
+  const [projects, setProject] = useState();
+  const [hackathon, setHackathon] = useState();
   const [id, setId] = useState("");
   const { data: session } = useSession();
 
