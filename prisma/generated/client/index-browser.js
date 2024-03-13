@@ -227,6 +227,15 @@ exports.Prisma.JudgeScalarFieldEnum = {
   hackathonId: 'hackathonId'
 };
 
+exports.Prisma.MentorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  mentorGamertag: 'mentorGamertag',
+  email: 'email',
+  mentorImage: 'mentorImage',
+  hackathonId: 'hackathonId'
+};
+
 exports.Prisma.JudgeassessmentsScalarFieldEnum = {
   id: 'id',
   impact: 'impact',
@@ -307,6 +316,7 @@ exports.Prisma.ModelName = {
   Contact: 'Contact',
   Sponsors: 'Sponsors',
   Judge: 'Judge',
+  Mentor: 'Mentor',
   Judgeassessments: 'Judgeassessments',
   HackathonSponsors: 'HackathonSponsors',
   teamMembers: 'teamMembers',

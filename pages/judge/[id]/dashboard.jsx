@@ -241,6 +241,9 @@ function dashboard() {
                         <th scope="col" class="px-1 py-2">
                           Details
                         </th>
+                        <th scope="col" class="px-1 py-2">
+                          Edit
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -275,6 +278,11 @@ function dashboard() {
                                     <td class="px-1 py-2">
                                       <a href={`/assessment/${score.id}`}>
                                         Details
+                                      </a>
+                                    </td>
+                                    <td class="px-1 py-2">
+                                      <a href={`/assessment/${score.id}/editassessment`}>
+                                        Edit
                                       </a>
                                     </td>
                                   </tr>

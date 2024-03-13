@@ -58,6 +58,7 @@ model User {
   balance               String?
   remainingAmountLimits Json?
   judge                 Judge[]
+  mentor                Mentor[]
   teamMembers           teamMembers[]
  teamRequest  teamRequest[]
 
@@ -108,6 +109,7 @@ model Hackathon {
   projects      Project[]
   registrations HackathonRegistration[]
   judge         Judge[]
+  mentor                Mentor[]
 
   published Boolean @default(false)
   creator   User    @relation(fields: [creatorId], references: [id])
@@ -191,6 +193,18 @@ model Judge {
   hackathonId      String
   judgeassessments Judgeassessments[]
 }
+
+model Mentor {
+  id               String             @id @default(cuid())
+  user             User               @relation(fields: [userId, mentorGamertag, email, mentorImage], references: [id, gamertag, email, image])
+  userId           String
+  mentorGamertag    String
+  email            String
+  mentorImage       String
+  hackathon        Hackathon          @relation(fields: [hackathonId], references: [id])
+  hackathonId      String
+}
+
 
 model Judgeassessments {
   id              String  @id @default(cuid())

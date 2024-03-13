@@ -22,6 +22,7 @@ export default function HackathonDetail() {
   const [registration, setRegistration] = useState([]);
   const [hackathon, setHackathon] = useState([]);
   const [submit, setSubmit] = useState();
+  const [mentors, setMentors] = useState([]);
   const [edit,setEdit]=  useState();
   const [prices, setPrices] = useState([]);
   const signedUp = teams.length > 0;
@@ -222,6 +223,30 @@ export default function HackathonDetail() {
     };
 
     fetchJudges(); // Call the fetchTeams function
+  }, [id]);
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        if (id) {
+          const response = await fetch(`/api/mentors/${id}/hackathonDetails`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setMentors(data);
+          } else {
+            console.error("Error fetching teams:", response.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching j:", error);
+      }
+    };
+
+    fetchMentors(); // Call the fetchTeams function
   }, [id]);
 
   useEffect(() => {
@@ -568,6 +593,59 @@ export default function HackathonDetail() {
                   There are no judges registered for this Hackathon. Make sure
                   to check once in a while to see who is going to evaluate your
                   project
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="mt-24">
+            <SectionHeader headerText={"Mentors"} />
+            {mentors.length ? (
+              <>
+                <SectionHeader
+                  descriptionText={"Judges that will evaluate the projects"}
+                />
+                <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                  {mentors.map((mentor) => {
+                    return (
+                      <div
+                        class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+                        key={mentor.id}
+                      >
+                        <img
+                          class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                          src={mentor.mentorImage}
+                          alt="Woman's Face"
+                        ></img>
+                        <div class="text-center space-y-2 sm:text-left">
+                          <div class="space-y-0.5 flex-cols items-center">
+                            <p class="text-xl text-white font-semibold">
+                              {mentor.mentorGamertag}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>{" "}
+              </>
+            ) : (
+              <div class="p-4 mb-4 text-white border border-purple-800 rounded-lg bg-gray-900">
+                <div class="flex items-center">
+                  <svg
+                    class="flex-shrink-0 w-4 h-4 me-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                  </svg>
+                  <span class="sr-only">Info</span>
+                  <h3 class="text-lg font-medium">No mentors assigned yet</h3>
+                </div>
+                <div class="mt-2 mb-4 text-sm">
+                  There are no mentors registered for this Hackathon. Make sure
+                  to check once in a while to see who can help you out with your project
                 </div>
               </div>
             )}
