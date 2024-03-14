@@ -15,6 +15,9 @@ export default function TeamsPage({ session }) {
   const [allteams, setAllTeams] = useState([]);
 
   useEffect(() => {
+    localStorage.setItem("title", "GHL | Teams");
+  }, []);
+  useEffect(() => {
     const fetchTeams = async () => {
       try {
         const teams = await fetch(`/api/team/teams`, {

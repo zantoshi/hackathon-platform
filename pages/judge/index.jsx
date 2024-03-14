@@ -10,7 +10,10 @@ import { getServerSideProps } from "../../util/authUtils";
 export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
-  
+
+  useEffect(() => {
+    localStorage.setItem("title", "GHL | Judge Dashboard");
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {

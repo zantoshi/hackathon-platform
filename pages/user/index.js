@@ -15,6 +15,10 @@ function index() {
   const [allteams, setAllTeams] = useState([]);
 
   useEffect(() => {
+    localStorage.setItem("title", "GHL | User Profile");
+  }, []);
+
+  useEffect(() => {
     const getUser = async () => {
       try {
         const response = await fetch("/api/users", {
