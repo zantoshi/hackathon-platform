@@ -6,6 +6,7 @@ import AccessDenied from "@/components/access-denied";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Select from "react-select";
 import { getServerSideProps } from "../../../util/authUtils";
+import Podium from "@/components/Podium"
 
 export { getServerSideProps };
 export default function ManageHackathon() {
@@ -772,6 +773,7 @@ const judgeGetting = async ()=>{
                 </tbody>
             </table>
         </div>
+        <Podium id={id}></Podium>
     </div>
     
       );
