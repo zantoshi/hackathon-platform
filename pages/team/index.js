@@ -15,9 +15,6 @@ export default function TeamsPage({ session }) {
   const [allteams, setAllTeams] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("title", "GHL | Teams");
-  }, []);
-  useEffect(() => {
     const fetchTeams = async () => {
       try {
         const teams = await fetch(`/api/team/teams`, {
@@ -85,6 +82,9 @@ export default function TeamsPage({ session }) {
 
   return (
     <Layout>
+       <header>
+          <title>GHL | Teams</title>
+        </header>
       <div>
         <div className="mx-auto px-6 lg:px-8">
           <div className="my-2">

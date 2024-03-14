@@ -68,6 +68,9 @@ function Project() {
     return (
       <div className="">
         <Layout>
+        <header>
+          <title>GHL | Project</title>
+        </header>
           <>
             {id && projects && (
               <div className="w-full md:pl-14 text-white px-5">

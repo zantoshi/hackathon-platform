@@ -11,9 +11,7 @@ export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
 
-  useEffect(() => {
-    localStorage.setItem("title", "GHL | Judge Dashboard");
-  }, []);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,12 +28,18 @@ export default function IndexPage() {
   if(judge){
   return (
     <Layout>
+        <header>
+          <title>GHL | Judge Dashboard</title>
+        </header>
       <JudgeView></JudgeView>
     </Layout>
   );
   }else{     
     return(
       <Layout>
+        <header>
+          <title>GHL | Not access</title>
+        </header>
       <AccessDenied />
     </Layout>
     )

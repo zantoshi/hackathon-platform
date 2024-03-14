@@ -938,6 +938,9 @@ const judgeGetting = async ()=>{
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
+        <header>
+          <title>GHL | Admin Dashboard</title>
+        </header>
         <div className="min-w-full w-auto md:pl-14 text-white px-5 h-lvh  ">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information

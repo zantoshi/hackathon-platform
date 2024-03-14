@@ -141,21 +141,11 @@ export default function Header() {
     signOut();
   };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      let newtitle = localStorage.getItem("title")
-      setTitle(newtitle)
-    }
-  }, []);
-
   
 
   return (
     <div>
       <header>
-        <title>
-          {title}
-        </title>
         <nav className="flex flex-row align-middle p-4  text-white justify-between border-b-4 border-purple-400/[.20]">
           <div className="flex flex-row space-x-4 z-50">
             <Link href="/">

@@ -78,6 +78,9 @@ export default function SubmitProject() {
 
   return (
     <Layout>
+      <header>
+          <title>GHL | Submit a project</title>
+        </header>
       {formattedCurrentDate <= hackathon.endDate && (
         <div className="py-4 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">

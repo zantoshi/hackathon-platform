@@ -79,6 +79,9 @@ export default function CreateHackathon() {
   } else {
     return (
       <Layout>
+        <header>
+          <title>GHL | Hackathons</title>
+        </header>
         <AccessDenied />
       </Layout>
     );

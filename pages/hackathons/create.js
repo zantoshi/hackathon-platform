@@ -42,12 +42,18 @@ const { data: session } = useSession();
     return (
       
       <Layout>
+        <header>
+          <title>GHL | Create Hackathon</title>
+        </header>
         <CreateHackathonForm />
       </Layout>
     );
   } else {
     return (
       <Layout>
+        <header>
+          <title>GHL | Not access</title>
+        </header>
         <AccessDenied />
       </Layout>
     );

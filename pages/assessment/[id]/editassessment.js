@@ -130,7 +130,9 @@ const { data: session } = useSession();
     return (
       
       <Layout>
-        
+        <header>
+          <title>GHL | Edit</title>
+        </header>
         <>
         {id && assess && projects && (
         <>

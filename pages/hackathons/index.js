@@ -14,11 +14,11 @@ import hackathons from "@/data/content/hackathons.json";
 import { useEffect, useState } from "react";
 
 export default function HackathonList() {
-  useEffect(() => {
-    localStorage.setItem("title", "GHL | Hackathons");
-  }, []);
   return (
     <Layout>
+      <header>
+          <title>GHL | Hackathons</title>
+        </header>
       {/* {user && user.role === "JUDGE" ? (
        <JudgeView/>
       ):

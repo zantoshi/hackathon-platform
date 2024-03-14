@@ -14,9 +14,6 @@ function index() {
   const [myteams, setMyTeams] = useState([]);
   const [allteams, setAllTeams] = useState([]);
 
-  useEffect(() => {
-    localStorage.setItem("title", "GHL | User Profile");
-  }, []);
 
   useEffect(() => {
     const getUser = async () => {
@@ -96,6 +93,9 @@ function index() {
 
   return (
     <Layout>
+       <header>
+          <title>GHL | Contact us</title>
+        </header>
       <div className="w-full md:pl-14 text-white px-5">
         <ButtonSecondary buttonText={"Back"} buttonLink={"/"} />
         <div className="mb-2 mt-5">

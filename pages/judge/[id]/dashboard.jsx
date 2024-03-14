@@ -171,6 +171,9 @@ function dashboard() {
   return (
     <div>
       <Layout>
+      <header>
+          <title>GHL | Judge Dashboard</title>
+        </header>
         {projects && hackathon && (
           <div className="px-12">
             <h1 className="text-3xl font-bold tracking-tight  sm:text-4xl">
