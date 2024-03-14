@@ -237,19 +237,22 @@ function dashboard() {
                         Team Name
                       </th>
 
-                      <th scope="col" class="px-1 py-2">
-                        Overall Score
-                      </th>
-                      <th scope="col" class="px-1 py-2">
-                        Details
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {assessments.map((score) => {
-                      const overall_score_rounded = parseFloat(
-                        score.overall_score
-                      ).toFixed(2);
+                        <th scope="col" class="px-1 py-2">
+                          Overall Score
+                        </th>
+                        <th scope="col" class="px-1 py-2">
+                          Details
+                        </th>
+                        <th scope="col" class="px-1 py-2">
+                          Edit
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {assessments.map((score) => {
+                        const overall_score_rounded = parseFloat(
+                          score.overall_score
+                        ).toFixed(2);
 
                       return projects.map((project) => {
                         return judges.map((judge) => {
@@ -270,23 +273,29 @@ function dashboard() {
                                   </th>
                                   <td class="px-1 py-2">{detail.name}</td>
 
-                                  <td class="px-1 py-2">
-                                    {overall_score_rounded}
-                                  </td>
-                                  <td class="px-1 py-2">
-                                    <a href={`/assessment/${score.id}`}>
-                                      Details
-                                    </a>
-                                  </td>
-                                </tr>
-                              )
-                            );
+                                    <td class="px-1 py-2">
+                                      {overall_score_rounded}
+                                    </td>
+                                    <td class="px-1 py-2">
+                                      <a href={`/assessment/${score.id}`}>
+                                        Details
+                                      </a>
+                                    </td>
+                                    <td class="px-1 py-2">
+                                      <a href={`/assessment/${score.id}/editassessment`}>
+                                        Edit
+                                      </a>
+                                    </td>
+                                  </tr>
+                                )
+                              );
+                            });
                           });
                         });
-                      });
-                    })}
-                  </tbody>
-                </table>
+                      })}
+                    </tbody>
+                  </table>
+                
 
                 <h1></h1>
               </div>
