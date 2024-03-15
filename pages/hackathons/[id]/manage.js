@@ -679,7 +679,14 @@ const judgeGetting = async ()=>{
                       >
                         Remove
                       </button>
-                     
+                      <button
+                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          router.push(`/team/${registration.teamId}`)
+                        }}
+                      >
+                        Details
+                      </button>
                           </div>
 
                     </div>

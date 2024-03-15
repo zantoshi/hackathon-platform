@@ -6,7 +6,7 @@ export default function IndexPage() {
   return (
     <Layout>
        <header>
-          <title>GHL</title>
+          <title>Global Hackathon League</title>
         </header>
       <HeroModule />
     </Layout>
