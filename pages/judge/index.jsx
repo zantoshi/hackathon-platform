@@ -10,6 +10,7 @@ import { getServerSideProps } from "../../util/authUtils";
 export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
+
   
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +28,18 @@ export default function IndexPage() {
   if(judge){
   return (
     <Layout>
+        <header>
+          <title>GHL | Judge Dashboard</title>
+        </header>
       <JudgeView></JudgeView>
     </Layout>
   );
   }else{     
     return(
       <Layout>
+        <header>
+          <title>GHL | Not access</title>
+        </header>
       <AccessDenied />
     </Layout>
     )

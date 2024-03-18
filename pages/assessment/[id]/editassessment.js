@@ -127,11 +127,12 @@ const { data: session } = useSession();
 
   // If session exists and is an admin user, display content
   // Only allow my email because I am the only one allowed to create hackathons ATM.
-  if (session && Userdetails.role ==="ADMIN") {
     return (
       
       <Layout>
-        
+        <header>
+          <title>GHL | Edit</title>
+        </header>
         <>
         {id && assess && projects && (
         <>
@@ -148,11 +149,5 @@ const { data: session } = useSession();
         
       </Layout>
     );
-  } else {
-    return (
-      <Layout>
-        <AccessDenied />
-      </Layout>
-    );
-  }
+  
 }

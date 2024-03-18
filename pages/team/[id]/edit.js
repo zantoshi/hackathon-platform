@@ -22,6 +22,9 @@ function edit() {
 
   return (
     <Layout>
+        <header>
+          <title>GHL | Edit Team</title>
+        </header>
       <div className="">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={`/team/${id}`} />

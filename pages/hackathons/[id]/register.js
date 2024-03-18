@@ -50,6 +50,9 @@ export default function HackathonRegistration() {
 
   return (
     <Layout>
+      <header>
+          <title>GHL | Register a team</title>
+        </header>
       {formattedCurrentDate <= hackathon.startDate && (  <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={`/hackathons/${id}/`} />

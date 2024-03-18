@@ -113,6 +113,9 @@ function Index() {
   return (
     <>
       <Layout>
+      <header>
+          <title>GHL | My Team</title>
+        </header>
         <div className="w-full md:pl-14 text-white px-5">
           <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
           <div className="mb-2 mt-5">

@@ -123,6 +123,9 @@ function Assessment() {
     return (
       <div className="">
         <Layout>
+        <header>
+          <title>GHL | Score</title>
+        </header>
           <>
           
             {id && assess && projects && details && (

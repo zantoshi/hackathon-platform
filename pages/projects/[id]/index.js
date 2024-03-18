@@ -68,7 +68,9 @@ function Project() {
     return (
       <div className="">
         <Layout>
-          {console.log(projects)}
+        <header>
+          <title>GHL | Project</title>
+        </header>
           <>
             {id && projects && (
               <div className="w-full md:pl-14 text-white px-5">
@@ -115,7 +117,6 @@ function Project() {
     return (
       <div className="">
         <Layout>
-          {console.log(projects)}
           <>
             {id && projects && (
               <div className="w-full md:pl-14 text-white px-5">

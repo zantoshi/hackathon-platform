@@ -54,6 +54,9 @@ const { data: session } = useSession();
     return (
       
       <Layout>
+        <header>
+          <title>GHL | Edit Sponsor</title>
+        </header>
         <SponsorSubmissionForm id = {id} sponsorid = {sponsorid} />
       </Layout>
     );

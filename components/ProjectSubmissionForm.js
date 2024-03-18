@@ -76,7 +76,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
 
   return (
     <form onSubmit={create}>
-      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+      <div className="mt-10 grid md:grid-cols-1 gap-x-6 gap-y-8 grid-cols-1 ">
         <div className="sm:col-span-4">
           <label
             htmlFor="projectName"
@@ -92,7 +92,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 id="projectName"
                 autoComplete="project-name"
                 onChange={(e) => setProjectName(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field  placeholder:opacity-60 placeholder:font-semibold w-full"
                 required
                 value={projectName}
               />
@@ -114,7 +114,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 id="projectDescription"
                 autoComplete="project-description"
                 onChange={(e) => setProjectDescription(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-full placeholder:opacity-60 placeholder:font-semibold"
                 required
                 value={projectDescription}
               />
@@ -136,7 +136,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 id="loomLink"
                 autoComplete="loom-link"
                 onChange={(e) => setLoomLink(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-full placeholder:opacity-60 placeholder:font-semibold"
                 required
                 value={loomLink}
               />
@@ -158,7 +158,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 id="pitchLink"
                 autoComplete="pitch-link"
                 onChange={(e) => setPitchLink(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-full placeholder:opacity-60 placeholder:font-semibold"
                 required
                 value={pitchLink}
               />
@@ -180,7 +180,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 id="projectResourceLink"
                 autoComplete="project-resource-link"
                 onChange={(e) => setProjectResourceLink(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-full placeholder:opacity-60 placeholder:font-semibold"
                 value={projectResourceLink}
               />
             </div>
@@ -200,7 +200,7 @@ const ProjectSubmissionForm = ({ hackathonId, project }) => {
                 name="comments"
                 rows={3}
                 onChange={(e) => setComments(e.target.value)}
-                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-80 placeholder:opacity-60 placeholder:font-semibold"
+                className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field w-full placeholder:opacity-60 placeholder:font-semibold"
                 required
                 value={comments}
               />

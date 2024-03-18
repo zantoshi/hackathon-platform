@@ -6,6 +6,7 @@ import AccessDenied from "@/components/access-denied";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Select from "react-select";
 import { getServerSideProps } from "../../../util/authUtils";
+import Podium from "@/components/Podium"
 
 export { getServerSideProps };
 export default function ManageHackathon() {
@@ -394,7 +395,8 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
         });
         setRegistration(prevRegistration => prevRegistration.filter(registration => registration.id !== id));
-
+        const data=await response.json()
+        setProject(prevProject => prevProject.filter(projects => projects.id !== data.id));
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
@@ -677,7 +679,14 @@ const judgeGetting = async ()=>{
                       >
                         Remove
                       </button>
-                     
+                      <button
+                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          router.push(`/team/${registration.teamId}`)
+                        }}
+                      >
+                        Details
+                      </button>
                           </div>
 
                     </div>
@@ -915,6 +924,7 @@ const judgeGetting = async ()=>{
                 </tbody>
             </table>
         </div>
+        <Podium id={id}></Podium>
     </div>
     
       );
@@ -935,6 +945,9 @@ const judgeGetting = async ()=>{
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
+        <header>
+          <title>GHL | Admin Dashboard</title>
+        </header>
         <div className="min-w-full w-auto md:pl-14 text-white px-5 h-lvh  ">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information

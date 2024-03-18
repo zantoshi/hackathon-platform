@@ -16,6 +16,7 @@ export default function Header() {
   const [user, setUser] = useState();
   const [userImage, setImage] = useState();
   const [request, setRequest] = useState([]);
+  const [title,setTitle] = useState()
 
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -87,19 +88,17 @@ export default function Header() {
   useEffect(() => {
     const UpdateImage = async () => {
       try {
-        if (userImage === null ) {
+        if (userImage === null) {
           const body = {
-            image:
-              "/user-filled.svg",
+            image: "/user-filled.svg",
           };
           const response = await fetch("/api/users/addUserImage", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
           });
-          console.log(response)
-          const data = await response.json()
-          
+          console.log(response);
+          const data = await response.json();
         }
       } catch (error) {
         console.error("Error updateing user table for image field ");
@@ -141,6 +140,8 @@ export default function Header() {
     e.preventDefault();
     signOut();
   };
+
+  
 
   return (
     <div>
@@ -245,7 +246,9 @@ export default function Header() {
               </div>
             )}
           </div>
-          <div className="lg:hidden flex items-center">
+           {/*Navbar for responsive */}
+          <div className="lg:hidden flex items-center justify-center space-x-3">
+            <NotificationBell point={request}></NotificationBell>
             <button
               className="inline-flex items-center justify-center rounded-md text-white md:text-white hover:text-white focus:ring-3 focus:ring-inset focus:ring-white z-50"
               onClick={toggleNavbar}
@@ -380,9 +383,6 @@ export default function Header() {
                                 </div>
                               )}
                             </span>
-                            <NotificationBell
-                              point={request}
-                            ></NotificationBell>
                           </div>
                         )}
                       </div>

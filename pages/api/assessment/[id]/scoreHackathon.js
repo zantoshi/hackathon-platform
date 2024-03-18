@@ -5,27 +5,18 @@ import { getServerSession } from "next-auth";
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
 
     const {
       query: { id },
     } = req;
 
-    const assessProject = await prisma.judgeassessments.deleteMany({
+    const score = await prisma.judgeassessments.findMany({
       where:{
-        projectId:id
-      }
-    })
-
-    const project = await prisma.project.delete({
-      where:{
-       id: id
+        hackathonId : id
       }
     });
 
-    res.json(project);
+    res.json(score);
   } catch (error) {
     console.log(error);
   }

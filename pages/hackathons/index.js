@@ -13,11 +13,12 @@ import Hackathons from "@/components/Hackathons";
 import hackathons from "@/data/content/hackathons.json";
 import { useEffect, useState } from "react";
 
-
 export default function HackathonList() {
-
   return (
     <Layout>
+      <header>
+          <title>GHL | Hackathons</title>
+        </header>
       {/* {user && user.role === "JUDGE" ? (
        <JudgeView/>
       ):

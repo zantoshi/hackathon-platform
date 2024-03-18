@@ -95,6 +95,9 @@ function assessment() {
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
+        <header>
+          <title>GHL | Score Project</title>
+        </header>
       <div className="w-full md:pl-14 text-white px-5">
        
           {hackathon && projects && (

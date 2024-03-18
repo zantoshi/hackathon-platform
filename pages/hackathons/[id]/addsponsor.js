@@ -52,12 +52,18 @@ const { data: session } = useSession();
     return (
       
       <Layout>
+        <header>
+          <title>GHL | Add Sponsors</title>
+        </header>
         <SponsorSubmissionForm id = {id} />
       </Layout>
     );
   } else {
     return (
       <Layout>
+        <header>
+          <title>GHL | Not Access</title>
+        </header>
         <AccessDenied />
       </Layout>
     );
