@@ -148,7 +148,7 @@ function Index() {
             <div className="px-5 py-2">
               <h2 className="font-semibold  text-lg ">Team Members</h2>
               {members ? (
-                <div className="text-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
+                <div className="text-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
                   {members.map((member) => {
                     const user = users.find(
                       (user) => user.id === member.userId
