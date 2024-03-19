@@ -317,7 +317,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\edgar\\OneDrive\\Documentos\\hackathon-platform\\prisma\\generated\\client",
+      "value": "C:\\Users\\Alan\\Desktop\\GHL\\hackathon-platform-tests\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -344,6 +344,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

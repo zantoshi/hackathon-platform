@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Select from "react-select";
 import ButtonSecondary from "@/components/ButtonSecondary";
+import notify from "@/components/toast";
+import { Toaster } from 'react-hot-toast';
+import Modal from "@/components/Modal";
+
 
 function AddUserTeam({ id, editPage }) {
   const [users, setUsers] = useState([]);
@@ -12,6 +16,10 @@ function AddUserTeam({ id, editPage }) {
   const [team, setTeam] = useState({});
   const [requests, setRequest] = useState([]);
   const [members, setMembers] = useState([]);
+  const [requestIdToRemove, setRequestIdToRemove] = useState(null);
+  const [memberIdToRemove, setMemberIdToRemove] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const [list,setList]= useState([])
 
   useEffect(() => {
@@ -172,7 +180,9 @@ function AddUserTeam({ id, editPage }) {
         });
         setRequest((prevRequest) =>
           prevRequest.filter((request) => request.id !== id)
+          
         );
+        notify('Team invitation deleted successfully');
       }
     } catch (error) {
       console.log("this is the error for deleting a judge: " + error);
@@ -190,6 +200,7 @@ function AddUserTeam({ id, editPage }) {
         setMembers((prevMember) =>
           prevMember.filter((member) => member.id !== id)
         );
+        notify('Member removed successfully from the team');
       }
     } catch (error) {
       console.log("this is the error for deleting a judge: " + error);
@@ -198,6 +209,7 @@ function AddUserTeam({ id, editPage }) {
 
   return (
     <div>
+      <Toaster></Toaster>
       <div>
         {editPage ? (
           <form onSubmit={create} className="flex">
@@ -256,16 +268,29 @@ function AddUserTeam({ id, editPage }) {
                           <div>
                             {editPage && team.creatorId !== user.id && (
                               <button
-                                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                                type="button"
-                                onClick={() => {
-                                  deleteMember(member.id);
-                                }}
-                              >
-                                Delete
-                              </button>
+                              className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                              type="button"
+                              onClick={() => {
+                                setMemberIdToRemove(member.id);
+                                setModalIsOpen(true);
+                              }}
+                            >
+                              Delete
+                            </button>
                             )}
                           </div>
+                          {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to delete this member from your team?"
+        functionCall={() => {
+          deleteMember(memberIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
+
                         </div>
                       </div>
                     </div>
@@ -298,13 +323,25 @@ function AddUserTeam({ id, editPage }) {
                               className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                               type="button"
                               onClick={() => {
-                                deleteRequest(request.id);
+                                setRequestIdToRemove(request.id);
+                                setModalIsOpen(true);
                               }}
                             >
                               Delete
                             </button>
                           )}
                         </div>
+                        {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to delete this team invitation? Invited user will not be able to join your team until you send a new request"
+        functionCall={() => {
+          deleteRequest(requestIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
                       </div>
                     </div>
                   </React.Fragment>
