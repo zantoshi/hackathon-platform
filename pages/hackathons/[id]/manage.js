@@ -7,6 +7,9 @@ import ButtonSecondary from "@/components/ButtonSecondary";
 import Select from "react-select";
 import { getServerSideProps } from "../../../util/authUtils";
 import Podium from "@/components/Podium"
+import notify from "@/components/toast";
+import { Toaster } from 'react-hot-toast';
+import Modal from "@/components/Modal";
 
 export { getServerSideProps };
 export default function ManageHackathon() {
@@ -27,6 +30,12 @@ export default function ManageHackathon() {
   const [values, setValue] = useState([]);
   const [assess,setAssess] = useState([])
   const [sponsors,setSponsors] = useState([])
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [judgeIdToRemove, setJudgeIdToRemove] = useState(null);
+  const [mentorIdToRemove, setMentorIdToRemove] = useState(null);
+  const [sponsorIdToRemove, setSponsorIdToRemove] = useState(null);
+  const [projectIdToRemove, setProjectIdToRemove] = useState(null);
+  const [teamIdToRemove, setTeamIdToRemove] = useState(null);
 
   useEffect(() => {
    
@@ -347,10 +356,14 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
         });
         setJudges(prevJudges => prevJudges.filter(judge => judge.id !== id));
-
+        
+        
+        notify('Judge deleted successfully,');
       }
     } catch (error) {
       console.log("this is the error for deleting a judge: " + error);
+      
+      notify('Error deleting judge', 'error');
     }
   };
 
@@ -363,10 +376,13 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
         });
         setMentors(prevMentors => prevMentors.filter(mentor => mentor.id !== id));
+        notify('Mentor deleted successfully,');
+
 
       }
     } catch (error) {
       console.log("this is the error for deleting a mentor: " + error);
+      notify('Error deleting judge', 'error');
     }
   };
 
@@ -379,10 +395,12 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
         });
         setSponsors(prevSponsor => prevSponsor.filter(sponsors => sponsors.id !== id));
+        notify('Sponsor deleted successfully,');
 
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
+      notify('Error deleting sponsor', 'error');
     }
   };
 
@@ -397,9 +415,11 @@ const judgeGetting = async ()=>{
         setRegistration(prevRegistration => prevRegistration.filter(registration => registration.id !== id));
         const data=await response.json()
         setProject(prevProject => prevProject.filter(projects => projects.id !== data.id));
+        notify('Team Registration deleted successfully,');
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
+      notify('Error deleting this team registration', 'error');
     }
   };
 
@@ -413,9 +433,10 @@ const judgeGetting = async ()=>{
         });
         if (response.ok) {
           setProject(prevProject => prevProject.filter(projects => projects.id !== id));
-         
+          notify('Project deleted successfully,');
         } else {
           console.error("Error deleting judge:", response.statusText);
+          notify('Error deleting this Project', 'error');
         }
       }
     } catch (error) {
@@ -490,68 +511,80 @@ const judgeGetting = async ()=>{
     case "judges":
       content = (
         <div className="">
-          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
-            {hackathon.title} Hackathon Information (Judges)
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-200"></p>
-          <form onSubmit={create}>
-            <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
-              <div
-                class="text-purple-600"
-                data-te-input-wrapper-init
-                id="async"
-              >
-                <Select
-                  type="text"
-                  className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
-                  id="exampleFormControlInput3"
-                  placeholder="Type the gamertag of the user to make him judge"
-                  options={options}
-                  defaultValue={search}
-                  onChange={handleChange}
-                  values={options}
-                ></Select>
-
-              </div>
-              <ButtonSecondary
-                functionCall={create}
-                buttonText="Add Judge"
-              ></ButtonSecondary>
-            </div>
-          </form>
-          <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {judges.map((judge) => {
-              return (
-                <div
-                  class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
-                  key={judge.id}
-                >
-                  <img
-                    class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
-                    src={judge.judgeImage}
-                  ></img>
-
-                  <div class="text-center space-y-2 sm:text-left">
-                    <div class="space-y-0.5 flex-cols items-center">
-                      <p class="text-xl text-white font-semibold">
-                        {judge.judgeGamertag}
-                      </p>
-                    </div>
-
-                    <button
-                      className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                      onClick={() => {
-                        handleClickJudge(judge.id);
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+      {hackathon.title} Hackathon Information (Judges)
+    </h2>
+    <p className="mt-2 text-lg leading-8 text-gray-200"></p>
+    <form onSubmit={create}>
+      <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
+        <div
+          class="text-purple-600"
+          data-te-input-wrapper-init
+          id="async"
+        >
+          <Select
+            type="text"
+            className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
+            id="exampleFormControlInput3"
+            placeholder="Type the gamertag of the user to make him judge"
+            options={options}
+            defaultValue={search}
+            onChange={handleChange}
+            values={options}
+          ></Select>
         </div>
+        <ButtonSecondary
+          functionCall={create}
+          buttonText="Add Judge"
+        ></ButtonSecondary>
+      </div>
+    </form>
+    <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      {judges.map((judge) => {
+        return (
+          <div
+            class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+            key={judge.id}
+          >
+            <img
+              class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+              src={judge.judgeImage}
+            ></img>
+
+            <div class="text-center space-y-2 sm:text-left">
+              <div class="space-y-0.5 flex-cols items-center">
+                <p class="text-xl text-white font-semibold">
+                  {judge.judgeGamertag}
+                </p>
+              </div>
+
+              <button
+                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                onClick={() => {
+                  setJudgeIdToRemove(judge.id);
+                  setModalIsOpen(true);
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to delete this judge?"
+        functionCall={() => {
+          handleClickJudge(judgeIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
+  </div>
+        
       );
       break;
       case "mentors":
@@ -591,7 +624,7 @@ const judgeGetting = async ()=>{
               return (
                 <div
                   class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
-                  key={setMentors.id}
+                  key={mentor.id}
                 >
                   <img
                     class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
@@ -604,20 +637,31 @@ const judgeGetting = async ()=>{
                         {mentor.mentorGamertag}
                       </p>
                     </div>
-
                     <button
-                      className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                      onClick={() => {
-                        handleClickMentor(mentor.id);
-                      }}
-                    >
-                      Remove
-                    </button>
+                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                onClick={() => {
+                  setMentorIdToRemove(mentor.id);
+                  setModalIsOpen(true);
+                }}
+              >
+                Remove
+              </button>
                   </div>
                 </div>
               );
             })}
           </div>
+          {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to delete this mentor?"
+        functionCall={() => {
+          handleClickMentor(mentorIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
         </div>
       );
       break;
@@ -672,13 +716,14 @@ const judgeGetting = async ()=>{
                       <br></br>
                         <div className="space-x-5"> 
                         <button
-                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          handleClickDeleteRegistration(registration.id);
-                        }}
-                      >
-                        Remove
-                      </button>
+                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                onClick={() => {
+                  setTeamIdToRemove(registration.id);
+                  setModalIsOpen(true);
+                }}
+              >
+                Remove
+              </button>
                       <button
                         className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                         onClick={() => {
@@ -695,6 +740,17 @@ const judgeGetting = async ()=>{
               );
             })}
           </div>
+          {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to remove this team from this hackathon? Projects and Assessments related to this team will also be deleted"
+        functionCall={() => {
+          handleClickDeleteRegistration(teamIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
         </div>
       );
       break;
@@ -749,13 +805,14 @@ const judgeGetting = async ()=>{
                       <br></br>
                         <div className="space-x-5"> 
                         <button
-                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          handleClickProject(project.id);
-                        }}
-                      >
-                        Remove
-                      </button>
+                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                onClick={() => {
+                  setProjectIdToRemove(project.id);
+                  setModalIsOpen(true);
+                }}
+              >
+                Remove
+              </button>
                       <button
                         className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                         onClick={() => {
@@ -772,6 +829,17 @@ const judgeGetting = async ()=>{
               );
             })}
           </div>
+          {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to remove this project? Assessments related to this project will also be deleted"
+        functionCall={() => {
+          handleClickProject(projectIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
         </div>
       );
       break;
@@ -812,14 +880,15 @@ const judgeGetting = async ()=>{
                     </div>
 
                     <div className="space-x-5"> 
-                        <button
-                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          handleClickDeleteSponsor(sponsor.id);
-                        }}
-                      >
-                        Remove
-                      </button>
+                    <button
+                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                onClick={() => {
+                  setSponsorIdToRemove(sponsor.id);
+                  setModalIsOpen(true);
+                }}
+              >
+                Remove
+              </button>
                       <button
                         className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                         onClick={() => {
@@ -834,6 +903,17 @@ const judgeGetting = async ()=>{
               );
             })}
           </div>
+          {modalIsOpen && (
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        ModalText="Are you sure you want to remove this sponsor?"
+        functionCall={() => {
+          handleClickDeleteSponsor(sponsorIdToRemove);
+          setModalIsOpen(false);
+        }}
+      />
+    )}
         </div>
       );
       break;
@@ -945,6 +1025,7 @@ const judgeGetting = async ()=>{
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
+        <Toaster></Toaster>
         <header>
           <title>GHL | Admin Dashboard</title>
         </header>
