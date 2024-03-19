@@ -31,6 +31,9 @@ function members() {
               Enter the username or gamertag of the user you want to invite to
               your team.
             </p>
+            <p  className="text-gray-400 font-semibold text-lg text-center ">
+            IMPORTANT: The user you want to invite must be "available" to receive the team's request.
+            </p>
           </div>
         </div>
         <div className="flex items-center justify-center mb-4">

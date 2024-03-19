@@ -12,6 +12,7 @@ function AddUserTeam({ id, editPage }) {
   const [team, setTeam] = useState({});
   const [requests, setRequest] = useState([]);
   const [members, setMembers] = useState([]);
+  const [list,setList]= useState([])
 
   useEffect(() => {
     const fetchJudgeUser = async () => {
@@ -39,13 +40,40 @@ function AddUserTeam({ id, editPage }) {
     fetchJudgeUser();
   }, []);
 
+
+  useEffect(() => {
+    const fetchListUsers = async () => {
+      try {
+        const response = await fetch(`/api/request/usersAvailable`, {
+          cache: "no-store",
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store"
+        });
+
+        if (response) {
+          const data = await response.json();
+          setList(data);
+        } else {
+          console.error(
+            "this is Error for fetching users:",
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("this is Error for fetching users:", error);
+      }
+    };
+    fetchListUsers();
+  }, );
+
   const handleChange = (search) => {
     setValue(search);
   };
 
   let options = [];
   if (session) {
-    options = users.map((user) => ({
+    options = list.map((user) => ({
       value: user.id,
       label: user.gamertag,
       image: user.image,

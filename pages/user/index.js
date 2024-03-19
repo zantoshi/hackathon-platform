@@ -6,6 +6,9 @@ import avatarTeam from "../../public/users-group.svg";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Link from "next/link";
 import { getServerSideProps } from "../../util/authUtils";
+import { Github, Linkedin } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
+import { useSession } from "next-auth/react";
 
 export { getServerSideProps };
 function index() {
@@ -13,17 +16,20 @@ function index() {
   const [teams, setTeams] = useState([]);
   const [myteams, setMyTeams] = useState([]);
   const [allteams, setAllTeams] = useState([]);
-
-
+  const [social, setSocial] = useState({});
+  const { data: session } = useSession();
+  
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await fetch("/api/users", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
+          
         });
         const data = await response.json();
         setUser(data);
+        setSocial(data.social);
       } catch (error) {
         console.log("Error getting data from table user ", error);
       }
@@ -93,10 +99,11 @@ function index() {
 
   return (
     <Layout>
-       <header>
-          <title>GHL | Contact us</title>
-        </header>
-      <div className="w-full md:pl-14 text-white px-5">
+      <header>
+        <title>GHL | Profile</title>
+      </header>
+      {session && (
+        <div className="w-full md:pl-14 text-white px-5">
         <ButtonSecondary buttonText={"Back"} buttonLink={"/"} />
         <div className="mb-2 mt-5">
           <div className="px-5 mb-3">
@@ -131,6 +138,68 @@ function index() {
               {user.email}
             </p>
           </div>
+          {user.skill !== null &&
+            user.skill !== undefined &&
+            user.skill !== "" && (
+              <div className="px-5 py-2">
+                <h2 className="font-semibold  text-lg ">Skills</h2>
+                <p className="block text-sm font-medium leading-6 text-white">
+                  {user.skill}
+                </p>
+              </div>
+            )}
+          {user.publicBio !== null &&
+            user.publicBio !== undefined &&
+            user.publicBio !== "" && (
+              <div className="px-5 py-2">
+                <h2 className="font-semibold  text-lg ">Bio</h2>
+                <p className="block text-sm font-medium leading-6 text-white">
+                  {user.publicBio}
+                </p>
+              </div>
+            )}
+          {Object.keys(social).length !== 0 && (
+            <>
+              {((social.github !== "" && social.github !== undefined) ||
+                (social.twitter !== "" && social.twitter !== undefined) ||
+                (social.linkedin !== "" && social.linkedin !== undefined)) && (
+                <div className="px-5 py-2">
+                  <h2 className="font-semibold  text-lg mb-2 ">
+                    Social networks
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    {social.github && social.github !== null && (
+                      <Link
+                        href={social.github}
+                        className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2 space-x-1"
+                      >
+                        <Github></Github>
+                        <p>Github</p>
+                      </Link>
+                    )}
+                    {social.twitter && social.twitter !== null && (
+                      <Link
+                        href={social.twitter}
+                        className="text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2 space-x-1"
+                      >
+                        <FaXTwitter />
+                        <p>Twitter/ X</p>
+                      </Link>
+                    )}
+                    {social.linkedin && social.linkedin !== null && (
+                      <Link
+                        href={social.linkedin}
+                        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 space-x-1"
+                      >
+                        <Linkedin></Linkedin>
+                        <p>LinkedIn</p>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
           <div className="px-5 py-2 space-y-5">
             <h2 className="font-semibold  text-lg ">My teams</h2>
             {teams.map((team) => {
@@ -209,6 +278,7 @@ function index() {
           </div>
         </div>
       </div>
+      )} 
     </Layout>
   );
 }

@@ -33,13 +33,13 @@ function NotificationBell({point}) {
       {isOpen && (
         <div
           id="dropdownNotification"
-          className="z-20 w-full max-w-sm divide-y bg-gray-950 divide-purple-400/[.20] border-2 border-solid border-purple-400/[.20] rounded-lg shadow  absolute right-0 mt-1 md:mx-5"
+          className="z-20  max-w-sm divide-y bg-gray-950 divide-purple-400/[.20] border-2 border-solid border-purple-400/[.20] rounded-lg shadow  absolute right-0 mt-1 md:mx-5"
           aria-labelledby="dropdownNotificationButton"
         >
           <div className="block px-4 py-2 font-medium text-center  rounded-t-lg  text-white">
             Notifications
           </div>
-          <div className="divide-y divide-purple-400/[.20] ">
+          <div className="divide-y divide-purple-400/[.20] px-4 ">
             {/* Aquí van tus elementos de notificación */}
             <RequestTeam></RequestTeam>
           </div>
