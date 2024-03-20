@@ -4396,6 +4396,9 @@ export namespace Prisma {
     publicBio: string | null
     publicStaticCharge: string | null
     balance: string | null
+    skill: string | null
+    location: string | null
+    availability: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4411,6 +4414,9 @@ export namespace Prisma {
     publicBio: string | null
     publicStaticCharge: string | null
     balance: string | null
+    skill: string | null
+    location: string | null
+    availability: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4428,6 +4434,9 @@ export namespace Prisma {
     social: number
     balance: number
     remainingAmountLimits: number
+    skill: number
+    location: number
+    availability: number
     _all: number
   }
 
@@ -4445,6 +4454,9 @@ export namespace Prisma {
     publicBio?: true
     publicStaticCharge?: true
     balance?: true
+    skill?: true
+    location?: true
+    availability?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4460,6 +4472,9 @@ export namespace Prisma {
     publicBio?: true
     publicStaticCharge?: true
     balance?: true
+    skill?: true
+    location?: true
+    availability?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4477,6 +4492,9 @@ export namespace Prisma {
     social?: true
     balance?: true
     remainingAmountLimits?: true
+    skill?: true
+    location?: true
+    availability?: true
     _all?: true
   }
 
@@ -4567,6 +4585,9 @@ export namespace Prisma {
     social: JsonValue | null
     balance: string | null
     remainingAmountLimits: JsonValue | null
+    skill: string | null
+    location: string | null
+    availability: boolean | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4601,6 +4622,9 @@ export namespace Prisma {
     social?: boolean
     balance?: boolean
     remainingAmountLimits?: boolean
+    skill?: boolean
+    location?: boolean
+    availability?: boolean
     hackathons?: boolean | User$hackathonsArgs<ExtArgs>
     teams?: boolean | User$teamsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
@@ -4627,6 +4651,9 @@ export namespace Prisma {
     social?: boolean
     balance?: boolean
     remainingAmountLimits?: boolean
+    skill?: boolean
+    location?: boolean
+    availability?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4669,6 +4696,9 @@ export namespace Prisma {
       social: Prisma.JsonValue | null
       balance: string | null
       remainingAmountLimits: Prisma.JsonValue | null
+      skill: string | null
+      location: string | null
+      availability: boolean | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5092,6 +5122,9 @@ export namespace Prisma {
     readonly social: FieldRef<"User", 'Json'>
     readonly balance: FieldRef<"User", 'String'>
     readonly remainingAmountLimits: FieldRef<"User", 'Json'>
+    readonly skill: FieldRef<"User", 'String'>
+    readonly location: FieldRef<"User", 'String'>
+    readonly availability: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -18105,7 +18138,10 @@ export namespace Prisma {
     publicStaticCharge: 'publicStaticCharge',
     social: 'social',
     balance: 'balance',
-    remainingAmountLimits: 'remainingAmountLimits'
+    remainingAmountLimits: 'remainingAmountLimits',
+    skill: 'skill',
+    location: 'location',
+    availability: 'availability'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18590,6 +18626,9 @@ export namespace Prisma {
     social?: JsonNullableFilter<"User">
     balance?: StringNullableFilter<"User"> | string | null
     remainingAmountLimits?: JsonNullableFilter<"User">
+    skill?: StringNullableFilter<"User"> | string | null
+    location?: StringNullableFilter<"User"> | string | null
+    availability?: BoolNullableFilter<"User"> | boolean | null
     hackathons?: HackathonListRelationFilter
     teams?: TeamListRelationFilter
     accounts?: AccountListRelationFilter
@@ -18615,6 +18654,9 @@ export namespace Prisma {
     social?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
     remainingAmountLimits?: SortOrderInput | SortOrder
+    skill?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    availability?: SortOrderInput | SortOrder
     hackathons?: HackathonOrderByRelationAggregateInput
     teams?: TeamOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
@@ -18644,6 +18686,9 @@ export namespace Prisma {
     social?: JsonNullableFilter<"User">
     balance?: StringNullableFilter<"User"> | string | null
     remainingAmountLimits?: JsonNullableFilter<"User">
+    skill?: StringNullableFilter<"User"> | string | null
+    location?: StringNullableFilter<"User"> | string | null
+    availability?: BoolNullableFilter<"User"> | boolean | null
     hackathons?: HackathonListRelationFilter
     teams?: TeamListRelationFilter
     accounts?: AccountListRelationFilter
@@ -18669,6 +18714,9 @@ export namespace Prisma {
     social?: SortOrderInput | SortOrder
     balance?: SortOrderInput | SortOrder
     remainingAmountLimits?: SortOrderInput | SortOrder
+    skill?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    availability?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -18692,6 +18740,9 @@ export namespace Prisma {
     social?: JsonNullableWithAggregatesFilter<"User">
     balance?: StringNullableWithAggregatesFilter<"User"> | string | null
     remainingAmountLimits?: JsonNullableWithAggregatesFilter<"User">
+    skill?: StringNullableWithAggregatesFilter<"User"> | string | null
+    location?: StringNullableWithAggregatesFilter<"User"> | string | null
+    availability?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
   }
 
   export type VerificationTokenWhereInput = {
@@ -19754,6 +19805,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -19779,6 +19833,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -19804,6 +19861,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -19829,6 +19889,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -19854,6 +19917,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19871,6 +19937,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19888,6 +19957,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type VerificationTokenCreateInput = {
@@ -21139,6 +21211,9 @@ export namespace Prisma {
     social?: SortOrder
     balance?: SortOrder
     remainingAmountLimits?: SortOrder
+    skill?: SortOrder
+    location?: SortOrder
+    availability?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -21154,6 +21229,9 @@ export namespace Prisma {
     publicBio?: SortOrder
     publicStaticCharge?: SortOrder
     balance?: SortOrder
+    skill?: SortOrder
+    location?: SortOrder
+    availability?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -21169,6 +21247,9 @@ export namespace Prisma {
     publicBio?: SortOrder
     publicStaticCharge?: SortOrder
     balance?: SortOrder
+    skill?: SortOrder
+    location?: SortOrder
+    availability?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -23195,6 +23276,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -23219,6 +23303,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -23259,6 +23346,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -23283,6 +23373,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -23307,6 +23400,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -23331,6 +23427,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -23371,6 +23470,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -23395,6 +23497,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -23962,6 +24067,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -23986,6 +24094,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -24134,6 +24245,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -24158,6 +24272,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -24324,6 +24441,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -24348,6 +24468,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -24512,6 +24635,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -24536,6 +24662,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -25024,6 +25153,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25048,6 +25180,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -25175,6 +25310,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25199,6 +25337,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -25296,6 +25437,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25320,6 +25464,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -25411,6 +25558,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25435,6 +25585,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -25881,6 +26034,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25905,6 +26061,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -25982,6 +26141,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -26006,6 +26168,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -26061,6 +26226,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonCreateNestedManyWithoutCreatorInput
     teams?: TeamCreateNestedManyWithoutCreatorInput
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -26085,6 +26253,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: string | null
+    location?: string | null
+    availability?: boolean | null
     hackathons?: HackathonUncheckedCreateNestedManyWithoutCreatorInput
     teams?: TeamUncheckedCreateNestedManyWithoutCreatorInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -26162,6 +26333,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUpdateManyWithoutCreatorNestedInput
     teams?: TeamUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -26186,6 +26360,9 @@ export namespace Prisma {
     social?: NullableJsonNullValueInput | InputJsonValue
     balance?: NullableStringFieldUpdateOperationsInput | string | null
     remainingAmountLimits?: NullableJsonNullValueInput | InputJsonValue
+    skill?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     hackathons?: HackathonUncheckedUpdateManyWithoutCreatorNestedInput
     teams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput

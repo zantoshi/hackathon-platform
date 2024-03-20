@@ -16,10 +16,32 @@ export default function Header() {
   const [user, setUser] = useState();
   const [userImage, setImage] = useState();
   const [request, setRequest] = useState([]);
-  const [title,setTitle] = useState()
-
+  const [isChecked, setIsChecked] = useState();
   const { data: session, status } = useSession();
   const loading = status === "loading";
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleChange = async (e) => {
+    const availability = e.target.checked;
+    setIsChecked(availability);
+    const body = { availability };
+    try {
+      const response = await fetch("/api/users/changeAvailability", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+    } catch (error) {
+      console.error(
+        "There's some kind of error when you try to be available " + error
+      );
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -34,6 +56,7 @@ export default function Header() {
         const data = await response.json();
         setUser(data);
         setImage(data.image);
+        setIsChecked(data.availability);
       } else {
         console.error("this is Error for fetching users:", response.statusText);
       }
@@ -141,8 +164,6 @@ export default function Header() {
     signOut();
   };
 
-  
-
   return (
     <div>
       <header>
@@ -213,7 +234,11 @@ export default function Header() {
               <div className="flex flex-row">
                 <NotificationBell point={request}></NotificationBell>
                 <span>
-                  <Link href="/user">
+                  <div
+                    className="flex mr-10"
+                    id="dropdownHoverButton"
+                    data-dropdown-toggle="dropdownHover"
+                  >
                     {session.user.image !== null ? (
                       <Image
                         src={session.user.image}
@@ -221,6 +246,7 @@ export default function Header() {
                         className="h-12 w-12 rounded-full mr-2 inline-block"
                         width={128}
                         height={128}
+                        onClick={toggleDropdown}
                       />
                     ) : (
                       <Image
@@ -229,24 +255,75 @@ export default function Header() {
                         className="h-12 w-12 rounded-full mr-2 inline-block bg-purple-500 py-2 hover:bg-purple-600"
                         width={128}
                         height={128}
+                        onClick={toggleDropdown}
                       />
                     )}
-                  </Link>
-                </span>
-                <span>
-                  {session.user && (
-                    <div className="align-middle px-5">
-                      <ButtonSecondary
-                        buttonText={"Log Out"}
-                        functionCall={signOutHandler}
-                      />
+                  </div>
+                  {isOpen && (
+                    <div
+                      id="dropdownHover"
+                      class="z-10 absolute  divide-y  rounded-lg shadow w-44  right-10 mt-2  bg-gray-950 divide-purple-400/[.20] border-2 border-solid border-purple-400/[.20]"
+                    >
+                      <ul
+                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownHoverButton"
+                      >
+                        <li>
+                          <Link
+                            href={`/user`}
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href={"/user/settings"}
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Settings
+                          </Link>
+                        </li>
+                        {session.user && (
+                          <li>
+                            <Link
+                              href="#"
+                              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              onClick={signOutHandler}
+                            >
+                              Log out
+                            </Link>
+                          </li>
+                        )}
+
+                        <li className="flex items-center gap-8 px-4 py-2">
+                          <span
+                            class="text-gray-900 dark:text-gray-300"
+                            title="Make yourself available to receive requests to join a team and participate in a hackathon."
+                          >
+                            Available
+                          </span>
+                          <label
+                            class="inline-flex items-center me-5 cursor-pointer"
+                            title="Make yourself available to receive requests to join a team and participate in a hackathon."
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              class="sr-only peer"
+                              onChange={handleChange}
+                            />
+                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                          </label>
+                        </li>
+                      </ul>
                     </div>
                   )}
                 </span>
               </div>
             )}
           </div>
-           {/*Navbar for responsive */}
+          {/*Navbar for responsive */}
           <div className="lg:hidden flex items-center justify-center space-x-3">
             <NotificationBell point={request}></NotificationBell>
             <button
@@ -344,16 +421,16 @@ export default function Header() {
                     </li>
                     <li>
                       <div className="lg:hidden mt-10">
-                        {!loading && !session && (
+                        {!loading && (
                           <ButtonSecondary
                             buttonText={"Log In"}
                             functionCall={signInHandler}
                           />
                         )}
                         {!loading && session?.user && (
-                          <div className="flex flex-row">
+                          <div className="flex flex-row mx-auto mt-5 ml-6">
                             <span>
-                              <Link href="/user">
+                              <div>
                                 {session.user.image !== null ? (
                                   <Image
                                     src={session.user.image}
@@ -361,6 +438,7 @@ export default function Header() {
                                     className="h-12 w-12 rounded-full mr-2 inline-block "
                                     width={128}
                                     height={128}
+                                    onClick={toggleDropdown}
                                   />
                                 ) : (
                                   <Image
@@ -369,17 +447,61 @@ export default function Header() {
                                     className="h-12 w-12 rounded-full mr-2 inline-block"
                                     width={128}
                                     height={128}
+                                    onClick={toggleDropdown}
                                   />
                                 )}
-                              </Link>
-                            </span>
-                            <span>
-                              {session.user && (
-                                <div className="align-middle px-5">
-                                  <ButtonSecondary
-                                    buttonText={"Log Out"}
-                                    functionCall={signOutHandler}
-                                  />
+                              </div>
+                              {isOpen && session.user && (
+                                <div
+                                  id="dropdownHover"
+                                  class="z-10 divide-y  rounded-lg shadow w-44 mt-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2   bg-gray-950 divide-purple-400/[.20] border-2 border-solid absolute  border-purple-400/[.20] "
+                                >
+                                  <ul
+                                    class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownHoverButton"
+                                  >
+                                    <li>
+                                      <Link
+                                        href={`/user`}
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                      >
+                                        Profile
+                                      </Link>
+                                    </li>
+                                    <li>
+                                      <Link
+                                        href={"/user/settings"}
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                      >
+                                        Settings
+                                      </Link>
+                                    </li>
+                                    {session.user && (
+                                      <li>
+                                        <Link
+                                          href="#"
+                                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                          onClick={signOutHandler}
+                                        >
+                                          Log out
+                                        </Link>
+                                      </li>
+                                    )}
+                                    <li className="flex items-center gap-8 px-4 py-2">
+                                      <span class=" text-gray-900 dark:text-gray-300">
+                                        Available
+                                      </span>
+                                      <label class="inline-flex items-center me-5 cursor-pointer">
+                                        <input
+                                          type="checkbox"
+                                          checked={isChecked}
+                                          class="sr-only peer"
+                                          onChange={handleChange}
+                                        />
+                                        <div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
+                                      </label>
+                                    </li>
+                                  </ul>
                                 </div>
                               )}
                             </span>

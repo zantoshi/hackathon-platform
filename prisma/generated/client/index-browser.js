@@ -144,7 +144,10 @@ exports.Prisma.UserScalarFieldEnum = {
   publicStaticCharge: 'publicStaticCharge',
   social: 'social',
   balance: 'balance',
-  remainingAmountLimits: 'remainingAmountLimits'
+  remainingAmountLimits: 'remainingAmountLimits',
+  skill: 'skill',
+  location: 'location',
+  availability: 'availability'
 };
 
 exports.Prisma.VerificationTokenScalarFieldEnum = {
