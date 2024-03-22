@@ -3,7 +3,7 @@
  * Client
 **/
 
-import * as runtime from './runtime/library';
+import * as runtime from './runtime/library.js';
 import $Types = runtime.Types // general types
 import $Public = runtime.Types.Public
 import $Utils = runtime.Types.Utils
@@ -449,7 +449,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.7.1
+   * Prisma Client JS version: 5.11.0
    * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
    */
   export type PrismaVersion = {
@@ -2011,6 +2011,16 @@ export namespace Prisma {
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
     log?: (LogLevel | LogDefinition)[]
+    /**
+     * The default values for transactionOptions
+     * maxWait ?= 2000
+     * timeout ?= 5000
+     */
+    transactionOptions?: {
+      maxWait?: number
+      timeout?: number
+      isolationLevel?: Prisma.TransactionIsolationLevel
+    }
   }
 
   /* Types for Logging */
@@ -2739,7 +2749,7 @@ export namespace Prisma {
   type AccountGetPayload<S extends boolean | null | undefined | AccountDefaultArgs> = $Result.GetResult<Prisma.$AccountPayload, S>
 
   type AccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<AccountFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<AccountFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: AccountCountAggregateInputType | true
     }
 
@@ -3655,7 +3665,7 @@ export namespace Prisma {
   type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = $Result.GetResult<Prisma.$SessionPayload, S>
 
   type SessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: SessionCountAggregateInputType | true
     }
 
@@ -4574,7 +4584,7 @@ export namespace Prisma {
     id: string
     name: string | null
     email: string
-    gamertag: string
+    gamertag: string | null
     role: $Enums.Role
     emailVerified: boolean | null
     image: string | null
@@ -4685,7 +4695,7 @@ export namespace Prisma {
       id: string
       name: string | null
       email: string
-      gamertag: string
+      gamertag: string | null
       role: $Enums.Role
       emailVerified: boolean | null
       image: string | null
@@ -4707,7 +4717,7 @@ export namespace Prisma {
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
   type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: UserCountAggregateInputType | true
     }
 
@@ -5792,7 +5802,7 @@ export namespace Prisma {
   type VerificationTokenGetPayload<S extends boolean | null | undefined | VerificationTokenDefaultArgs> = $Result.GetResult<Prisma.$VerificationTokenPayload, S>
 
   type VerificationTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<VerificationTokenFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<VerificationTokenFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: VerificationTokenCountAggregateInputType | true
     }
 
@@ -6701,7 +6711,7 @@ export namespace Prisma {
   type TeamGetPayload<S extends boolean | null | undefined | TeamDefaultArgs> = $Result.GetResult<Prisma.$TeamPayload, S>
 
   type TeamCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TeamFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<TeamFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: TeamCountAggregateInputType | true
     }
 
@@ -7833,7 +7843,7 @@ export namespace Prisma {
   type HackathonGetPayload<S extends boolean | null | undefined | HackathonDefaultArgs> = $Result.GetResult<Prisma.$HackathonPayload, S>
 
   type HackathonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HackathonFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HackathonFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HackathonCountAggregateInputType | true
     }
 
@@ -8902,7 +8912,7 @@ export namespace Prisma {
   type HackathonRegistrationGetPayload<S extends boolean | null | undefined | HackathonRegistrationDefaultArgs> = $Result.GetResult<Prisma.$HackathonRegistrationPayload, S>
 
   type HackathonRegistrationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HackathonRegistrationFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HackathonRegistrationFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HackathonRegistrationCountAggregateInputType | true
     }
 
@@ -9890,7 +9900,7 @@ export namespace Prisma {
   type ProjectGetPayload<S extends boolean | null | undefined | ProjectDefaultArgs> = $Result.GetResult<Prisma.$ProjectPayload, S>
 
   type ProjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProjectFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<ProjectFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: ProjectCountAggregateInputType | true
     }
 
@@ -10832,7 +10842,7 @@ export namespace Prisma {
   type ContactGetPayload<S extends boolean | null | undefined | ContactDefaultArgs> = $Result.GetResult<Prisma.$ContactPayload, S>
 
   type ContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ContactFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<ContactFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: ContactCountAggregateInputType | true
     }
 
@@ -11692,7 +11702,7 @@ export namespace Prisma {
   type SponsorsGetPayload<S extends boolean | null | undefined | SponsorsDefaultArgs> = $Result.GetResult<Prisma.$SponsorsPayload, S>
 
   type SponsorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<SponsorsFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<SponsorsFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: SponsorsCountAggregateInputType | true
     }
 
@@ -12586,7 +12596,7 @@ export namespace Prisma {
   type JudgeGetPayload<S extends boolean | null | undefined | JudgeDefaultArgs> = $Result.GetResult<Prisma.$JudgePayload, S>
 
   type JudgeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<JudgeFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<JudgeFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: JudgeCountAggregateInputType | true
     }
 
@@ -13543,7 +13553,7 @@ export namespace Prisma {
   type MentorGetPayload<S extends boolean | null | undefined | MentorDefaultArgs> = $Result.GetResult<Prisma.$MentorPayload, S>
 
   type MentorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<MentorFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<MentorFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: MentorCountAggregateInputType | true
     }
 
@@ -14588,7 +14598,7 @@ export namespace Prisma {
   type JudgeassessmentsGetPayload<S extends boolean | null | undefined | JudgeassessmentsDefaultArgs> = $Result.GetResult<Prisma.$JudgeassessmentsPayload, S>
 
   type JudgeassessmentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<JudgeassessmentsFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<JudgeassessmentsFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: JudgeassessmentsCountAggregateInputType | true
     }
 
@@ -15516,7 +15526,7 @@ export namespace Prisma {
   type HackathonSponsorsGetPayload<S extends boolean | null | undefined | HackathonSponsorsDefaultArgs> = $Result.GetResult<Prisma.$HackathonSponsorsPayload, S>
 
   type HackathonSponsorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<HackathonSponsorsFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<HackathonSponsorsFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: HackathonSponsorsCountAggregateInputType | true
     }
 
@@ -16417,7 +16427,7 @@ export namespace Prisma {
   type teamMembersGetPayload<S extends boolean | null | undefined | teamMembersDefaultArgs> = $Result.GetResult<Prisma.$teamMembersPayload, S>
 
   type teamMembersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<teamMembersFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<teamMembersFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: TeamMembersCountAggregateInputType | true
     }
 
@@ -17358,7 +17368,7 @@ export namespace Prisma {
   type teamRequestGetPayload<S extends boolean | null | undefined | teamRequestDefaultArgs> = $Result.GetResult<Prisma.$teamRequestPayload, S>
 
   type teamRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<teamRequestFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<teamRequestFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: TeamRequestCountAggregateInputType | true
     }
 
@@ -18615,7 +18625,7 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
-    gamertag?: StringFilter<"User"> | string
+    gamertag?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     emailVerified?: BoolNullableFilter<"User"> | boolean | null
     image?: StringNullableFilter<"User"> | string | null
@@ -18643,7 +18653,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     email?: SortOrder
-    gamertag?: SortOrder
+    gamertag?: SortOrderInput | SortOrder
     role?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -18675,7 +18685,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
-    gamertag?: StringFilter<"User"> | string
+    gamertag?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     emailVerified?: BoolNullableFilter<"User"> | boolean | null
     image?: StringNullableFilter<"User"> | string | null
@@ -18703,7 +18713,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
     email?: SortOrder
-    gamertag?: SortOrder
+    gamertag?: SortOrderInput | SortOrder
     role?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -18729,7 +18739,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
-    gamertag?: StringWithAggregatesFilter<"User"> | string
+    gamertag?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     emailVerified?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -19794,7 +19804,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -19822,7 +19832,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -19850,7 +19860,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19878,7 +19888,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19906,7 +19916,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -19926,7 +19936,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19946,7 +19956,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23265,7 +23275,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -23292,7 +23302,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -23335,7 +23345,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23362,7 +23372,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23389,7 +23399,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -23416,7 +23426,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -23459,7 +23469,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23486,7 +23496,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24056,7 +24066,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -24083,7 +24093,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -24234,7 +24244,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24261,7 +24271,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24430,7 +24440,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -24457,7 +24467,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -24624,7 +24634,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24651,7 +24661,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25142,7 +25152,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -25169,7 +25179,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -25299,7 +25309,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25326,7 +25336,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25426,7 +25436,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -25453,7 +25463,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -25547,7 +25557,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25574,7 +25584,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26023,7 +26033,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -26050,7 +26060,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -26130,7 +26140,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26157,7 +26167,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26215,7 +26225,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -26242,7 +26252,7 @@ export namespace Prisma {
     id?: string
     name?: string | null
     email: string
-    gamertag: string
+    gamertag?: string | null
     role?: $Enums.Role
     emailVerified?: boolean | null
     image?: string | null
@@ -26322,7 +26332,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26349,7 +26359,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    gamertag?: StringFieldUpdateOperationsInput | string
+    gamertag?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     emailVerified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     image?: NullableStringFieldUpdateOperationsInput | string | null

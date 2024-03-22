@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import ProjectSubmissionForm from "@/components/ProjectSubmissionForm";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 export default function SubmitProject() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();

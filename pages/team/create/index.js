@@ -5,7 +5,6 @@ import { signIn, useSession } from "next-auth/react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 export default function HackathonList() {
   const { data: session, status } = useSession();
   const loading = status === "loading";

@@ -54,26 +54,32 @@ function JudgeView() {
         Find a Hackathon Submission to rate
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 h-full my-4">
-        {hackathons.map((hackathon) => (
-          <React.Fragment key={hackathon.id}>
-            {hackathonJudges.map((judge) => {
-              if (
-                judge.email === session.user.email &&
-                judge.hackathonId === hackathon.id
-              ) {
-                return (
-                  <HackathonCard
-                    key={hackathon.id}
-                    headerText={hackathon.title}
-                    descriptionText={hackathon.description}
-                    buttonLink={`/judge/${hackathon.id}/dashboard`}
-                  />
-                );
-              }
-              return null;
-            })}
-          </React.Fragment>
-        ))}
+        {session ? (
+          <>
+            {hackathons.map((hackathon) => (
+              <React.Fragment key={hackathon.id}>
+                {hackathonJudges.map((judge) => {
+                  if (
+                    judge.email === session.user.email &&
+                    judge.hackathonId === hackathon.id
+                  ) {
+                    return (
+                      <HackathonCard
+                        key={hackathon.id}
+                        headerText={hackathon.title}
+                        descriptionText={hackathon.description}
+                        buttonLink={`/judge/${hackathon.id}/dashboard`}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </React.Fragment>
+            ))}
+          </>
+        ):(<>
+          Loading...
+        </>)}
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ import HackathonCard from "@/components/HackathonCard";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 function Project() {
   const [projects, setProject] = useState([]);
   const [Userdetails, setUserdetails] = useState([]);

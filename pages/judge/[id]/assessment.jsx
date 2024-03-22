@@ -7,7 +7,6 @@ import ButtonSecondary from "@/components/ButtonSecondary";
 import CreateAssessForm from "@/components/CreateAssessForm";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 function assessment() {
  
   const router = useRouter();

@@ -6,12 +6,11 @@ import AccessDenied from "@/components/access-denied";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Select from "react-select";
 import { getServerSideProps } from "../../../util/authUtils";
-import Podium from "@/components/Podium"
+import Podium from "@/components/Podium";
 import notify from "@/components/toast";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 
-export { getServerSideProps };
 export default function ManageHackathon() {
   const [hackathon, setHackathon] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -28,8 +27,8 @@ export default function ManageHackathon() {
   const { data: session } = useSession();
   const [users, setUsers] = useState([]);
   const [values, setValue] = useState([]);
-  const [assess,setAssess] = useState([])
-  const [sponsors,setSponsors] = useState([])
+  const [assess, setAssess] = useState([]);
+  const [sponsors, setSponsors] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [judgeIdToRemove, setJudgeIdToRemove] = useState(null);
   const [mentorIdToRemove, setMentorIdToRemove] = useState(null);
@@ -38,7 +37,6 @@ export default function ManageHackathon() {
   const [teamIdToRemove, setTeamIdToRemove] = useState(null);
 
   useEffect(() => {
-   
     const savedTab = localStorage.getItem("selectedTab");
     if (savedTab) {
       setSelectedTab(savedTab);
@@ -46,16 +44,12 @@ export default function ManageHackathon() {
   }, []);
 
   useEffect(() => {
-  
     localStorage.setItem("selectedTab", selectedTab);
   }, [selectedTab]);
 
   const handleTabClick = (tabName) => {
     setSelectedTab(tabName);
-    
   };
-  
-  
 
   const handleChange = (search) => {
     setValue(search);
@@ -72,10 +66,9 @@ export default function ManageHackathon() {
       try {
         if (id) {
           const response = await fetch(`/api/hackathons/${id}`, {
-            cache: 'no-store' ,
+            cache: "no-store",
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            next: { revalidate: 1 },
           });
           if (response.ok) {
             const hackathonData = await response.json();
@@ -95,10 +88,9 @@ export default function ManageHackathon() {
     const fetchUsers = async () => {
       try {
         const users = await fetch(`/api/users`, {
-          cache: 'no-store' ,
+          cache: "no-store",
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          next: { revalidate: 1},
         });
 
         if (users.ok) {
@@ -114,7 +106,6 @@ export default function ManageHackathon() {
 
     fetchUsers();
   }, []);
-
 
   useEffect(() => {
     const fetchRegistrationHackathon = async () => {
@@ -141,15 +132,13 @@ export default function ManageHackathon() {
     fetchRegistrationHackathon();
   }, [id]);
 
-
   useEffect(() => {
     const fetchJudgeUser = async () => {
       try {
         const response = await fetch(`/api/users/users`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          next: { revalidate: 1 },
         });
 
         if (response) {
@@ -173,10 +162,9 @@ export default function ManageHackathon() {
     const fetchTeams = async () => {
       try {
         const teams = await fetch(`/api/team/teams`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          next: { revalidate: 1},
         });
 
         if (teams.ok) {
@@ -198,10 +186,9 @@ export default function ManageHackathon() {
       try {
         if (id) {
           const response = await fetch(`/api/projects/${id}/hackathonDetails`, {
-            cache: 'no-store' ,
+            cache: "no-store",
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            next: { revalidate: 10 },
           });
           if (response.ok) {
             const projectsData = await response.json();
@@ -217,48 +204,44 @@ export default function ManageHackathon() {
     fetchHackathonProjects();
   }, [id]);
 
+  const judgeGetting = async () => {
+    try {
+      if (id) {
+        const response = await fetch(`/api/judges/${id}/hackathonDetails`, {
+          cache: "no-store",
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
 
-const judgeGetting = async ()=>{
-  try {
-    if (id) {
-      const response = await fetch(`/api/judges/${id}/hackathonDetails`, {
-        cache: 'no-store',
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        next: { revalidate: 1 },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setJudges(data);
-      } else {
-        console.error("Error fetching judges:", response.statusText);
+        if (response.ok) {
+          const data = await response.json();
+          setJudges(data);
+        } else {
+          console.error("Error fetching judges:", response.statusText);
+        }
       }
+    } catch (error) {
+      console.error("Error fetching judges:", error);
     }
-  } catch (error) {
-    console.error("Error fetching judges:", error);
-  }
-}
+  };
 
   useEffect(() => {
     const fetchJudges = async () => {
-      judgeGetting()
+      judgeGetting();
     };
-  
+
     fetchJudges();
-  
   }, [id]);
 
-  const mentorGetting = async ()=>{
+  const mentorGetting = async () => {
     try {
       if (id) {
         const response = await fetch(`/api/mentors/${id}/hackathonDetails`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          next: { revalidate: 1 },
         });
-  
+
         if (response.ok) {
           const data = await response.json();
           setMentors(data);
@@ -269,17 +252,15 @@ const judgeGetting = async ()=>{
     } catch (error) {
       console.error("Error fetching Mentors:", error);
     }
-  }
-  
-    useEffect(() => {
-      const fetchMentors = async () => {
-        mentorGetting()
-      };
-    
-      fetchMentors();
-    
-    }, [id]);
-  
+  };
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      mentorGetting();
+    };
+
+    fetchMentors();
+  }, [id]);
 
   const create = async (e) => {
     e.preventDefault();
@@ -298,10 +279,10 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
           next: { revalidate: 1 },
-          cache: 'no-store'
+          cache: "no-store",
         });
-        judgeGetting()
-        
+        judgeGetting();
+
         console.log(values.value);
       }
     } catch (error) {
@@ -326,10 +307,10 @@ const judgeGetting = async ()=>{
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
           next: { revalidate: 1 },
-          cache: 'no-store'
+          cache: "no-store",
         });
-        mentorGetting()
-        
+        mentorGetting();
+
         console.log(values.value);
       }
     } catch (error) {
@@ -351,19 +332,20 @@ const judgeGetting = async ()=>{
     try {
       if (id) {
         const response = await fetch(`/api/judges/${id}/delete`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        setJudges(prevJudges => prevJudges.filter(judge => judge.id !== id));
-        
-        
-        notify('Judge deleted successfully,');
+        setJudges((prevJudges) =>
+          prevJudges.filter((judge) => judge.id !== id)
+        );
+
+        notify("Judge deleted successfully,");
       }
     } catch (error) {
       console.log("this is the error for deleting a judge: " + error);
-      
-      notify('Error deleting judge', 'error');
+
+      notify("Error deleting judge", "error");
     }
   };
 
@@ -371,18 +353,18 @@ const judgeGetting = async ()=>{
     try {
       if (id) {
         const response = await fetch(`/api/mentors/${id}/delete`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        setMentors(prevMentors => prevMentors.filter(mentor => mentor.id !== id));
-        notify('Mentor deleted successfully,');
-
-
+        setMentors((prevMentors) =>
+          prevMentors.filter((mentor) => mentor.id !== id)
+        );
+        notify("Mentor deleted successfully,");
       }
     } catch (error) {
       console.log("this is the error for deleting a mentor: " + error);
-      notify('Error deleting judge', 'error');
+      notify("Error deleting judge", "error");
     }
   };
 
@@ -390,17 +372,18 @@ const judgeGetting = async ()=>{
     try {
       if (id) {
         const response = await fetch(`/api/hackathonsponsors/${id}/delete`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        setSponsors(prevSponsor => prevSponsor.filter(sponsors => sponsors.id !== id));
-        notify('Sponsor deleted successfully,');
-
+        setSponsors((prevSponsor) =>
+          prevSponsor.filter((sponsors) => sponsors.id !== id)
+        );
+        notify("Sponsor deleted successfully,");
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
-      notify('Error deleting sponsor', 'error');
+      notify("Error deleting sponsor", "error");
     }
   };
 
@@ -408,18 +391,22 @@ const judgeGetting = async ()=>{
     try {
       if (id) {
         const response = await fetch(`/api/hackathonRegister/${id}/delete`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        setRegistration(prevRegistration => prevRegistration.filter(registration => registration.id !== id));
-        const data=await response.json()
-        setProject(prevProject => prevProject.filter(projects => projects.id !== data.id));
-        notify('Team Registration deleted successfully,');
+        setRegistration((prevRegistration) =>
+          prevRegistration.filter((registration) => registration.id !== id)
+        );
+        const data = await response.json();
+        setProject((prevProject) =>
+          prevProject.filter((projects) => projects.id !== data.id)
+        );
+        notify("Team Registration deleted successfully,");
       }
     } catch (error) {
       console.log("this is the error for deleting a sponsor: " + error);
-      notify('Error deleting this team registration', 'error');
+      notify("Error deleting this team registration", "error");
     }
   };
 
@@ -427,16 +414,18 @@ const judgeGetting = async ()=>{
     try {
       if (id) {
         const response = await fetch(`/api/projects/${id}/delete`, {
-          cache: 'no-store',
+          cache: "no-store",
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
         if (response.ok) {
-          setProject(prevProject => prevProject.filter(projects => projects.id !== id));
-          notify('Project deleted successfully,');
+          setProject((prevProject) =>
+            prevProject.filter((projects) => projects.id !== id)
+          );
+          notify("Project deleted successfully,");
         } else {
           console.error("Error deleting judge:", response.statusText);
-          notify('Error deleting this Project', 'error');
+          notify("Error deleting this Project", "error");
         }
       }
     } catch (error) {
@@ -444,13 +433,12 @@ const judgeGetting = async ()=>{
     }
   };
 
-
   useEffect(() => {
     const fetchAssessment = async () => {
       try {
         if (id) {
           const response = await fetch(`/api/assessment/${id}`, {
-            cache: 'no-store' ,
+            cache: "no-store",
             method: "GET",
             headers: { "Content-Type": "application/json" },
             next: { revalidate: 10 },
@@ -473,10 +461,13 @@ const judgeGetting = async ()=>{
     const fetchSponsors = async () => {
       try {
         if (id) {
-          const response = await fetch(`/api/hackathonsponsors/${id}/sponsorsDetails`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          });
+          const response = await fetch(
+            `/api/hackathonsponsors/${id}/sponsorsDetails`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
 
           if (response.ok) {
             const data = await response.json();
@@ -505,89 +496,87 @@ const judgeGetting = async ()=>{
     setAssess(sortedAssess);
   };
 
-
   let content;
   switch (selectedTab) {
     case "judges":
       content = (
         <div className="">
-    <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
-      {hackathon.title} Hackathon Information (Judges)
-    </h2>
-    <p className="mt-2 text-lg leading-8 text-gray-200"></p>
-    <form onSubmit={create}>
-      <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
-        <div
-          class="text-purple-600"
-          data-te-input-wrapper-init
-          id="async"
-        >
-          <Select
-            type="text"
-            className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
-            id="exampleFormControlInput3"
-            placeholder="Type the gamertag of the user to make him judge"
-            options={options}
-            defaultValue={search}
-            onChange={handleChange}
-            values={options}
-          ></Select>
-        </div>
-        <ButtonSecondary
-          functionCall={create}
-          buttonText="Add Judge"
-        ></ButtonSecondary>
-      </div>
-    </form>
-    <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-      {judges.map((judge) => {
-        return (
-          <div
-            class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
-            key={judge.id}
-          >
-            <img
-              class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
-              src={judge.judgeImage}
-            ></img>
-
-            <div class="text-center space-y-2 sm:text-left">
-              <div class="space-y-0.5 flex-cols items-center">
-                <p class="text-xl text-white font-semibold">
-                  {judge.judgeGamertag}
-                </p>
-              </div>
-
-              <button
-                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                onClick={() => {
-                  setJudgeIdToRemove(judge.id);
-                  setModalIsOpen(true);
-                }}
+          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+            {hackathon.title} Hackathon Information (Judges)
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-200"></p>
+          <form onSubmit={create}>
+            <div className="pt-5 pb-5 md:flex items-center space-y-5 md:space-y-0">
+              <div
+                class="text-purple-600"
+                data-te-input-wrapper-init
+                id="async"
               >
-                Remove
-              </button>
+                <Select
+                  type="text"
+                  className="peer block min-h-[auto] rounded border-0 bg-transparent pr-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear placeholder:opacity-0 focus:placeholder:opacity-100 peer-focus:text-primary motion-reduce:transition-none  text-purple-600"
+                  id="exampleFormControlInput3"
+                  placeholder="Type the gamertag of the user to make him judge"
+                  options={options}
+                  defaultValue={search}
+                  onChange={handleChange}
+                  values={options}
+                ></Select>
+              </div>
+              <ButtonSecondary
+                functionCall={create}
+                buttonText="Add Judge"
+              ></ButtonSecondary>
             </div>
+          </form>
+          <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {judges.map((judge) => {
+              return (
+                <div
+                  class="py-8 px-8 max-w-sm  bg-gray-900 rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6"
+                  key={judge.id}
+                >
+                  <img
+                    class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                    src={judge.judgeImage}
+                  ></img>
+
+                  <div class="text-center space-y-2 sm:text-left">
+                    <div class="space-y-0.5 flex-cols items-center">
+                      <p class="text-xl text-white font-semibold">
+                        {judge.judgeGamertag}
+                      </p>
+                    </div>
+
+                    <button
+                      className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                      onClick={() => {
+                        setJudgeIdToRemove(judge.id);
+                        setModalIsOpen(true);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
-    {modalIsOpen && (
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        ModalText="Are you sure you want to delete this judge?"
-        functionCall={() => {
-          handleClickJudge(judgeIdToRemove);
-          setModalIsOpen(false);
-        }}
-      />
-    )}
-  </div>
-        
+          {modalIsOpen && (
+            <Modal
+              isOpen={modalIsOpen}
+              onClose={() => setModalIsOpen(false)}
+              ModalText="Are you sure you want to delete this judge?"
+              functionCall={() => {
+                handleClickJudge(judgeIdToRemove);
+                setModalIsOpen(false);
+              }}
+            />
+          )}
+        </div>
       );
       break;
-      case "mentors":
+    case "mentors":
       content = (
         <div className="">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
@@ -611,7 +600,6 @@ const judgeGetting = async ()=>{
                   onChange={handleChange}
                   values={options}
                 ></Select>
-
               </div>
               <ButtonSecondary
                 functionCall={createMentor}
@@ -638,34 +626,34 @@ const judgeGetting = async ()=>{
                       </p>
                     </div>
                     <button
-                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                onClick={() => {
-                  setMentorIdToRemove(mentor.id);
-                  setModalIsOpen(true);
-                }}
-              >
-                Remove
-              </button>
+                      className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                      onClick={() => {
+                        setMentorIdToRemove(mentor.id);
+                        setModalIsOpen(true);
+                      }}
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
               );
             })}
           </div>
           {modalIsOpen && (
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        ModalText="Are you sure you want to delete this mentor?"
-        functionCall={() => {
-          handleClickMentor(mentorIdToRemove);
-          setModalIsOpen(false);
-        }}
-      />
-    )}
+            <Modal
+              isOpen={modalIsOpen}
+              onClose={() => setModalIsOpen(false)}
+              ModalText="Are you sure you want to delete this mentor?"
+              functionCall={() => {
+                handleClickMentor(mentorIdToRemove);
+                setModalIsOpen(false);
+              }}
+            />
+          )}
         </div>
       );
       break;
-      case "teams":
+    case "teams":
       content = (
         <div>
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
@@ -705,35 +693,29 @@ const judgeGetting = async ()=>{
                       </div>
 
                       <div class="text-center">
-                        <p class="text-xl text-white font-bold mb-2">
-                          {" "}
-                         
-                        </p>
-                        <p class="text-base text-gray-400 font-normal">
-                         
-                        </p>
+                        <p class="text-xl text-white font-bold mb-2"> </p>
+                        <p class="text-base text-gray-400 font-normal"></p>
                       </div>
                       <br></br>
-                        <div className="space-x-5"> 
+                      <div className="space-x-5">
                         <button
-                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                onClick={() => {
-                  setTeamIdToRemove(registration.id);
-                  setModalIsOpen(true);
-                }}
-              >
-                Remove
-              </button>
-                      <button
-                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          router.push(`/team/${registration.teamId}`)
-                        }}
-                      >
-                        Details
-                      </button>
-                          </div>
-
+                          className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                          onClick={() => {
+                            setTeamIdToRemove(registration.id);
+                            setModalIsOpen(true);
+                          }}
+                        >
+                          Remove
+                        </button>
+                        <button
+                          className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                          onClick={() => {
+                            router.push(`/team/${registration.teamId}`);
+                          }}
+                        >
+                          Details
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </>
@@ -741,16 +723,16 @@ const judgeGetting = async ()=>{
             })}
           </div>
           {modalIsOpen && (
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        ModalText="Are you sure you want to remove this team from this hackathon? Projects and Assessments related to this team will also be deleted"
-        functionCall={() => {
-          handleClickDeleteRegistration(teamIdToRemove);
-          setModalIsOpen(false);
-        }}
-      />
-    )}
+            <Modal
+              isOpen={modalIsOpen}
+              onClose={() => setModalIsOpen(false)}
+              ModalText="Are you sure you want to remove this team from this hackathon? Projects and Assessments related to this team will also be deleted"
+              functionCall={() => {
+                handleClickDeleteRegistration(teamIdToRemove);
+                setModalIsOpen(false);
+              }}
+            />
+          )}
         </div>
       );
       break;
@@ -803,26 +785,25 @@ const judgeGetting = async ()=>{
                         </p>
                       </div>
                       <br></br>
-                        <div className="space-x-5"> 
+                      <div className="space-x-5">
                         <button
-                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                onClick={() => {
-                  setProjectIdToRemove(project.id);
-                  setModalIsOpen(true);
-                }}
-              >
-                Remove
-              </button>
-                      <button
-                        className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                        onClick={() => {
-                          router.push(`/projects/${project.id}`)
-                        }}
-                      >
-                        Details
-                      </button>
-                          </div>
-
+                          className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                          onClick={() => {
+                            setProjectIdToRemove(project.id);
+                            setModalIsOpen(true);
+                          }}
+                        >
+                          Remove
+                        </button>
+                        <button
+                          className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                          onClick={() => {
+                            router.push(`/projects/${project.id}`);
+                          }}
+                        >
+                          Details
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </>
@@ -830,33 +811,33 @@ const judgeGetting = async ()=>{
             })}
           </div>
           {modalIsOpen && (
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        ModalText="Are you sure you want to remove this project? Assessments related to this project will also be deleted"
-        functionCall={() => {
-          handleClickProject(projectIdToRemove);
-          setModalIsOpen(false);
-        }}
-      />
-    )}
+            <Modal
+              isOpen={modalIsOpen}
+              onClose={() => setModalIsOpen(false)}
+              ModalText="Are you sure you want to remove this project? Assessments related to this project will also be deleted"
+              functionCall={() => {
+                handleClickProject(projectIdToRemove);
+                setModalIsOpen(false);
+              }}
+            />
+          )}
         </div>
       );
       break;
-      case "sponsors":
+    case "sponsors":
       content = (
         <div className="">
           <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
             {hackathon.title} Hackathon Information (Sponsor)
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-200"></p>
-            <div className="pt-5 pb-5 flex">
-              <ButtonSecondary
-                buttonText="Add New Sponsor"
-                buttonLink={`/hackathons/${id}/addsponsor`}
-              ></ButtonSecondary>
-            </div>
-        
+          <div className="pt-5 pb-5 flex">
+            <ButtonSecondary
+              buttonText="Add New Sponsor"
+              buttonLink={`/hackathons/${id}/addsponsor`}
+            ></ButtonSecondary>
+          </div>
+
           <div className="text-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {sponsors.map((sponsor) => {
               return (
@@ -879,57 +860,58 @@ const judgeGetting = async ()=>{
                       </p>
                     </div>
 
-                    <div className="space-x-5"> 
-                    <button
-                className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
-                onClick={() => {
-                  setSponsorIdToRemove(sponsor.id);
-                  setModalIsOpen(true);
-                }}
-              >
-                Remove
-              </button>
+                    <div className="space-x-5">
+                      <button
+                        className="bg-red-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
+                        onClick={() => {
+                          setSponsorIdToRemove(sponsor.id);
+                          setModalIsOpen(true);
+                        }}
+                      >
+                        Remove
+                      </button>
                       <button
                         className="bg-green-500 text-white rounded-3xl font-bold pt-2 p-2 text-xs hover:opacity-80"
                         onClick={() => {
-                          router.push(`/hackathons/${id}/${sponsor.id}/editsponsor`)
+                          router.push(
+                            `/hackathons/${id}/${sponsor.id}/editsponsor`
+                          );
                         }}
                       >
                         Edit
                       </button>
-                          </div>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
           {modalIsOpen && (
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        ModalText="Are you sure you want to remove this sponsor?"
-        functionCall={() => {
-          handleClickDeleteSponsor(sponsorIdToRemove);
-          setModalIsOpen(false);
-        }}
-      />
-    )}
+            <Modal
+              isOpen={modalIsOpen}
+              onClose={() => setModalIsOpen(false)}
+              ModalText="Are you sure you want to remove this sponsor?"
+              functionCall={() => {
+                handleClickDeleteSponsor(sponsorIdToRemove);
+                setModalIsOpen(false);
+              }}
+            />
+          )}
         </div>
       );
       break;
     case "scores":
       content = (
         <div>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {hackathon.title} Hackathon Information (Scores)
-        </h2>
-        
-        <br></br>
-       
-        <div class="relative w-lvw overflow-x-auto shadow-md sm:rounded-lg">
-          
-        <Select
-         className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+          </h2>
+
+          <br></br>
+
+          <div class="relative w-lvw overflow-x-auto shadow-md sm:rounded-lg">
+            <Select
+              className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               options={[
                 { value: "asc", label: "Low to High" },
                 { value: "desc", label: "High to Low" },
@@ -937,76 +919,73 @@ const judgeGetting = async ()=>{
               defaultValue={{ value: "asc", label: "Low to High" }}
               onChange={(selectedOption) => handleSort(selectedOption.value)}
             />
-            
+
             <br></br>
             <table class="min-w-full w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-0.5 py-2">
-                            Project Name
-                        </th>
-                        <th scope="col" class="px-0.5 py-2">
-                            Team Name
-                        </th>
-                        <th scope="col" class="px-0.5 py-2">
-                            Judge 
-                        </th>
-                        <th scope="col" class="px-0.5 py-2">
-                            Overall Score
-                        </th>
-                        <th scope="col" class="px-0.5 py-2">
-                            Details
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                    {assess.map(score => {
-                        const overall_score_rounded = parseFloat(score.overall_score).toFixed(2);
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-0.5 py-2">
+                    Project Name
+                  </th>
+                  <th scope="col" class="px-0.5 py-2">
+                    Team Name
+                  </th>
+                  <th scope="col" class="px-0.5 py-2">
+                    Judge
+                  </th>
+                  <th scope="col" class="px-0.5 py-2">
+                    Overall Score
+                  </th>
+                  <th scope="col" class="px-0.5 py-2">
+                    Details
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {assess.map((score) => {
+                  const overall_score_rounded = parseFloat(
+                    score.overall_score
+                  ).toFixed(2);
 
-                      
-                        return projects.map(project => {
-                        
-                            return judges.map(judge => {
-                              
-                                return details.map(detail => {
-                              
-                                    return (
-                                        score.hackathonId === hackathon.id &&
-                                        project.teamId === detail.id &&
-                                        score.projectId == project.id &&
-                                        score.judgeId === judge.id && 
-                                        (
-                                            <tr key={score.id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                  {console.log(score)}
-                                                <th scope="row" class="px-0.5 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {project.name}
-                                                </th>
-                                                <td class="px-0.5 py-2">
-                                                    {detail.name}
-                                                </td>
-                                                <td class="px-0.5 py-2">
-                                                    {judge.judgeGamertag}
-                                                </td>
-                                                <td class="px-0.5 py-2">
-                                                    {overall_score_rounded}
-                                                </td>
-                                                <td class="px-0.5 py-2">
-                                                    <a href={`/assessment/${score.id}`}>Details</a>
-                                                </td>
-                                            </tr>
-                                        )
-                                    );
-                                });
-                            });
-                        });
-                    })}
-                </tbody>
+                  return projects.map((project) => {
+                    return judges.map((judge) => {
+                      return details.map((detail) => {
+                        return (
+                          score.hackathonId === hackathon.id &&
+                          project.teamId === detail.id &&
+                          score.projectId == project.id &&
+                          score.judgeId === judge.id && (
+                            <tr
+                              key={score.id}
+                              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                            >
+                              {console.log(score)}
+                              <th
+                                scope="row"
+                                class="px-0.5 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                              >
+                                {project.name}
+                              </th>
+                              <td class="px-0.5 py-2">{detail.name}</td>
+                              <td class="px-0.5 py-2">{judge.judgeGamertag}</td>
+                              <td class="px-0.5 py-2">
+                                {overall_score_rounded}
+                              </td>
+                              <td class="px-0.5 py-2">
+                                <a href={`/assessment/${score.id}`}>Details</a>
+                              </td>
+                            </tr>
+                          )
+                        );
+                      });
+                    });
+                  });
+                })}
+              </tbody>
             </table>
+          </div>
+          <Podium id={id}></Podium>
         </div>
-        <Podium id={id}></Podium>
-    </div>
-    
       );
       break;
     default:
@@ -1050,14 +1029,12 @@ const judgeGetting = async ()=>{
                   <ButtonSecondary
                     functionCall={() => handleTabClick("judges")}
                     buttonText="Judges"
-                  
                   ></ButtonSecondary>
                 </th>
                 <th>
                   <ButtonSecondary
                     functionCall={() => handleTabClick("mentors")}
                     buttonText="Mentors"
-                  
                   ></ButtonSecondary>
                 </th>
                 <th>

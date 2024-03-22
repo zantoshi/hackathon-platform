@@ -6,7 +6,6 @@ import avatarTeam from "../../../public/users-group.svg";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 function Index() {
   const [team, setTeam] = useState({});
   const router = useRouter();

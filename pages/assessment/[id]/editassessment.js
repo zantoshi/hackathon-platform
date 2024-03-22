@@ -8,7 +8,7 @@ import { useRouter} from "next/router";
 import { getServerSideProps } from "../../../util/authUtils";
 import ButtonSecondary from "@/components/ButtonSecondary";
 
-export { getServerSideProps };
+
 export default function addscore() {
 
 const { data: session } = useSession();
@@ -26,7 +26,7 @@ const { data: session } = useSession();
     setscoreId(router.query.sponsorid);
     }
     }, [router.isReady]);
-    
+
 
     useEffect(() => {
       const fetchAssessment = async () => {

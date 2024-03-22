@@ -7,7 +7,6 @@ import HackathonCard from "@/components/HackathonCard";
 import { useRouter } from "next/navigation";
 import { getServerSideProps } from "../../util/authUtils";
 
-export { getServerSideProps };
 
 export default function TeamsPage({ session }) {
   const [teams, setTeams] = useState([]);

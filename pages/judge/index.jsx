@@ -7,11 +7,9 @@ import { fetchingData } from "../../util/fetchingData";
 import AccessDenied from "@/components/access-denied";
 import { getServerSideProps } from "../../util/authUtils";
 
-export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {

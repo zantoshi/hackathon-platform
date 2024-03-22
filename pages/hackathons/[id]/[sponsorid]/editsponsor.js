@@ -6,7 +6,6 @@ import SponsorSubmissionForm from "@/components/SponsorSubmissionForm";
 import { useRouter} from "next/router";
 import { getServerSideProps } from "../../../../util/authUtils";
 
-export { getServerSideProps };
 export default function addsponsor() {
 
 const { data: session } = useSession();

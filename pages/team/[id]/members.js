@@ -4,7 +4,6 @@ import AddUserTeam from "@/components/AddUserTeam";
 import { useRouter } from "next/router";
 import { getServerSideProps } from "../../../util/authUtils";
 
-export { getServerSideProps };
 function members() {
   const router = useRouter();
   const [id, setId] = useState("");
