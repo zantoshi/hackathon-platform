@@ -6,9 +6,8 @@ import { useState, useEffect } from "react";
 import { X, Menu } from "lucide-react";
 import { motion, stagger, AnimatePresence } from "framer-motion";
 import userIcon from "../public/user-filled.svg";
-import { fetchingData } from "../util/fetchingData.js";
+import { fetchingData,updateGamertag } from "../util/fetchingData.js";
 import NotificationBell from "./NotificationBell";
-import { updateGamertag } from "util/fetchingData";
 
 export default function Header() {
   const [click, setClick] = useState(false);
@@ -21,8 +20,6 @@ export default function Header() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
   const [isOpen, setIsOpen] = useState(false);
-
-  
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -76,7 +73,7 @@ export default function Header() {
           cache: "no-store",
         });
         const data = await response.json();
-        return data;
+        setRequest(data);
       }
     } catch (error) {
       console.error("Error fetching team data:", error);
@@ -84,24 +81,22 @@ export default function Header() {
     }
   };
 
+  useEffect(()=>{
+    getRequest()
+})
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [userData, requestData, judgeData] = await Promise.all([
+        const [userData, judgeData] = await Promise.all([
           getUser(),
-          getRequest(),
-          fetchingData("/api/judges")
+          fetchingData("/api/judges"),
         ]);
 
         if (userData) {
           setUser(userData);
           setImage(userData.image);
           setIsChecked(userData.availability);
-        }
-
-        if (requestData) {
-          setRequest(requestData);
         }
 
         if (judgeData) {
@@ -111,23 +106,24 @@ export default function Header() {
         console.error("Error fetching data:", error);
       }
     };
-    
+
     fetchData();
-  },[]);
+  }, []);
 
-
-  useEffect(()=>{
-    const updating =  async ()=>{
-     try{
-      if(!user.gamertag){
-        await updateGamertag("/api/users/githubGamer")
+  useEffect(() => {
+    const updating = async () => {
+      try {
+        const response = await fetchingData("/api/users")
+        if(!response.gamertag)
+        {
+          await updateGamertag("/api/users/githubGamer");
+        }
+      } catch (error) {
+        console.log(error);
       }
-     }catch(error){
-      console.log(error)
-     }
-    }
-    updating()
-  },[])
+    };
+    updating();
+  }, []);
 
   useEffect(() => {
     const UpdateImage = async () => {
@@ -184,7 +180,6 @@ export default function Header() {
     e.preventDefault();
     signOut();
   };
-
 
   return (
     <div>
@@ -443,7 +438,7 @@ export default function Header() {
                     </li>
                     <li>
                       <div className="lg:hidden mt-10">
-                        {user==null &&(
+                        {user == null && (
                           <ButtonSecondary
                             buttonText={"Log In"}
                             functionCall={signInHandler}

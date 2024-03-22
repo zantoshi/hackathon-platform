@@ -5,6 +5,7 @@ import AccessDenied from "@/components/access-denied";
 import SponsorSubmissionForm from "@/components/SponsorSubmissionForm";
 import { useRouter} from "next/router";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
 
 export default function addsponsor() {
 
@@ -54,7 +55,7 @@ const { data: session } = useSession();
         <header>
           <title>GHL | Add Sponsors</title>
         </header>
-        <SponsorSubmissionForm id = {id} />
+       <SessionGuard>{session && (<SponsorSubmissionForm id = {id} />)}</SessionGuard>
       </Layout>
     );
   } else {
@@ -63,7 +64,7 @@ const { data: session } = useSession();
         <header>
           <title>GHL | Not Access</title>
         </header>
-        <AccessDenied />
+       <SessionGuard>{session && (<AccessDenied />)}</SessionGuard>
       </Layout>
     );
   }

@@ -36,8 +36,10 @@ export const config = {
   debug: true,
   providers: [zbdConfig, githubConfig],
   callbacks: {
-    async jwt({ token }) {
-      token.userRole = "admin";
+    async jwt({ token, account, user }) {
+      if (account && user) {
+        token.accessToken = account.refresh_token;
+      }
       return token;
     },
     

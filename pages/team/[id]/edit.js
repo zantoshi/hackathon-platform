@@ -7,13 +7,13 @@ import { useRouter } from "next/router";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import PageHeader from "@/components/PageHeader";
 import { getServerSideProps } from "../../../util/authUtils";
-
-
+import SessionGuard from "@/components/SessionGuard";
 
 function edit() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [test, setTest] = useState();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (router.isReady) {
@@ -26,7 +26,8 @@ function edit() {
         <header>
           <title>GHL | Edit Team</title>
         </header>
-      <div className="">
+      <SessionGuard>
+        {session && ( <div className="">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ButtonSecondary buttonText={"Back"} buttonLink={`/team/${id}`} />
           <PageHeader
@@ -35,7 +36,8 @@ function edit() {
           />
           <CreateTeamForm id={id}></CreateTeamForm>
         </div>
-      </div>
+      </div>)}
+      </SessionGuard>
     </Layout>
   );
 }

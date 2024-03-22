@@ -5,6 +5,8 @@ import HackathonCard from "@/components/HackathonCard";
 import { fetchingData } from "../../../util/fetchingData";
 import Select from "react-select";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
+import { useSession } from "next-auth/react";
 
 function dashboard() {
   const [projects, setProject] = useState([]);
@@ -15,6 +17,7 @@ function dashboard() {
   const [details, setDetails] = useState([]);
   const [judges, setJudges] = useState([]);
   const [assessments, setData] = useState([]);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (router.isReady) {
@@ -170,144 +173,151 @@ function dashboard() {
   return (
     <div>
       <Layout>
-      <header>
+        <header>
           <title>GHL | Judge Dashboard</title>
         </header>
-        {projects && hackathon && (
-          <div className="px-12">
-            <h1 className="text-3xl font-bold tracking-tight  sm:text-4xl">
-              Assess Projects for {hackathon.title}
-            </h1>
-            <h2 className="mt-2 text-lg leading-8 text-gray-200">
-              Find a Hackathon Submision to rate
-            </h2>
-            {projects.length > 0 ? (
-              <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 h-full my-4">
-                {projects.map((project) => (
-                  <HackathonCard
-                    key={project.id}
-                    headerText={project.name}
-                    descriptionText={project.description}
-                    buttonLink={`/projects/${project.id}`}
-                    buttonText={"Evaluate"}
-                  />
-                ))}
+        <SessionGuard>
+          {session && (
+            <>
+              {projects && hackathon && (
+                <div className="px-12">
+                  <h1 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+                    Assess Projects for {hackathon.title}
+                  </h1>
+                  <h2 className="mt-2 text-lg leading-8 text-gray-200">
+                    Find a Hackathon Submision to rate
+                  </h2>
+                  {projects.length > 0 ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 h-full my-4">
+                      {projects.map((project) => (
+                        <HackathonCard
+                          key={project.id}
+                          headerText={project.name}
+                          descriptionText={project.description}
+                          buttonLink={`/projects/${project.id}`}
+                          buttonText={"Evaluate"}
+                        />
+                      ))}
 
-                <h1></h1>
-              </div>
-            ) : (
-              <h2 className="mt-2 text-2xl font-semibold leading-8 text-gray-200">
-                No project has been submitted yet for this hackathon
-              </h2>
-            )}
-          </div>
-        )}
-        <br></br>
-        {assess && hackathon && assessments && (
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-bold tracking-tight  sm:text-4xl">
-              My assessments
-            </h1>
-            <h2 className="mt-2 text-lg leading-8 text-gray-200">
-              Projects already evaluated for this hackathon
-            </h2>
-            {assess.length > 0 ? (
-              <div className="flex flex-col items-center justify-center">
-                <div className="h-lvh w-lvw ">
-                  {" "}
-                  <Select
-                    className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    options={[
-                      { value: "", label: "Default" }, // Opción por defecto
-                      { value: "asc", label: "Low to High" },
-                      { value: "desc", label: "High to Low" },
-                    ]}
-                    defaultValue={{ value: "", label: "Sort by" }} // Valor predeterminado
-                    onChange={(selectedOption) =>
-                      handleSort(selectedOption.value)
-                    }
-                  />
+                      <h1></h1>
+                    </div>
+                  ) : (
+                    <h2 className="mt-2 text-2xl font-semibold leading-8 text-gray-200">
+                      No project has been submitted yet for this hackathon
+                    </h2>
+                  )}
                 </div>
-                <br></br>
-                <table class="min-w-full  w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" class="px-1 py-2">
-                        Project Name
-                      </th>
-                      <th scope="col" class="px-1 py-2">
-                        Team Name
-                      </th>
+              )}
+              <br></br>
+              {assess && hackathon && assessments && (
+                <div className="flex flex-col items-center justify-center">
+                  <h1 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+                    My assessments
+                  </h1>
+                  <h2 className="mt-2 text-lg leading-8 text-gray-200">
+                    Projects already evaluated for this hackathon
+                  </h2>
+                  {assess.length > 0 ? (
+                    <div className="flex flex-col items-center justify-center">
+                      <div className="h-lvh w-lvw ">
+                        {" "}
+                        <Select
+                          className="block w-full rounded-md border-0 py-1.5 text-black focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                          options={[
+                            { value: "", label: "Default" }, // Opción por defecto
+                            { value: "asc", label: "Low to High" },
+                            { value: "desc", label: "High to Low" },
+                          ]}
+                          defaultValue={{ value: "", label: "Sort by" }} // Valor predeterminado
+                          onChange={(selectedOption) =>
+                            handleSort(selectedOption.value)
+                          }
+                        />
+                      </div>
+                      <br></br>
+                      <table class="min-w-full  w-lvw text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                          <tr>
+                            <th scope="col" class="px-1 py-2">
+                              Project Name
+                            </th>
+                            <th scope="col" class="px-1 py-2">
+                              Team Name
+                            </th>
 
-                        <th scope="col" class="px-1 py-2">
-                          Overall Score
-                        </th>
-                        <th scope="col" class="px-1 py-2">
-                          Details
-                        </th>
-                        <th scope="col" class="px-1 py-2">
-                          Edit
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {assessments.map((score) => {
-                        const overall_score_rounded = parseFloat(
-                          score.overall_score
-                        ).toFixed(2);
+                            <th scope="col" class="px-1 py-2">
+                              Overall Score
+                            </th>
+                            <th scope="col" class="px-1 py-2">
+                              Details
+                            </th>
+                            <th scope="col" class="px-1 py-2">
+                              Edit
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {assessments.map((score) => {
+                            const overall_score_rounded = parseFloat(
+                              score.overall_score
+                            ).toFixed(2);
 
-                      return projects.map((project) => {
-                        return judges.map((judge) => {
-                          return details.map((detail) => {
-                            return (
-                              score.projectId == project.id &&
-                              score.judgeId === judge.id &&
-                              project.teamId === detail.id && (
-                                <tr
-                                  key={score.id}
-                                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                >
-                                  <th
-                                    scope="row"
-                                    class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                  >
-                                    {project.name}
-                                  </th>
-                                  <td class="px-1 py-2">{detail.name}</td>
+                            return projects.map((project) => {
+                              return judges.map((judge) => {
+                                return details.map((detail) => {
+                                  return (
+                                    score.projectId == project.id &&
+                                    score.judgeId === judge.id &&
+                                    project.teamId === detail.id && (
+                                      <tr
+                                        key={score.id}
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                      >
+                                        <th
+                                          scope="row"
+                                          class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                        >
+                                          {project.name}
+                                        </th>
+                                        <td class="px-1 py-2">{detail.name}</td>
 
-                                    <td class="px-1 py-2">
-                                      {overall_score_rounded}
-                                    </td>
-                                    <td class="px-1 py-2">
-                                      <a href={`/assessment/${score.id}`}>
-                                        Details
-                                      </a>
-                                    </td>
-                                    <td class="px-1 py-2">
-                                      <a href={`/assessment/${score.id}/editassessment`}>
-                                        Edit
-                                      </a>
-                                    </td>
-                                  </tr>
-                                )
-                              );
+                                        <td class="px-1 py-2">
+                                          {overall_score_rounded}
+                                        </td>
+                                        <td class="px-1 py-2">
+                                          <a href={`/assessment/${score.id}`}>
+                                            Details
+                                          </a>
+                                        </td>
+                                        <td class="px-1 py-2">
+                                          <a
+                                            href={`/assessment/${score.id}/editassessment`}
+                                          >
+                                            Edit
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    )
+                                  );
+                                });
+                              });
                             });
-                          });
-                        });
-                      })}
-                    </tbody>
-                  </table>
-                
+                          })}
+                        </tbody>
+                      </table>
 
-                <h1></h1>
-              </div>
-            ) : (
-              <h2 className="mt-2 text-2xl font-semibold leading-8 text-gray-200">
-                No project has been evaluated yet for this hackathon
-              </h2>
-            )}
-          </div>
-        )}
+                      <h1></h1>
+                    </div>
+                  ) : (
+                    <h2 className="mt-2 text-2xl font-semibold leading-8 text-gray-200">
+                      No project has been evaluated yet for this hackathon
+                    </h2>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+        </SessionGuard>
       </Layout>
     </div>
   );

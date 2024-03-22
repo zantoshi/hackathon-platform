@@ -1,6 +1,6 @@
 import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { config } from "@/lib/auth";
 
 export default async function handle(req, res) {
   try {
@@ -16,19 +16,28 @@ export default async function handle(req, res) {
       },
     });
 
-    if (user.name) {
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Verificar si el campo 'gamertag' está vacío
+    if (!user.gamertag) {
+      // Actualizar el campo 'gamertag' con el valor del campo 'name'
       const result = await prisma.user.update({
         where: {
           id: user.id,
         },
         data: {
-          gamertag:user.name
+          gamertag: user.name,
         },
       });
-      res.json(result);
+
+      return res.json(result);
+    } else {
+      return res.json({ message: "Gamertag already exists" });
     }
-   
   } catch (error) {
-    console.log(error);
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }

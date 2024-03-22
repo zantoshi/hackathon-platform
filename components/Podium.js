@@ -110,7 +110,7 @@ function Podium({ id }) {
   const top3Projects = getTop3();
 
   return (
-    <div className="mt-4">
+    <div className="mb-4">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
         Top 3 podium
       </h2>

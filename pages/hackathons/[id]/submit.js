@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ProjectSubmissionForm from "@/components/ProjectSubmissionForm";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
+import { useSession } from "next-auth/react";
 
 export default function SubmitProject() {
   const [loading, setLoading] = useState(true);
@@ -14,6 +16,7 @@ export default function SubmitProject() {
   const [project, setProject] = useState([]);
   const currentDate = new Date();
   const formattedCurrentDate = currentDate.toISOString().split("T")[0];
+  const { data: session, status } = useSession();
   useEffect(() => {
     if (router.isReady) {
       setId(router.query.id);
@@ -78,30 +81,36 @@ export default function SubmitProject() {
   return (
     <Layout>
       <header>
-          <title>GHL | Submit a project</title>
-        </header>
-      {formattedCurrentDate <= hackathon.endDate && (
-        <div className="py-4 sm:py-12">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <ButtonSecondary
-              buttonText={"Back"}
-              buttonLink={`/hackathons/${id}`}
-            />
-            <PageHeader
-              headerText={"Submit Project for " + hackathon.title}
-              descriptionText={
-                "Fill out the form to complete the hackathon! :)"
-              }
-            />
+        <title>GHL | Submit a project</title>
+      </header>
+      <SessionGuard>
+        {session && (
+          <>
+            {formattedCurrentDate <= hackathon.endDate && (
+              <div className="py-4 sm:py-12">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                  <ButtonSecondary
+                    buttonText={"Back"}
+                    buttonLink={`/hackathons/${id}`}
+                  />
+                  <PageHeader
+                    headerText={"Submit Project for " + hackathon.title}
+                    descriptionText={
+                      "Fill out the form to complete the hackathon! :)"
+                    }
+                  />
 
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <ProjectSubmissionForm hackathonId={id} project={project} />
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : (
+                    <ProjectSubmissionForm hackathonId={id} project={project} />
+                  )}
+                </div>
+              </div>
             )}
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </SessionGuard>
     </Layout>
   );
 }

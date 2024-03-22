@@ -10,6 +10,7 @@ import Podium from "@/components/Podium";
 import notify from "@/components/toast";
 import { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
+import SessionGuard from "@/components/SessionGuard";
 
 export default function ManageHackathon() {
   const [hackathon, setHackathon] = useState([]);
@@ -903,6 +904,7 @@ export default function ManageHackathon() {
     case "scores":
       content = (
         <div>
+            <Podium id={id}></Podium>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {hackathon.title} Hackathon Information (Scores)
           </h2>
@@ -984,7 +986,6 @@ export default function ManageHackathon() {
               </tbody>
             </table>
           </div>
-          <Podium id={id}></Podium>
         </div>
       );
       break;
@@ -1008,72 +1009,78 @@ export default function ManageHackathon() {
         <header>
           <title>GHL | Admin Dashboard</title>
         </header>
-        <div className="min-w-full w-auto md:pl-14 text-white px-5 h-lvh  ">
-          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
-            {hackathon.title} Hackathon Information
-          </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-200">
-            Manage this Hackathon
-          </p>
-          <br></br>
-          <table>
-            <thead>
-              <tr className=" max-[435px]:grid grid-cols-2">
-                <th>
-                  <ButtonSecondary
-                    buttonLink={`/hackathons/${id}/edit`}
-                    buttonText="Edit"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("judges")}
-                    buttonText="Judges"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("mentors")}
-                    buttonText="Mentors"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("teams")}
-                    buttonText="Teams"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("projects")}
-                    buttonText="Projects"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("scores")}
-                    buttonText="Scores"
-                  ></ButtonSecondary>
-                </th>
-                <th>
-                  <ButtonSecondary
-                    functionCall={() => handleTabClick("sponsors")}
-                    buttonText="Sponsors"
-                  ></ButtonSecondary>
-                </th>
-              </tr>
-            </thead>
-          </table>
+        <SessionGuard>
+          {session && (
+            <div className="min-w-full w-auto md:pl-14 text-white px-5 h-lvh  ">
+              <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+                {hackathon.title} Hackathon Information
+              </h2>
+              <p className="mt-2 text-lg leading-8 text-gray-200">
+                Manage this Hackathon
+              </p>
+              <br></br>
+              <table>
+                <thead>
+                  <tr className=" max-[435px]:grid grid-cols-2">
+                    <th>
+                      <ButtonSecondary
+                        buttonLink={`/hackathons/${id}/edit`}
+                        buttonText="Edit"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("judges")}
+                        buttonText="Judges"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("mentors")}
+                        buttonText="Mentors"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("teams")}
+                        buttonText="Teams"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("projects")}
+                        buttonText="Projects"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("scores")}
+                        buttonText="Scores"
+                      ></ButtonSecondary>
+                    </th>
+                    <th>
+                      <ButtonSecondary
+                        functionCall={() => handleTabClick("sponsors")}
+                        buttonText="Sponsors"
+                      ></ButtonSecondary>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
 
-          <br></br>
-          <div className="pt-5">{content}</div>
-        </div>
+              <br></br>
+              <div className="pt-5">{content}</div>
+            </div>
+          )}
+        </SessionGuard>
       </Layout>
     );
   } else {
     return (
       <Layout>
-        <AccessDenied />
+        <SessionGuard>
+          <AccessDenied />
+        </SessionGuard>
       </Layout>
     );
   }

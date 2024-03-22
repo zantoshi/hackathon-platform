@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../../components/layout";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-
+import SessionGuard from "@/components/SessionGuard";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import CreateAssessForm from "@/components/CreateAssessForm";
 import { getServerSideProps } from "../../../util/authUtils";
 
 function assessment() {
- 
   const router = useRouter();
   const [Userdetails, setUserdetails] = useState([]);
   const [projects, setProject] = useState();
@@ -97,72 +96,92 @@ function assessment() {
         <header>
           <title>GHL | Score Project</title>
         </header>
-      <div className="w-full md:pl-14 text-white px-5">
-       
-          {hackathon && projects && (
-             <div className="mb-10 space-y-5">
-            <h1 className="font-bold mb-3 custom-text-shadow text-4xl">
-              Rate {projects.name} for {hackathon.title}{" "}
-            </h1>
-            <p className="text-gray-400 font-semibold  text-lg ">
-            Interested in helping us spreading innovation? Reach out.
-          </p>
-          <table>
-            <thead>
-              <tr className=" max-[435px]:grid grid-cols-2">
-                <th>
-                <ButtonSecondary buttonText={"Back to Hackathon Management"} buttonLink={`/hackathons/${hackathon.id}/manage`} />
-                </th>
-                <th>
-                <ButtonSecondary buttonText={"Back to Project Details"} buttonLink={`/projects/${projects.id}`} />
-                </th>
-              </tr>
-            </thead>
-          </table>
-     
-        <CreateAssessForm hackathonId={hackathon.id} projectId={projects.id}></CreateAssessForm>
+        <SessionGuard>
+          {session && (
+            <div className="w-full md:pl-14 text-white px-5">
+              {hackathon && projects && (
+                <div className="mb-10 space-y-5">
+                  <h1 className="font-bold mb-3 custom-text-shadow text-4xl">
+                    Rate {projects.name} for {hackathon.title}{" "}
+                  </h1>
+                  <p className="text-gray-400 font-semibold  text-lg ">
+                    Interested in helping us spreading innovation? Reach out.
+                  </p>
+                  <table>
+                    <thead>
+                      <tr className=" max-[435px]:grid grid-cols-2">
+                        <th>
+                          <ButtonSecondary
+                            buttonText={"Back to Hackathon Management"}
+                            buttonLink={`/hackathons/${hackathon.id}/manage`}
+                          />
+                        </th>
+                        <th>
+                          <ButtonSecondary
+                            buttonText={"Back to Project Details"}
+                            buttonLink={`/projects/${projects.id}`}
+                          />
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+
+                  <CreateAssessForm
+                    hackathonId={hackathon.id}
+                    projectId={projects.id}
+                  ></CreateAssessForm>
+                </div>
+              )}
             </div>
           )}
-
-      </div>
-    </Layout>
+        </SessionGuard>
+      </Layout>
     );
   } else {
     return (
       <Layout>
-      <div className="w-full md:pl-14 text-white px-5">
-       
-          {hackathon && projects && (
-             <div className="mb-10 space-y-5">
-            <h1 className="font-bold mb-3 custom-text-shadow text-4xl">
-              Rate {projects.name} for {hackathon.title}{" "}
-            </h1>
-            <p className="text-gray-400 font-semibold  text-lg ">
-            Interested in helping us spreading innovation? Reach out.
-          </p>
-          <table>
-            <thead>
-              <tr className=" max-[435px]:grid grid-cols-2">
-                <th>
-                <ButtonSecondary buttonText={"Back to Judge Dashaboard"} buttonLink={`/judge/${projects.hackathonId}/dashboard`} />
-                </th>
-                <th>
-                <ButtonSecondary buttonText={"Back to Project Details"} buttonLink={`/projects/${projects.id}`} />
-                </th>
-              </tr>
-            </thead>
-          </table>
-     
-        <CreateAssessForm hackathonId={hackathon.id} projectId={projects.id}></CreateAssessForm>
+        <SessionGuard>
+          {session && (
+            <div className="w-full md:pl-14 text-white px-5">
+              {hackathon && projects && (
+                <div className="mb-10 space-y-5">
+                  <h1 className="font-bold mb-3 custom-text-shadow text-4xl">
+                    Rate {projects.name} for {hackathon.title}{" "}
+                  </h1>
+                  <p className="text-gray-400 font-semibold  text-lg ">
+                    Interested in helping us spreading innovation? Reach out.
+                  </p>
+                  <table>
+                    <thead>
+                      <tr className=" max-[435px]:grid grid-cols-2">
+                        <th>
+                          <ButtonSecondary
+                            buttonText={"Back to Judge Dashaboard"}
+                            buttonLink={`/judge/${projects.hackathonId}/dashboard`}
+                          />
+                        </th>
+                        <th>
+                          <ButtonSecondary
+                            buttonText={"Back to Project Details"}
+                            buttonLink={`/projects/${projects.id}`}
+                          />
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+
+                  <CreateAssessForm
+                    hackathonId={hackathon.id}
+                    projectId={projects.id}
+                  ></CreateAssessForm>
+                </div>
+              )}
             </div>
           )}
-
-      </div>
-    </Layout>
+        </SessionGuard>
+      </Layout>
     );
   }
-
-  
 }
 
 export default assessment;

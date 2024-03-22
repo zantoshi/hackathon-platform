@@ -19,7 +19,7 @@ export  const fetchingData   = async (endpoint) =>{
 export const updateGamertag  = async (endpoint) =>{
   try{
     const response = await fetch(endpoint,{
-      method: "GET",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
     })
     if(response.ok){
