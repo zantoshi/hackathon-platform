@@ -6,14 +6,14 @@ import { useState, useEffect } from "react";
 import { X, Menu } from "lucide-react";
 import { motion, stagger, AnimatePresence } from "framer-motion";
 import userIcon from "../public/user-filled.svg";
-import { fetchingData } from "../util/fetchingData.js";
+import { fetchingData,updateGamertag } from "../util/fetchingData.js";
 import NotificationBell from "./NotificationBell";
 
 export default function Header() {
   const [click, setClick] = useState(false);
   const [gradient, setGradient] = useState("");
   const [judge, setJudge] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [userImage, setImage] = useState();
   const [request, setRequest] = useState([]);
   const [isChecked, setIsChecked] = useState();
@@ -49,28 +49,20 @@ export default function Header() {
         cache: "no-store",
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        next: { revalidate: 10 },
       });
 
-      if (response) {
+      if (response.ok) {
         const data = await response.json();
-        setUser(data);
-        setImage(data.image);
-        setIsChecked(data.availability);
+        return data;
       } else {
-        console.error("this is Error for fetching users:", response.statusText);
+        console.error("Error fetching users:", response.statusText);
+        return null;
       }
     } catch (error) {
-      console.error("this is Error for fetching users:", error);
+      console.error("Error fetching users:", error);
+      return null;
     }
   };
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      getUser();
-    };
-    fetchUser();
-  }, []);
 
   const getRequest = async () => {
     try {
@@ -78,7 +70,6 @@ export default function Header() {
         const response = await fetch(`/api/request/${user.id}/userRequest`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          next: { revalidate: 10 },
           cache: "no-store",
         });
         const data = await response.json();
@@ -86,26 +77,52 @@ export default function Header() {
       }
     } catch (error) {
       console.error("Error fetching team data:", error);
+      return [];
     }
   };
 
-  useEffect(() => {
-    const fetchRequests = async () => {
-      getRequest();
-    };
-    fetchRequests();
-  }, [user]);
+  useEffect(()=>{
+    getRequest()
+})
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchingData("/api/judges");
-        setJudge(data);
+        const [userData, judgeData] = await Promise.all([
+          getUser(),
+          fetchingData("/api/judges"),
+        ]);
+
+        if (userData) {
+          setUser(userData);
+          setImage(userData.image);
+          setIsChecked(userData.availability);
+        }
+
+        if (judgeData) {
+          setJudge(judgeData);
+        }
       } catch (error) {
-        console.error("Error fetching judge data:", error);
+        console.error("Error fetching data:", error);
       }
     };
+
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const updating = async () => {
+      try {
+        const response = await fetchingData("/api/users")
+        if(!response.gamertag)
+        {
+          await updateGamertag("/api/users/githubGamer");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    updating();
   }, []);
 
   useEffect(() => {
@@ -124,7 +141,7 @@ export default function Header() {
           const data = await response.json();
         }
       } catch (error) {
-        console.error("Error updateing user table for image field ");
+        console.error("Error updating user table for image field ", error);
       }
     };
     UpdateImage();
@@ -421,13 +438,13 @@ export default function Header() {
                     </li>
                     <li>
                       <div className="lg:hidden mt-10">
-                        {!loading && (
+                        {user == null && (
                           <ButtonSecondary
                             buttonText={"Log In"}
                             functionCall={signInHandler}
                           />
                         )}
-                        {!loading && session?.user && (
+                        {!loading && session && (
                           <div className="flex flex-row mx-auto mt-5 ml-6">
                             <span>
                               <div>

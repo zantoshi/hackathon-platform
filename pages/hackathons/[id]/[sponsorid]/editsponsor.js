@@ -3,25 +3,23 @@ import { useState, useEffect, use } from "react";
 import Layout from "@/components/layout";
 import AccessDenied from "@/components/access-denied";
 import SponsorSubmissionForm from "@/components/SponsorSubmissionForm";
-import { useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { getServerSideProps } from "../../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
 
-export { getServerSideProps };
 export default function addsponsor() {
-
-const { data: session } = useSession();
-  const [Userdetails, setUserdetails] = useState([])
+  const { data: session } = useSession();
+  const [Userdetails, setUserdetails] = useState([]);
   const router = useRouter();
   const [id, setId] = useState("");
   const [sponsorid, setsponsorId] = useState("");
 
   useEffect(() => {
     if (router.isReady) {
-    setId(router.query.id);
-    setsponsorId(router.query.sponsorid);
+      setId(router.query.id);
+      setsponsorId(router.query.sponsorid);
     }
-    }, [router.isReady]);
-    
+  }, [router.isReady]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -43,27 +41,31 @@ const { data: session } = useSession();
     };
 
     fetchUsers(); // Call the fetchTeams function
-
   }, []);
-
-  
 
   // If session exists and is an admin user, display content
   // Only allow my email because I am the only one allowed to create hackathons ATM.
-  if (session && Userdetails.role ==="ADMIN") {
+  if (session && Userdetails.role === "ADMIN") {
     return (
-      
       <Layout>
         <header>
           <title>GHL | Edit Sponsor</title>
         </header>
-        <SponsorSubmissionForm id = {id} sponsorid = {sponsorid} />
+        <SessionGuard>
+         {session && (
+           <SponsorSubmissionForm id={id} sponsorid={sponsorid} />
+         )}
+        </SessionGuard>
       </Layout>
     );
   } else {
     return (
       <Layout>
-        <AccessDenied />
+        <SessionGuard>
+         {session && (
+            <AccessDenied />
+         )}
+        </SessionGuard>
       </Layout>
     );
   }

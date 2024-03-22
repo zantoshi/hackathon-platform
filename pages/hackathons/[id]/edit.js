@@ -5,8 +5,8 @@ import AccessDenied from "@/components/access-denied";
 import CreateHackathonForm from "@/components/CreateHackathonForm";
 import { useRouter} from "next/router";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
 
-export { getServerSideProps };
 export default function CreateHackathon() {
   const { data: session } = useSession();
   const [Userdetails, setUserdetails] = useState([]);
@@ -73,7 +73,8 @@ export default function CreateHackathon() {
   if (session && Userdetails.role === "ADMIN") {
     return (
       <Layout>
-        <CreateHackathonForm id={id}/>
+      <SessionGuard >{session && (   <CreateHackathonForm id={id}/>)}</SessionGuard>
+     
       </Layout>
     );
   } else {
@@ -82,7 +83,7 @@ export default function CreateHackathon() {
         <header>
           <title>GHL | Hackathons</title>
         </header>
-        <AccessDenied />
+        <SessionGuard >{session && ( <AccessDenied />)}</SessionGuard>
       </Layout>
     );
   }

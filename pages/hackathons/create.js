@@ -4,8 +4,8 @@ import Layout from "@/components/layout";
 import AccessDenied from "@/components/access-denied";
 import CreateHackathonForm from "@/components/CreateHackathonForm";
 import { getServerSideProps } from "../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
 
-export { getServerSideProps };
 export default function CreateHackathon() {
 
 const { data: session } = useSession();
@@ -45,7 +45,11 @@ const { data: session } = useSession();
         <header>
           <title>GHL | Create Hackathon</title>
         </header>
-        <CreateHackathonForm />
+      <SessionGuard>
+        {session && (
+            <CreateHackathonForm />
+        )}
+      </SessionGuard>
       </Layout>
     );
   } else {
@@ -54,7 +58,7 @@ const { data: session } = useSession();
         <header>
           <title>GHL | Not access</title>
         </header>
-        <AccessDenied />
+        <SessionGuard>{session && (<AccessDenied />)}</SessionGuard>
       </Layout>
     );
   }

@@ -42,7 +42,7 @@ model User {
   id                    String        @id @default(cuid())
   name                  String?
   email                 String        @unique
-  gamertag              String
+  gamertag              String?
   role                  Role          @default(USER)
   hackathons            Hackathon[]
   teams                 Team[]

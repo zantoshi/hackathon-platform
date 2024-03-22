@@ -10,7 +10,11 @@ function EditUserForm() {
     publicBio: "",
     location: "",
   });
-  const [social, setSocial] = useState({});
+  const [social, setSocial] = useState({
+    github: "",  
+    linkedin: "", 
+    twitter: ""  
+  });
   const navigate = useRouter()
 
   useEffect(() => {
@@ -22,7 +26,9 @@ function EditUserForm() {
         });
         const data = await response.json();
         setUser(data);
-        setSocial(data.social);
+        if(data.social){
+          setSocial(data.social);
+        }
       } catch (error) {
         console.log("Error getting data from table user ", error);
       }

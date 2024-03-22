@@ -5,8 +5,9 @@ import { useSession } from "next-auth/react";
 import HackathonCard from "@/components/HackathonCard";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
+import Link from "next/link";
 
-export { getServerSideProps };
 function Project() {
   const [projects, setProject] = useState([]);
   const [Userdetails, setUserdetails] = useState([]);
@@ -92,15 +93,16 @@ function Project() {
                     </tr>
                   </thead>
                 </table>
-                <h1 className="text-3xl font-bold pt-4">{projects.name}</h1>
+                <h1 className="text-3xl font-bold pt-4"></h1>
                 <br></br>
                 <h1 className="text-2xl font-bold ">{projects.description}</h1>
                 <br></br>
-                <h1 className="text-1xl font-bold ">{projects.loomLink}</h1>
-                <h1 className="text-1xl font-bold ">{projects.pitchLink}</h1>
-                <h1 className="text-1xl font-bold ">
-                  {projects.projectResourceLink}
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer "><a href={projects.loomLink} >Loom Project Link </a></h1>
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer"><a href={projects.pitchLink} >Pitch  Project Link </a></h1>
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer">
+                  <a href={projects.projectResourceLink}>Github project Link</a>
                 </h1>
+                <br></br>
                 <h1 className="text-1xl font-bold ">{projects.comments}</h1>
                 <br></br>
                 <ButtonSecondary
@@ -129,11 +131,12 @@ function Project() {
                 <br></br>
                 <h1 className="text-2xl font-bold ">{projects.description}</h1>
                 <br></br>
-                <h1 className="text-1xl font-bold ">{projects.loomLink}</h1>
-                <h1 className="text-1xl font-bold ">{projects.pitchLink}</h1>
-                <h1 className="text-1xl font-bold ">
-                  {projects.projectResourceLink}
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer "><a href={projects.loomLink} >Loom Project Link </a></h1>
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer"><a href={projects.pitchLink} >Pitch  Project Link </a></h1>
+                <h1 className="text-1xl font-bold text-purple-600 hover:cursor-pointer">
+                  <a href={projects.projectResourceLink}>Github project Link</a>
                 </h1>
+                <br></br>
                 <h1 className="text-1xl font-bold ">{projects.comments}</h1>
                 <br></br>
                 <ButtonSecondary

@@ -5,8 +5,9 @@ import Image from "next/image";
 import avatarTeam from "../../../public/users-group.svg";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import { getServerSideProps } from "../../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
+import { useSession } from "next-auth/react";
 
-export { getServerSideProps };
 function Index() {
   const [team, setTeam] = useState({});
   const router = useRouter();
@@ -14,6 +15,7 @@ function Index() {
   const [users, setUsers] = useState([]);
   const [members, setMembers] = useState([]);
   const [user, setUser] = useState();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if (router.isReady) {
@@ -116,7 +118,10 @@ function Index() {
       <header>
           <title>GHL | My Team</title>
         </header>
-        <div className="w-full md:pl-14 text-white px-5">
+       <SessionGuard>
+        {session && (
+          <>
+           <div className="w-full md:pl-14 text-white px-5">
           <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
           <div className="mb-2 mt-5">
             <div className="px-5 mb-3">
@@ -193,6 +198,9 @@ function Index() {
               )}
             </React.Fragment>)
           }
+          </>
+        )}
+       </SessionGuard>
       </Layout>
     </>
   );

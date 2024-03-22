@@ -42,7 +42,7 @@ model User {
   id                    String        @id @default(cuid())
   name                  String?
   email                 String        @unique
-  gamertag              String
+  gamertag              String?
   role                  Role          @default(USER)
   hackathons            Hackathon[]
   teams                 Team[]
@@ -60,7 +60,10 @@ model User {
   judge                 Judge[]
   mentor                Mentor[]
   teamMembers           teamMembers[]
- teamRequest  teamRequest[]
+  teamRequest           teamRequest[]
+  skill                 String?
+  location              String?
+  availability          Boolean?
 
   @@unique([id, gamertag, email, image])
 }
@@ -88,7 +91,7 @@ model Team {
   creator     User          @relation(fields: [creatorId], references: [id])
   creatorId   String
   teamMembers teamMembers[]
-  teamRequest  teamRequest[]
+  teamRequest teamRequest[]
 }
 
 model Hackathon {
@@ -109,13 +112,13 @@ model Hackathon {
   projects      Project[]
   registrations HackathonRegistration[]
   judge         Judge[]
-  mentor                Mentor[]
+  mentor        Mentor[]
 
-  published Boolean @default(false)
-  creator   User    @relation(fields: [creatorId], references: [id])
-  creatorId String
-    judgeassessments Judgeassessments[]
-    hackathonSponsors  HackathonSponsors[]
+  published         Boolean             @default(false)
+  creator           User                @relation(fields: [creatorId], references: [id])
+  creatorId         String
+  judgeassessments  Judgeassessments[]
+  hackathonSponsors HackathonSponsors[]
 
   startDate String
   endDate   String
@@ -195,16 +198,15 @@ model Judge {
 }
 
 model Mentor {
-  id               String             @id @default(cuid())
-  user             User               @relation(fields: [userId, mentorGamertag, email, mentorImage], references: [id, gamertag, email, image])
-  userId           String
-  mentorGamertag    String
-  email            String
-  mentorImage       String
-  hackathon        Hackathon          @relation(fields: [hackathonId], references: [id])
-  hackathonId      String
+  id             String    @id @default(cuid())
+  user           User      @relation(fields: [userId, mentorGamertag, email, mentorImage], references: [id, gamertag, email, image])
+  userId         String
+  mentorGamertag String
+  email          String
+  mentorImage    String
+  hackathon      Hackathon @relation(fields: [hackathonId], references: [id])
+  hackathonId    String
 }
-
 
 model Judgeassessments {
   id              String  @id @default(cuid())
@@ -224,15 +226,14 @@ model Judgeassessments {
 
   judge   Judge  @relation(fields: [judgeId], references: [id])
   judgeId String
-
 }
 
 model HackathonSponsors {
-  id      String @id @default(cuid())
-  name  String
-  email String
-  image String
-  hackathon Hackathon @relation(fields: [hackathonId], references: [id])
+  id          String    @id @default(cuid())
+  name        String
+  email       String
+  image       String
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
   hackathonId String
 }
 
@@ -245,13 +246,13 @@ model teamMembers {
 }
 
 model teamRequest {
-  id           String  @id @default(cuid())
-  team         Team    @relation(fields: [teamId], references: [id])
-  teamId       String
-  teamName     String
-  user         User    @relation(fields: [userSender], references: [id])
-  userSender   String
+  id             String  @id @default(cuid())
+  team           Team    @relation(fields: [teamId], references: [id])
+  teamId         String
+  teamName       String
+  user           User    @relation(fields: [userSender], references: [id])
+  userSender     String
   userSenderName String
-  userReceiver String?
-  state        Boolean //True acepto la solicitud, false no ha aceptado/visto la solictud o le dio no aceptar
+  userReceiver   String?
+  state          Boolean //True acepto la solicitud, false no ha aceptado/visto la solictud o le dio no aceptar
 }

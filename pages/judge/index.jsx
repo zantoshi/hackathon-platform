@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { fetchingData } from "../../util/fetchingData";
 import AccessDenied from "@/components/access-denied";
 import { getServerSideProps } from "../../util/authUtils";
+import SessionGuard from "@/components/SessionGuard";
+import { useSession } from "next-auth/react";
 
-export { getServerSideProps };
 export default function IndexPage() {
   const [judge, setJudge] = useState(null);
-
+  const { data: session, status } = useSession();
   
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +32,11 @@ export default function IndexPage() {
         <header>
           <title>GHL | Judge Dashboard</title>
         </header>
-      <JudgeView></JudgeView>
+    <SessionGuard>
+      {session && (
+          <JudgeView></JudgeView>
+      )}
+    </SessionGuard>
     </Layout>
   );
   }else{     
@@ -40,7 +45,11 @@ export default function IndexPage() {
         <header>
           <title>GHL | Not access</title>
         </header>
-      <AccessDenied />
+      <SessionGuard>
+        {session && (
+          <AccessDenied />
+        )}
+      </SessionGuard>
     </Layout>
     )
   }
