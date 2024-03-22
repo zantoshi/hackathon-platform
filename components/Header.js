@@ -318,7 +318,7 @@ export default function Header() {
                             class="text-gray-900 dark:text-gray-300"
                             title="Make yourself available to receive requests to join a team and participate in a hackathon."
                           >
-                            Available
+                            Looking for a team
                           </span>
                           <label
                             class="inline-flex items-center me-5 cursor-pointer"
@@ -506,7 +506,7 @@ export default function Header() {
                                     )}
                                     <li className="flex items-center gap-8 px-4 py-2">
                                       <span class=" text-gray-900 dark:text-gray-300">
-                                        Available
+                                        Looking for a team
                                       </span>
                                       <label class="inline-flex items-center me-5 cursor-pointer">
                                         <input

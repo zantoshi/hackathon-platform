@@ -35,7 +35,7 @@ function members() {
                   to your team.
                 </p>
                 <p className="text-gray-400 font-semibold text-lg text-center ">
-                  IMPORTANT: The user you want to invite must be "available" to
+                  IMPORTANT: The user you want to invite must be looking for a team in order to
                   receive the team's request.
                 </p>
               </div>
