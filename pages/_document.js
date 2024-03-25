@@ -5,8 +5,10 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* Favicon por defecto */}
+          
           <link rel="icon" href="/favicon.svg" id="favicon" />
+
+          <meta property="og:image" content="https://i.imgur.com/KMBW5yk.png" /> {/* OG image */}
         </Head>
         <body>
           <Main />
