@@ -33,9 +33,42 @@ export default function HackathonDetail() {
   const [sponsors, setSponsors] = useState([]);
   const [benefits, setBenefits] = useState([]);
   const [judgeCriteria, setjudgeCriteria] = useState([]);
+  const startDate = new Date(hackathon.startDate);
+const endDate = new Date(hackathon.endDate);
+const formattedStartDate = formatDate(startDate);
+const formattedEndDate = formatDate(endDate);
 
   const currentDate = new Date();
   const formattedCurrentDate = currentDate.toISOString().split("T")[0];
+
+  function getOrdinalSuffix(day) {
+    if (day >= 11 && day <= 13) {
+        return "th";
+    }
+    switch (day % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
+}
+
+function formatDate(date) {
+  const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+  ];
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const suffix = getOrdinalSuffix(day);
+  return `${month} ${day}${suffix}, ${year}`;
+}
+
 
   useEffect(() => {
     if (router.isReady) {
@@ -277,7 +310,9 @@ export default function HackathonDetail() {
   }, [id]);
 
   return (
+    
     <Layout>
+      
       <header>
           <title>GHL | Hackathon Details</title>
         </header>
@@ -289,6 +324,10 @@ export default function HackathonDetail() {
                 <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-500 via-purple-500 to-white text-transparent bg-clip-text h-20">
                   <div>{hackathon.title}</div>
                 </h1>
+               
+                <p className="my-6 text-2xl leading-8 text-gray-200">
+    From {formattedStartDate} to {formattedEndDate}
+</p>
                 <p className="my-6 text-lg leading-8 text-gray-200">
                   {hackathon.description}
                 </p>
