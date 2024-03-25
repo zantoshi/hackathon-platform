@@ -8,7 +8,7 @@ class MyDocument extends Document {
           
           <link rel="icon" href="/favicon.svg" id="favicon" />
 
-          <meta property="og:image" content="https://i.imgur.com/KMBW5yk.png" />{/* Ruta a tu imagen Open Graph */}
+          <meta property="og:image" content="https://i.imgur.com/KMBW5yk.png" />
         </Head>
         <body>
           <Main />
