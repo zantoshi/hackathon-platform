@@ -23,7 +23,7 @@ export default function HackathonDetail() {
   const [hackathon, setHackathon] = useState([]);
   const [submit, setSubmit] = useState();
   const [mentors, setMentors] = useState([]);
-  const [edit,setEdit]=  useState();
+  const [edit, setEdit] = useState();
   const [prices, setPrices] = useState([]);
   const signedUp = teams.length > 0;
   const [ruleList, setRuleList] = useState("");
@@ -139,7 +139,7 @@ export default function HackathonDetail() {
     findTeam(teams, registration);
   }, [teams, registration]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const findTeam = (team, projects) => {
       let isMatching = false;
       for (const t2 of projects) {
@@ -153,9 +153,7 @@ export default function HackathonDetail() {
     };
 
     findTeam(teams, projects);
-  },[teams,projects])
-
-  
+  }, [teams, projects]);
 
   useEffect(() => {
     const fetchHackathonProjects = async () => {
@@ -279,8 +277,8 @@ export default function HackathonDetail() {
   return (
     <Layout>
       <header>
-          <title>GHL | Hackathon Details</title>
-        </header>
+        <title>GHL | Hackathon Details</title>
+      </header>
       <div className="py-4 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="px-6 lg:px-8 py-12 ">
@@ -303,23 +301,21 @@ export default function HackathonDetail() {
                     ) : (
                       <></>
                     )
-                  ) : !edit? (
-                    formattedCurrentDate <=
-                    hackathon.endDate &&(
+                  ) : !edit ? (
+                    formattedCurrentDate <= hackathon.endDate && (
                       <ButtonPrimary
                         buttonText={"Submit Project"}
                         buttonLink={`/hackathons/${id}/submit`}
                       />
                     )
-                  ):
-                  (formattedCurrentDate <=
-                    hackathon.endDate &&(
+                  ) : (
+                    formattedCurrentDate <= hackathon.endDate && (
                       <ButtonPrimary
                         buttonText={"Edit Project Submission"}
                         buttonLink={`/hackathons/${id}/submit`}
                       />
-                    ))
-                  }
+                    )
+                  )}
                   {/* <ButtonPrimary
                     buttonText={"Register"}
                     buttonLink={`/hackathons/${id}/register`}
@@ -420,11 +416,10 @@ export default function HackathonDetail() {
                                         </p>
                                         <br></br>
                                         <div class="mb-8">
-                                          <img
-                                            class="object-center object-cover rounded-full h-32 w-32"
-                                            src={detail.teamAvatar}
-                                            alt="photo"
-                                          ></img>
+                                          <h1 className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
+                                           style={{ backgroundColor: detail.colorAvatar}}>
+                                            {detail.teamAvatar}
+                                          </h1>
                                         </div>
                                       </div>
                                     )}
@@ -492,11 +487,10 @@ export default function HackathonDetail() {
                                         </p>
                                         <br></br>
                                         <div class="mb-8">
-                                          <img
-                                            class="object-center object-cover rounded-full h-32 w-32"
-                                            src={detail.teamAvatar}
-                                            alt="photo"
-                                          ></img>
+                                        <h1 className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
+                                           style={{ backgroundColor: detail.colorAvatar}}>
+                                            {detail.teamAvatar}
+                                          </h1>
                                         </div>
                                       </div>
                                     )}
@@ -648,7 +642,8 @@ export default function HackathonDetail() {
                 </div>
                 <div class="mt-2 mb-4 text-sm">
                   There are no mentors registered for this Hackathon. Make sure
-                  to check once in a while to see who can help you out with your project
+                  to check once in a while to see who can help you out with your
+                  project
                 </div>
               </div>
             )}

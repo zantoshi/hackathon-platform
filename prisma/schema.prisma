@@ -84,7 +84,7 @@ model Team {
   name        String
   description String
   teamAvatar  String
-
+  colorAvatar String?
   projects      Project[]
   registrations HackathonRegistration[]
 

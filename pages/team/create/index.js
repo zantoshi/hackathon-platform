@@ -12,6 +12,9 @@ export default function HackathonList() {
 
   return (
     <Layout>
+        <header>
+          <title>GHL | Create a Team</title>
+        </header>
       <SessionGuard>
         {session && (
           <div className="py-4 sm:py-12">
