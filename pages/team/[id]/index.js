@@ -125,14 +125,14 @@ function Index() {
           <ButtonSecondary buttonText={"Back"} buttonLink={"/team"} />
           <div className="mb-2 mt-5">
             <div className="px-5 mb-3">
-              {team.teamAvatar && team && team.teamAvatar === "" ? (
-                <Image
-                  src={team.teamAvatar}
-                  alt="Avatar profile"
-                  className="h-12 w-12 rounded-full mr-2 inline-block"
-                  width={12}
-                  height={12}
-                />
+              {team.teamAvatar && team && team.teamAvatar !== "" ? (
+               
+                <h1
+                className="text-4xl py-2 px-1 inline-block rounded-full border-solid border-2 border-purple-500"
+                style={{ backgroundColor: team.colorAvatar }}
+              >
+                {team.teamAvatar}
+              </h1>
               ) : (
                 <Image
                   src={avatarTeam}

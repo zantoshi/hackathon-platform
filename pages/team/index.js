@@ -7,6 +7,7 @@ import HackathonCard from "@/components/HackathonCard";
 import { useRouter } from "next/navigation";
 import { getServerSideProps } from "../../util/authUtils";
 import SessionGuard from "@/components/SessionGuard";
+import ListUsers from "@/components/ListUsers"
 
 export default function TeamsPage() {
   const [teams, setTeams] = useState([]);
@@ -87,7 +88,7 @@ export default function TeamsPage() {
       </header>
       <SessionGuard>
         {session && (
-          <div>
+          <div className="space-y-5">
             <div className="mx-auto px-6 lg:px-8">
               <div className="my-2">
                 <h1 className="font-bold custom-text-shadow text-4xl">Teams</h1>
@@ -140,6 +141,7 @@ export default function TeamsPage() {
                 })}
               </div>
             </div>
+            <ListUsers></ListUsers>
           </div>
         )}
       </SessionGuard>

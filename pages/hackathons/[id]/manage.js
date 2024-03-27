@@ -680,11 +680,14 @@ export default function ManageHackathon() {
                                   </p>
                                   <br></br>
                                   <div class="mb-8">
-                                    <img
-                                      class="object-center object-cover rounded-full h-32 w-32"
-                                      src={detail.teamAvatar}
-                                      alt="photo"
-                                    ></img>
+                                    <h1
+                                      className="text-8xl py-6 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
+                                      style={{
+                                        backgroundColor: detail.colorAvatar,
+                                      }}
+                                    >
+                                      {detail.teamAvatar}
+                                    </h1>
                                   </div>
                                 </div>
                               )}
@@ -763,11 +766,14 @@ export default function ManageHackathon() {
                                   </p>
                                   <br></br>
                                   <div class="mb-8">
-                                    <img
-                                      class="object-center object-cover rounded-full h-32 w-32"
-                                      src={detail.teamAvatar}
-                                      alt="photo"
-                                    ></img>
+                                    <h1
+                                      className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500 "
+                                      style={{
+                                        backgroundColor: detail.colorAvatar,
+                                      }}
+                                    >
+                                      {detail.teamAvatar}
+                                    </h1>
                                   </div>
                                 </div>
                               )}
@@ -904,7 +910,7 @@ export default function ManageHackathon() {
     case "scores":
       content = (
         <div>
-            <Podium id={id}></Podium>
+          <Podium id={id}></Podium>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {hackathon.title} Hackathon Information (Scores)
           </h2>

@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const { teamName, teamDescription, teamAvatarURL, teamMembers } = req.body;
+    const { teamName, teamDescription, teamAvatarURL, teamMembers,colorAvatar} = req.body;
 
     if (!session) {
       return res.status(401).json({ error: "Unauthorized" });
@@ -31,6 +31,7 @@ export default async function handle(req, res) {
         description: teamDescription,
         teamAvatar: teamAvatarURL,
         teamMembers: teamMembers,
+        colorAvatar:colorAvatar,
         creatorId: user[0].id,
       },
     });

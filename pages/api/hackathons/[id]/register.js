@@ -28,7 +28,7 @@ export default async function handle(req, res) {
           id: id,
         },
       });
-      if (formattedCurrentDate <= hackathon.startDate) {
+      if (formattedCurrentDate <= hackathon.endDate) {
         const result = await prisma.hackathonRegistration.create({
           data: {
             hackathonId: id,

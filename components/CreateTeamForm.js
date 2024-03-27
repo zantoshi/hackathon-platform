@@ -5,6 +5,9 @@ import { ArrowRight } from "lucide-react";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import ButtonPrimary from "./ButtonPrimary";
 import AddUserTeam from "./AddUserTeam";
+import Emojis from "./Emojis";
+import notify from "./toast";
+import { Toaster } from "react-hot-toast";
 
 const CreateTeamForm = ({ id }) => {
   //make a POST endpoint for the table teamMembers, this is gonna insert when the team are inserted too
@@ -16,6 +19,15 @@ const CreateTeamForm = ({ id }) => {
   const [teamAvatarURL, setTeamAvatarURL] = useState("");
   const [teamMembers, setTeamMembers] = useState("");
   const [test, setTest] = useState();
+  const [colorAvatar, setColor] = useState("#FFFFFF");
+
+  const handleIconSelect = (icon) => {
+    setTeamAvatarURL(icon);
+  };
+
+  const handleColorIcon = (iconColor) => {
+    setColor(iconColor);
+  };
 
   const create = async (e) => {
     e.preventDefault();
@@ -25,6 +37,7 @@ const CreateTeamForm = ({ id }) => {
           teamName,
           teamDescription,
           teamAvatarURL,
+          colorAvatar,
         };
         await fetch(`/api/team/${id}/update`, {
           method: "PUT",
@@ -33,30 +46,35 @@ const CreateTeamForm = ({ id }) => {
         });
         router.push(`/team/${id}`);
       } else {
-        const body = {
-          teamName,
-          teamDescription,
-          teamAvatarURL,
-          teamMembers,
-        };
-        const response = await fetch(`/api/team/create`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        const leader = {
-          teamId: data.id,
-          userId: data.creatorId,
-        };
-        await fetch(`/api/members/addMember`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(leader),
-          next: { revalidate: 1 },
-          cache: "no-store",
-        });
-        router.push("/team");
+        if (teamAvatarURL) {
+          const body = {
+            teamName,
+            teamDescription,
+            teamAvatarURL,
+            teamMembers,
+            colorAvatar,
+          };
+          const response = await fetch(`/api/team/create`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const data = await response.json();
+          const leader = {
+            teamId: data.id,
+            userId: data.creatorId,
+          };
+          await fetch(`/api/members/addMember`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(leader),
+            next: { revalidate: 1 },
+            cache: "no-store",
+          });
+          router.push("/team");
+        } else {
+          notify("Please select an icon for your team", "error");
+        }
       }
     } catch (error) {
       console.error(error);
@@ -80,6 +98,7 @@ const CreateTeamForm = ({ id }) => {
             setTeamAvatarURL(data.teamAvatar);
             setTeamMembers(data.teamMembers);
             setTest(data);
+            setColor(data.colorAvatar);
           } else console.log("Error fetching the:", response.statusText);
         }
       } catch (error) {
@@ -95,6 +114,7 @@ const CreateTeamForm = ({ id }) => {
   return (
     <>
       <form onSubmit={create} className="">
+        <Toaster></Toaster>
         <div className="mt-10 grid md:grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div className="sm:col-span-4">
             <label
@@ -145,29 +165,13 @@ const CreateTeamForm = ({ id }) => {
           </div>
 
           <div className="sm:col-span-4">
-            <label
-              htmlFor="teamAvatarURL"
-              className="block text-sm font-medium leading-6 text-white"
-            >
-              Team Avatar URL
-            </label>
-            <div className="mb-2">
-              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  type="text"
-                  name="teamAvatarURL"
-                  id="teamAvatarURL"
-                  autoComplete="team-avatar-url"
-                  onChange={(e) => setTeamAvatarURL(e.target.value)}
-                  className="block rounded-md border-0 py-3 text-white shadow-sm ring-1 ring-inset ring-purple-500 placeholder:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-field  placeholder:opacity-60 placeholder:font-semibold w-full"
-                  defaultValue={""}
-                  value={teamAvatarURL}
-                  required
-                />
-              </div>
-            </div>
+            <Emojis
+              onIconSelect={handleIconSelect}
+              selectColor={handleColorIcon}
+              teamAvatar={teamAvatarURL}
+              colorAvatar={colorAvatar}
+            ></Emojis>
           </div>
-
           <div className="sm:col-span-6">
             {id && (
               <label

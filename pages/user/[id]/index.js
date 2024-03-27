@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/layout";
 import Image from "next/image";
-import avatarUser from "../../public/user-filled.svg";
-import avatarTeam from "../../public/users-group.svg";
+import avatarUser from "../../../public/user-filled.svg";
+import avatarTeam from "../../../public/users-group.svg";
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Link from "next/link";
-import { getServerSideProps } from "../../util/authUtils";
 import { Github, Linkedin } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import SessionGuard from "@/components/SessionGuard";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function index() {
   const [user, setUser] = useState({});
@@ -18,53 +18,67 @@ function index() {
   const [allteams, setAllTeams] = useState([]);
   const [social, setSocial] = useState({});
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    if (router.isReady) {
+      setId(router.query.id);
+    }
+  }, [router.isReady]);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await fetch("/api/users", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await response.json();
-        setUser(data);
-        setSocial(data.social);
+        if (id) {
+          const response = await fetch(`/api/users/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          setUser(data);
+          setSocial(data.social);
+        }
       } catch (error) {
         console.log("Error getting data from table user ", error);
       }
     };
     getUser();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getTeam = async () => {
       try {
-        const response = await fetch("/api/team", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await response.json();
-        setTeams(data);
+        if (id) {
+          const response = await fetch(`/api/team/${id}/teamListUser`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          setTeams(data);
+        }
       } catch (error) {
         console.log("Error getting data from table user ", error);
       }
     };
     getTeam();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const teams = await fetch(`/api/team/teamsUser/`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        if (id) {
+          const teams = await fetch(`/api/team/${id}/teamMembers`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
 
-        if (teams.ok) {
-          const teamsData = await teams.json();
-          setMyTeams(teamsData);
-        } else {
-          console.error("Error fetching teams:", teams.statusText);
+          if (teams.ok) {
+            const teamsData = await teams.json();
+            setMyTeams(teamsData);
+          } else {
+            console.error("Error fetching teams:", teams.statusText);
+          }
         }
       } catch (error) {
         console.error("Error fetching teams:", error);
@@ -72,7 +86,7 @@ function index() {
     };
 
     fetchTeams(); // Call the fetchTeams function
-  }, []); //
+  }, [id]); //
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -137,12 +151,6 @@ function index() {
                     <p>{user.lightningAddress}</p>
                   </>
                 )}
-              </div>
-              <div className="px-5 py-2">
-                <h2 className="font-semibold  text-lg ">Email</h2>
-                <p className="block text-sm font-medium leading-6 text-white">
-                  {user.email}
-                </p>
               </div>
               {user.skill !== null &&
                 user.skill !== undefined &&
@@ -262,13 +270,13 @@ function index() {
                                       </p>
 
                                       {Alltm.teamAvatar !== null ? (
-                                        <img
-                                          src={Alltm.teamAvatar}
-                                          alt="Avatar profile"
-                                          className="h-12 w-12 rounded-full mr-2 inline-block"
-                                          width={12}
-                                          height={12}
-                                        />
+                                      
+                                        <h1
+                                        className="text-4xl py-2 px-1 inline-block rounded-full border-solid border-2 border-purple-500"
+                                        style={{ backgroundColor: Alltm.colorAvatar }}
+                                      >
+                                        {Alltm.teamAvatar}
+                                      </h1>
                                       ) : (
                                         <Image
                                           src={avatarTeam}

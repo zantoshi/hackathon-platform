@@ -175,6 +175,7 @@ exports.Prisma.TeamScalarFieldEnum = {
   name: 'name',
   description: 'description',
   teamAvatar: 'teamAvatar',
+  colorAvatar: 'colorAvatar',
   creatorId: 'creatorId'
 };
 
