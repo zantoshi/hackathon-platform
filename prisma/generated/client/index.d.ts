@@ -6636,7 +6636,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar: string
-    colorAvatar: string
+    colorAvatar: string | null
     creatorId: string
     _count: TeamCountAggregateOutputType | null
     _min: TeamMinAggregateOutputType | null
@@ -6711,7 +6711,7 @@ export namespace Prisma {
       name: string
       description: string
       teamAvatar: string
-      colorAvatar: string
+      colorAvatar: string | null
       creatorId: string
     }, ExtArgs["result"]["team"]>
     composites: {}
@@ -18820,7 +18820,7 @@ export namespace Prisma {
     name?: StringFilter<"Team"> | string
     description?: StringFilter<"Team"> | string
     teamAvatar?: StringFilter<"Team"> | string
-    colorAvatar?: StringFilter<"Team"> | string
+    colorAvatar?: StringNullableFilter<"Team"> | string | null
     creatorId?: StringFilter<"Team"> | string
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
@@ -18836,7 +18836,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     teamAvatar?: SortOrder
-    colorAvatar?: SortOrder
+    colorAvatar?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     projects?: ProjectOrderByRelationAggregateInput
     registrations?: HackathonRegistrationOrderByRelationAggregateInput
@@ -18855,7 +18855,7 @@ export namespace Prisma {
     name?: StringFilter<"Team"> | string
     description?: StringFilter<"Team"> | string
     teamAvatar?: StringFilter<"Team"> | string
-    colorAvatar?: StringFilter<"Team"> | string
+    colorAvatar?: StringNullableFilter<"Team"> | string | null
     creatorId?: StringFilter<"Team"> | string
     projects?: ProjectListRelationFilter
     registrations?: HackathonRegistrationListRelationFilter
@@ -18871,7 +18871,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     teamAvatar?: SortOrder
-    colorAvatar?: SortOrder
+    colorAvatar?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     _count?: TeamCountOrderByAggregateInput
     _max?: TeamMaxOrderByAggregateInput
@@ -18888,7 +18888,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Team"> | string
     description?: StringWithAggregatesFilter<"Team"> | string
     teamAvatar?: StringWithAggregatesFilter<"Team"> | string
-    colorAvatar?: StringWithAggregatesFilter<"Team"> | string
+    colorAvatar?: StringNullableWithAggregatesFilter<"Team"> | string | null
     creatorId?: StringWithAggregatesFilter<"Team"> | string
   }
 
@@ -20038,7 +20038,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutTeamInput
     creator: UserCreateNestedOneWithoutTeamsInput
@@ -20053,7 +20053,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
     projects?: ProjectUncheckedCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutTeamInput
@@ -20068,7 +20068,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutTeamNestedInput
     creator?: UserUpdateOneRequiredWithoutTeamsNestedInput
@@ -20083,7 +20083,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
@@ -20098,7 +20098,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
   }
 
@@ -20109,7 +20109,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TeamUncheckedUpdateManyInput = {
@@ -20119,7 +20119,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -23609,7 +23609,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutTeamInput
     teamMembers?: teamMembersCreateNestedManyWithoutTeamInput
@@ -23623,7 +23623,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutTeamInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutTeamInput
@@ -23855,7 +23855,7 @@ export namespace Prisma {
     name?: StringFilter<"Team"> | string
     description?: StringFilter<"Team"> | string
     teamAvatar?: StringFilter<"Team"> | string
-    colorAvatar?: StringFilter<"Team"> | string
+    colorAvatar?: StringNullableFilter<"Team"> | string | null
     creatorId?: StringFilter<"Team"> | string
   }
 
@@ -24832,7 +24832,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectCreateNestedManyWithoutTeamInput
     creator: UserCreateNestedOneWithoutTeamsInput
     teamMembers?: teamMembersCreateNestedManyWithoutTeamInput
@@ -24846,7 +24846,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
     projects?: ProjectUncheckedCreateNestedManyWithoutTeamInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutTeamInput
@@ -24933,7 +24933,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutTeamNestedInput
     creator?: UserUpdateOneRequiredWithoutTeamsNestedInput
     teamMembers?: teamMembersUpdateManyWithoutTeamNestedInput
@@ -24947,7 +24947,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutTeamNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutTeamNestedInput
@@ -25048,7 +25048,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     registrations?: HackathonRegistrationCreateNestedManyWithoutTeamInput
     creator: UserCreateNestedOneWithoutTeamsInput
     teamMembers?: teamMembersCreateNestedManyWithoutTeamInput
@@ -25062,7 +25062,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutTeamInput
     teamMembers?: teamMembersUncheckedCreateNestedManyWithoutTeamInput
@@ -25165,7 +25165,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     registrations?: HackathonRegistrationUpdateManyWithoutTeamNestedInput
     creator?: UserUpdateOneRequiredWithoutTeamsNestedInput
     teamMembers?: teamMembersUpdateManyWithoutTeamNestedInput
@@ -25179,7 +25179,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutTeamNestedInput
@@ -26043,7 +26043,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutTeamInput
     creator: UserCreateNestedOneWithoutTeamsInput
@@ -26057,7 +26057,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
     projects?: ProjectUncheckedCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutTeamInput
@@ -26146,7 +26146,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutTeamNestedInput
     creator?: UserUpdateOneRequiredWithoutTeamsNestedInput
@@ -26160,7 +26160,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
@@ -26239,7 +26239,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     projects?: ProjectCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationCreateNestedManyWithoutTeamInput
     creator: UserCreateNestedOneWithoutTeamsInput
@@ -26253,7 +26253,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
     creatorId: string
     projects?: ProjectUncheckedCreateNestedManyWithoutTeamInput
     registrations?: HackathonRegistrationUncheckedCreateNestedManyWithoutTeamInput
@@ -26342,7 +26342,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutTeamNestedInput
     creator?: UserUpdateOneRequiredWithoutTeamsNestedInput
@@ -26356,7 +26356,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
@@ -26452,7 +26452,7 @@ export namespace Prisma {
     name: string
     description: string
     teamAvatar?: string
-    colorAvatar?: string
+    colorAvatar?: string | null
   }
 
   export type AccountCreateManyUserInput = {
@@ -26570,7 +26570,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUpdateManyWithoutTeamNestedInput
     teamMembers?: teamMembersUpdateManyWithoutTeamNestedInput
@@ -26584,7 +26584,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutTeamNestedInput
     registrations?: HackathonRegistrationUncheckedUpdateManyWithoutTeamNestedInput
     teamMembers?: teamMembersUncheckedUpdateManyWithoutTeamNestedInput
@@ -26598,7 +26598,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     teamAvatar?: StringFieldUpdateOperationsInput | string
-    colorAvatar?: StringFieldUpdateOperationsInput | string
+    colorAvatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUpdateWithoutUserInput = {
