@@ -332,7 +332,7 @@ function formatDate(date) {
 
                 <div className="mt-2 flex items-center justify-center gap-x-6">
                   {!signedUp || !submit ? (
-                    formattedCurrentDate <= hackathon.startDate ? (
+                    formattedCurrentDate <= hackathon.endDate ? (
                       <ButtonPrimary
                         buttonText={"Register"}
                         buttonLink={`/hackathons/${id}/register`}
