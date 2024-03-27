@@ -81,10 +81,10 @@ model Team {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name        String
-  description String
-  teamAvatar  String
-  colorAvatar String?
+  name          String
+  description   String
+  teamAvatar    String  @default("😊")
+  colorAvatar   String @default("#FFFFFF")
   projects      Project[]
   registrations HackathonRegistration[]
 
