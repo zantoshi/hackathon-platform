@@ -84,7 +84,7 @@ model Team {
   name          String
   description   String
   teamAvatar    String  @default("😊")
-  colorAvatar   String? @default("#FFFFFF")
+  colorAvatar   String @default("#FFFFFF")
   projects      Project[]
   registrations HackathonRegistration[]
 
