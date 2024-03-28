@@ -254,5 +254,5 @@ model teamRequest {
   userSender     String
   userSenderName String
   userReceiver   String?
-  state          Boolean //True acepto la solicitud, false no ha aceptado/visto la solictud o le dio no aceptar
+  state          Boolean 
 }
