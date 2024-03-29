@@ -4,9 +4,7 @@ export default async function handle(req, res) {
   try {
     const { name, email, company, comments } = req.body;
     const referer = req.headers.referer;
-    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
-      return res.status(403).json({ error: 'Access Denied' });
-    }
+
     const result = await prisma.contact.create({
       data: {
         name,
