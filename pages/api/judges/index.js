@@ -12,6 +12,13 @@ export default async function handle(req, res) {
     }
 
     const result = await prisma.judge.findMany({
+      select: {
+        id: true,
+        userId: true,
+        judgeGamertag: true,
+        judgeImage: true,
+        hackathonId: true,
+      },
       where: {
         email: session.user.email,
       },
