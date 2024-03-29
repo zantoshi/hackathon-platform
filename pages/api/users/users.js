@@ -5,7 +5,6 @@ import { getServerSession } from 'next-auth';
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const referer = req.headers.referer;
 
     if (!session) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -13,15 +12,15 @@ export default async function handle(req, res) {
 
     const users = await prisma.user.findMany({
       select: {
-        id: id,
-        gamertag: gamertag,
-        image: image,
-        name: name,
-        lightningAddress: lightningAddress,
-        social: social,
-        location: location,
-        skill: skill,
-        availability: availability,
+        id: true,
+        gamertag: true,
+        image: true,
+        name: true,
+        lightningAddress: true,
+        social: true,
+        location: true,
+        skill: true,
+        availability: true,
       },
     });
 

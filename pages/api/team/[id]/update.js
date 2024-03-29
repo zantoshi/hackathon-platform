@@ -23,15 +23,15 @@ export default async function handle(req, res) {
 
     const user = await prisma.user.findMany({
       select: {
-        id: id,
-        gamertag: gamertag,
-        image: image,
-        name: name,
-        lightningAddress: lightningAddress,
-        social: social,
-        location: location,
-        skill: skill,
-        availability: availability,
+        id: true,
+        gamertag: true,
+        image: true,
+        name: true,
+        lightningAddress: true,
+        social: true,
+        location: true,
+        skill: true,
+        availability: true,
       },
       where: {
         email: session.user.email,
