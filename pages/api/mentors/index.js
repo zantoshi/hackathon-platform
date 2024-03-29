@@ -1,16 +1,28 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
+    const referer = req.headers.referer;
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const result = await prisma.mentor.findMany({
+      select: {
+        id: true,
+        gamertag: true,
+        image: true,
+        name: true,
+        lightningAddress: true,
+        social: true,
+        location: true,
+        skill: true,
+        availability: true,
+      },
       where: {
         email: session.user.email,
       },

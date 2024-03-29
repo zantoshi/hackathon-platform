@@ -1,6 +1,6 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
@@ -11,9 +11,9 @@ export default async function handle(req, res) {
     } = req;
 
     const project = await prisma.team.findMany({
-      where:{
-        id : id
-      }
+      where: {
+        id: id,
+      },
     });
 
     res.json(project);

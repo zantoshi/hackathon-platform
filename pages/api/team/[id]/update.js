@@ -1,22 +1,38 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const { teamName, teamDescription, teamAvatarURL, teamMembers,colorAvatar} = req.body;
+    const {
+      teamName,
+      teamDescription,
+      teamAvatarURL,
+      teamMembers,
+      colorAvatar,
+    } = req.body;
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
-    
-    
+
     const {
       query: { id },
     } = req;
 
     const user = await prisma.user.findMany({
+      select: {
+        id: true,
+        gamertag: true,
+        image: true,
+        name: true,
+        lightningAddress: true,
+        social: true,
+        location: true,
+        skill: true,
+        availability: true,
+      },
       where: {
         email: session.user.email,
       },
@@ -24,14 +40,14 @@ export default async function handle(req, res) {
 
     const result = await prisma.team.update({
       where: {
-        id:id
+        id: id,
       },
       data: {
         name: teamName,
         description: teamDescription,
         teamAvatar: teamAvatarURL,
         teamMembers: teamMembers,
-        colorAvatar:colorAvatar,
+        colorAvatar: colorAvatar,
         creatorId: user[0].id,
       },
     });

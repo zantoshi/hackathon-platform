@@ -1,9 +1,10 @@
-import prisma from "@/lib/db";
+import prisma from '@/lib/db';
 
 export default async function handle(req, res) {
   try {
+    const referer = req.headers.referer;
 
-    const { name, email, company} = req.body;
+    const { name, email, company } = req.body;
 
     const result = await prisma.sponsors.create({
       data: {
@@ -16,7 +17,7 @@ export default async function handle(req, res) {
     // Envía la respuesta después de crear el contacto
     res.json(result);
   } catch (error) {
-    console.error("Error creating contact:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('Error creating contact:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }
