@@ -10,7 +10,7 @@ export default async function handle(req, res) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const users = await prisma.user.findMany({
+    const user = await prisma.user.findMany({
       select: {
         id: true,
         gamertag: true,
@@ -24,7 +24,7 @@ export default async function handle(req, res) {
       },
     });
 
-    res.json(users);
+    res.json(user);
   } catch (error) {
     console.log(error);
   }
