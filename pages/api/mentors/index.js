@@ -14,14 +14,10 @@ export default async function handle(req, res) {
     const result = await prisma.mentor.findMany({
       select: {
         id: true,
-        gamertag: true,
-        image: true,
-        name: true,
-        lightningAddress: true,
-        social: true,
-        location: true,
-        skill: true,
-        availability: true,
+        userid: true,
+        mentorGamertag: true,
+        mentorImage: true,
+        hackathonId: true,
       },
       where: {
         email: session.user.email,
