@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "User" ALTER COLUMN "gamertag" DROP ;
+ALTER TABLE "User" ALTER COLUMN "gamertag" DROP NOT NULL;
