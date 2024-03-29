@@ -9,13 +9,11 @@ export default async function handle(req, res) {
     if (!session) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
-      return res.status(403).json({ error: 'Access Denied' });
-    }
 
     const user = await prisma.user.findMany({
       select: {
         id: id,
+        gamertag: gamertag,
       },
       where: {
         email: session.user.email,

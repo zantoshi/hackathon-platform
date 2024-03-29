@@ -1,16 +1,16 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    
+    const referer = req.headers.referer;
 
     const {
       impact,
@@ -21,26 +21,28 @@ export default async function handle(req, res) {
       pitch,
       hackathonId,
       projectId,
-      overall_score
+      overall_score,
     } = req.body;
 
     const judge = await prisma.judge.findMany({
       where: {
         email: session.user.email,
-        hackathonId
+        hackathonId,
       },
     });
 
     const assessment = await prisma.judgeassessments.findMany({
-      where:{
+      where: {
         hackathonId,
         projectId,
-        judgeId: judge[0].id
-      }
-    })
+        judgeId: judge[0].id,
+      },
+    });
 
-    if(assessment.length){
-      return res.status(409).json({message:"you already score this project"})
+    if (assessment.length) {
+      return res
+        .status(409)
+        .json({ message: 'you already score this project' });
     }
 
     const result = await prisma.judgeassessments.create({
@@ -54,10 +56,10 @@ export default async function handle(req, res) {
         hackathonId,
         projectId,
         judgeId: judge[0].id,
-        overall_score
+        overall_score,
       },
     });
-   return res.json(result);
+    return res.json(result);
   } catch (error) {
     console.log(error);
   }

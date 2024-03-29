@@ -6,9 +6,7 @@ export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
     const referer = req.headers.referer;
-    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
-      return res.status(403).json({ error: 'Access Denied' });
-    }
+
     if (!session) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -23,12 +21,10 @@ export default async function handle(req, res) {
     });
 
     if (existingMentor) {
-      return res
-        .status(400)
-        .json({
-          error:
-            'A judge with the same userId already exists for this hackathon.',
-        });
+      return res.status(400).json({
+        error:
+          'A judge with the same userId already exists for this hackathon.',
+      });
     }
 
     const result = await prisma.mentor.create({

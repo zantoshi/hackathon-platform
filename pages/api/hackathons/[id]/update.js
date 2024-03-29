@@ -6,9 +6,6 @@ export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
     const referer = req.headers.referer;
-    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
-      return res.status(403).json({ error: 'Access Denied' });
-    }
 
     if (!session) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -21,6 +18,7 @@ export default async function handle(req, res) {
     const user = await prisma.user.findMany({
       select: {
         id: id,
+        gamertag: gamertag,
       },
       where: {
         email: session.user.email,
