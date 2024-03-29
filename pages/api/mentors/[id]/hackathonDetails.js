@@ -12,6 +12,13 @@ export default async function handle(req, res) {
     } = req;
 
     const details = await prisma.mentor.findMany({
+      select: {
+        id: true,
+        userid: true,
+        mentorGamertag: true,
+        mentorImage: true,
+        hackathonId: true,
+      },
       where: {
         hackathonId: id,
       },
