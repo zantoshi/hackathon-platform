@@ -1,14 +1,16 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const { teamName, teamDescription, teamAvatarURL,  colorAvatar } = req.body;
-
+    const { teamName, teamDescription, teamAvatarURL, colorAvatar } = req.body;
+    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
+      return res.status(403).json({ error: 'Access Denied' });
+    }
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const user = await prisma.user.findMany({
@@ -23,7 +25,7 @@ export default async function handle(req, res) {
         description: teamDescription,
         teamAvatar: teamAvatarURL,
         creatorId: user[0].id,
-        colorAvatar
+        colorAvatar,
       },
     });
     res.json(result);

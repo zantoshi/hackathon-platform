@@ -19,7 +19,8 @@ export default async function handle(req, res) {
         lightningAddress: true,
       },
     });
-    res.json(user);
+
+    res.json(users);
   } catch (error) {
     console.log(error);
   }
