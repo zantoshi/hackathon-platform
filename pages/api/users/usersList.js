@@ -5,7 +5,6 @@ import { getServerSession } from 'next-auth';
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-    const referer = req.headers.referer;
 
     if (!session) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -15,6 +14,13 @@ export default async function handle(req, res) {
       select: {
         id: id,
         gamertag: gamertag,
+        image: image,
+        name: name,
+        lightningAddress: lightningAddress,
+        social: social,
+        location: location,
+        skill: skill,
+        availability: availability,
       },
       where: {
         availability: true,

@@ -18,6 +18,13 @@ export default async function handle(req, res) {
       select: {
         id: id,
         gamertag: gamertag,
+        image: image,
+        name: name,
+        lightningAddress: lightningAddress,
+        social: social,
+        location: location,
+        skill: skill,
+        availability: availability,
       },
       where: {
         id,
