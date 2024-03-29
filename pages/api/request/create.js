@@ -16,6 +16,9 @@ export default async function handle(req, res) {
     const { teamId, teamName, userReceiver } = req.body;
 
     const user = await prisma.user.findFirst({
+      select: {
+        id: id,
+      },
       where: {
         email: session.user.email,
       },

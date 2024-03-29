@@ -15,8 +15,7 @@ export default async function handle(req, res) {
 
     const users = await prisma.user.findMany({
       select: {
-        gamertag: true,
-        lightningAddress: true,
+        id: id,
       },
     });
 
