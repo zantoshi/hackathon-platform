@@ -14,6 +14,9 @@ export default async function handle(req, res) {
       return res.status(403).json({ error: 'Access Denied' });
     }
     const user = await prisma.user.findUnique({
+      select: {
+        id: id,
+      },
       where: {
         email: session.user.email,
       },

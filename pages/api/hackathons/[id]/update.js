@@ -19,6 +19,9 @@ export default async function handle(req, res) {
     } = req;
 
     const user = await prisma.user.findMany({
+      select: {
+        id: id,
+      },
       where: {
         email: session.user.email,
       },
