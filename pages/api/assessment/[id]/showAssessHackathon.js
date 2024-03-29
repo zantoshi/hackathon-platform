@@ -1,13 +1,17 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
+    const referer = req.headers.referer;
+    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
+      return res.status(403).json({ error: 'Access Denied' });
+    }
 
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const user = await prisma.user.findUnique({
@@ -17,7 +21,7 @@ export default async function handle(req, res) {
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     const {
@@ -25,7 +29,7 @@ export default async function handle(req, res) {
     } = req;
 
     if (!id) {
-      return res.status(400).json({ error: "Hackathon ID is required" });
+      return res.status(400).json({ error: 'Hackathon ID is required' });
     }
 
     const judges = await prisma.judge.findMany({
@@ -52,7 +56,7 @@ export default async function handle(req, res) {
 
     res.json(allJudgeAssessments);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }

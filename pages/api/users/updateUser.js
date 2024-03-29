@@ -1,30 +1,33 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-
-    if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+    const referer = req.headers.referer;
+    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
+      return res.status(403).json({ error: 'Access Denied' });
     }
-    const {skill,publicBio,location,github,twitter,linkedin} = req.body
+    if (!session) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    const { skill, publicBio, location, github, twitter, linkedin } = req.body;
 
     const user = await prisma.user.update({
       where: {
         email: session.user.email,
       },
-      data:{
+      data: {
         skill,
         publicBio,
         location,
-        social:{
+        social: {
           github,
           twitter,
-          linkedin
-        }
-      }
+          linkedin,
+        },
+      },
     });
 
     res.json(user);

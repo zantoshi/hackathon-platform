@@ -1,62 +1,67 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
 export default async function handle(req, res) {
   try {
     const session = await getServerSession(req, res, config);
-
+    const referer = req.headers.referer;
+    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
+      return res.status(403).json({ error: 'Access Denied' });
+    }
     const {
       query: { id },
     } = req;
 
     const team = await prisma.hackathonRegistration.findFirst({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
 
     if (!team) {
-      return res.status(404).json({ error: "Hackathon registration not found" });
+      return res
+        .status(404)
+        .json({ error: 'Hackathon registration not found' });
     }
 
     const project = await prisma.project.findFirst({
       where: {
         teamId: team.teamId,
-        hackathonId: team.hackathonId
-      }
+        hackathonId: team.hackathonId,
+      },
     });
 
-    if (project && project.id) { // Check if project exists and id is not null
+    if (project && project.id) {
+      // Check if project exists and id is not null
       // Delete judge assessments associated with the project
       await prisma.judgeassessments.deleteMany({
         where: {
-          projectId: project.id
-        }
+          projectId: project.id,
+        },
       });
 
       // Delete the project
       await prisma.project.delete({
         where: {
-          id: project.id
-        }
+          id: project.id,
+        },
       });
     }
 
     // Delete the hackathon registration
     const deletedRegistration = await prisma.hackathonRegistration.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
     if (project && project.id) {
-      res.json(project)
-    }else{
+      res.json(project);
+    } else {
       res.json(deletedRegistration);
     }
-   
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }

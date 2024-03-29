@@ -1,29 +1,32 @@
-import prisma from "@/lib/db";
-import { config } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import prisma from '@/lib/db';
+import { config } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
-export default async function handle(req, res){
-  try{
+export default async function handle(req, res) {
+  try {
     const session = await getServerSession(req, res, config);
-    
+    const referer = req.headers.referer;
+    if (!referer || !referer.startsWith('https://www.ghl.gg')) {
+      return res.status(403).json({ error: 'Access Denied' });
+    }
     if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const {image} = req.body;
-    
+    const { image } = req.body;
+
     const result = await prisma.user.update({
-      where:{
+      where: {
         email: session.user.email,
       },
-      data:{
-        image:image
-      }
-    })
-    console.log(result)
+      data: {
+        image: image,
+      },
+    });
+    console.log(result);
     res.json(result);
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
