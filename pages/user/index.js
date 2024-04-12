@@ -138,12 +138,6 @@ function index() {
                   </>
                 )}
               </div>
-              <div className="px-5 py-2">
-                <h2 className="font-semibold  text-lg ">Email</h2>
-                <p className="block text-sm font-medium leading-6 text-white">
-                  {user.email}
-                </p>
-              </div>
               {user.skill !== null &&
                 user.skill !== undefined &&
                 user.skill !== "" && (

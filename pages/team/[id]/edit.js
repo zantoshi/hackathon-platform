@@ -70,10 +70,10 @@ function edit() {
 
   useEffect(()=>{
     if(user && session){
-      if(user.email !== session.user.email)
+      if(user.id !== team.creatorId)
         router.push("/")
     }
-  },[user])
+  },[user,team])
   
 
   return (
