@@ -13,7 +13,24 @@ export default async function handle(req, res) {
     const user = await prisma.user.findMany({
       where: {
         email: session.user.email,
-      },
+      }, select :  {
+        id: true,
+        name: true,
+        gamertag: true,
+        role: true,
+        emailVerified: true,
+        image: true,
+        isVerified: true,
+        lightningAddress: true,
+        publicBio: true,
+        publicStaticCharge: true,
+        social: true,
+        balance: true,
+        remainingAmountLimits: true,
+        skill: true,
+        location: true,
+        availability: true
+      }
     });
 
     res.json(user[0]);
