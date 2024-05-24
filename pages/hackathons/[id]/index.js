@@ -325,14 +325,14 @@ export default function HackathonDetail() {
             Build. Ship.
             <br />
             <span className="relative whitespace">
-              <span className="relative text-xl">{hackathon.title}</span>
+              <span className="relative text-4xl">{hackathon.title}</span>
             </span>
           </h1>
           <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
             {hackathon.description}
           </h2>
-          <h1 className="mx-auto max-w-3xl font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
-            From {formattedStartDate} to {formattedEndDate}
+          <h1 className="mx-auto max-w-3xl text-center font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
+            From {formattedStartDate} <br /> to <br /> {formattedEndDate}
             <div className="py-6">
               {!signedUp || !submit ? (
                 formattedCurrentDate <= hackathon.endDate ? (
@@ -360,7 +360,7 @@ export default function HackathonDetail() {
               )}
             </div>
           </h1>
-          <h1 className="mx-auto max-w-3xl py-6 font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+          <h1 className="mx-auto max-w-3xl py-6 font-display text-xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
             $5K+ in prizes 🏆
           </h1>
         </div>
