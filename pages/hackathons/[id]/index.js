@@ -328,13 +328,13 @@ export default function HackathonDetail() {
               <span className="relative text-4xl">{hackathon.title}</span>
             </span>
           </h1>
-          <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
+          <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-200  text-gray-300 leading-7">
             {hackathon.description}
           </h2>
           <h1 className="mx-auto max-w-3xl text-center font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
             From {formattedStartDate} <br /> to <br /> {formattedEndDate}
             <div className="py-6">
-              {!signedUp || !submit ? (
+              {session && (!signedUp || !submit) ? (
                 formattedCurrentDate <= hackathon.endDate ? (
                   <ButtonPrimary
                     buttonText={"Register Team"}
@@ -343,7 +343,7 @@ export default function HackathonDetail() {
                 ) : (
                   <></>
                 )
-              ) : !edit ? (
+              ) : session && !edit ? (
                 formattedCurrentDate <= hackathon.endDate && (
                   <ButtonPrimary
                     buttonText={"Submit Project"}
@@ -351,6 +351,7 @@ export default function HackathonDetail() {
                   />
                 )
               ) : (
+                session &&
                 formattedCurrentDate <= hackathon.endDate && (
                   <ButtonPrimary
                     buttonText={"Edit Project Submission"}
@@ -360,7 +361,7 @@ export default function HackathonDetail() {
               )}
             </div>
           </h1>
-          <h1 className="mx-auto max-w-3xl py-6 font-display text-xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+          <h1 className="mx-auto max-w-3xl py-8 font-display text-3xl font-bold tracking-normal text-gray-300 sm:text-5xl">
             $5K+ in prizes 🏆
           </h1>
         </div>
