@@ -325,7 +325,7 @@ export default function HackathonDetail() {
             Build. Ship.
             <br />
             <span className="relative whitespace">
-              <span className="relative">{hackathon.title}</span>
+              <span className="relative text-3xl">{hackathon.title}</span>
             </span>
           </h1>
           <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
