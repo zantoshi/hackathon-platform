@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../../../components/layout";
+import { useSession } from "next-auth/react";
+
 import PageHeader from "@/components/PageHeader";
 import SectionHeader from "@/components/SectionHeader";
 import BenefitsModule from "@/components/BenefitsModule";
@@ -16,6 +18,8 @@ import { useRouter } from "next/router";
 import { match } from "assert";
 
 export default function HackathonDetail() {
+  const { data: session } = useSession();
+
   const router = useRouter();
   const [id, setId] = useState("");
   const [teams, setTeams] = useState([]);
