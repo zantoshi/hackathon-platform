@@ -320,7 +320,7 @@ export default function HackathonDetail() {
     <Layout>
       <div className="w-full">
         <div className="text-center bg-gradient-to-b from-slate-950 to-purple-900">
-          <h1 className="mx-auto  font-display text-5xl font-bold tracking-normal text-gray-300 sm:text-7xl items-center justify-center">
+          <h1 className="mx-auto py-5 font-display text-5xl font-bold tracking-normal text-gray-300 sm:text-7xl items-center justify-center">
             Ideate. Design. <br />
             Build. Ship.
             <br />
@@ -333,23 +333,6 @@ export default function HackathonDetail() {
           </h2>
           <h1 className="mx-auto max-w-3xl font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
             From {formattedStartDate} to {formattedEndDate}
-          </h1>
-          <h1 className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
-            $5K+ in prizes 🏆
-          </h1>
-          <div className="grid gap-2 grid-cols-2">
-            {/* <Link
-                href="/signup/"
-                className="bg-neon-green hover:bg-green-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Sign-Up
-              </Link>
-              <Link
-                href="/signup/nostr"
-                className="border border-neon-green text-white hover:text-black hover:bg-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Nostr Sign-Up
-              </Link> */}
             {!signedUp || !submit ? (
               formattedCurrentDate <= hackathon.endDate ? (
                 <ButtonPrimary
@@ -374,6 +357,23 @@ export default function HackathonDetail() {
                 />
               )
             )}
+          </h1>
+          <h1 className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+            $5K+ in prizes 🏆
+          </h1>
+          <div className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+            {/* <Link
+                href="/signup/"
+                className="bg-neon-green hover:bg-green-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Sign-Up
+              </Link>
+              <Link
+                href="/signup/nostr"
+                className="border border-neon-green text-white hover:text-black hover:bg-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Nostr Sign-Up
+              </Link> */}
           </div>
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
