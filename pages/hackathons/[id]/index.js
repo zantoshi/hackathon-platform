@@ -34,41 +34,50 @@ export default function HackathonDetail() {
   const [benefits, setBenefits] = useState([]);
   const [judgeCriteria, setjudgeCriteria] = useState([]);
   const startDate = new Date(hackathon.startDate);
-const endDate = new Date(hackathon.endDate);
-const formattedStartDate = formatDate(startDate);
-const formattedEndDate = formatDate(endDate);
+  const endDate = new Date(hackathon.endDate);
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
 
   const currentDate = new Date();
   const formattedCurrentDate = currentDate.toISOString().split("T")[0];
 
   function getOrdinalSuffix(day) {
     if (day >= 11 && day <= 13) {
-        return "th";
+      return "th";
     }
     switch (day % 10) {
-        case 1:
-            return "st";
-        case 2:
-            return "nd";
-        case 3:
-            return "rd";
-        default:
-            return "th";
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
     }
-}
+  }
 
-function formatDate(date) {
-  const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-  ];
-  const month = months[date.getMonth()];
-  const day = date.getDate();
-  const year = date.getFullYear();
-  const suffix = getOrdinalSuffix(day);
-  return `${month} ${day}${suffix}, ${year}`;
-}
-
+  function formatDate(date) {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const suffix = getOrdinalSuffix(day);
+    return `${month} ${day}${suffix}, ${year}`;
+  }
 
   useEffect(() => {
     if (router.isReady) {
@@ -308,65 +317,66 @@ function formatDate(date) {
   }, [id]);
 
   return (
-    
     <Layout>
-      
-      <header>
-        <title>GHL | Hackathon Details</title>
-      </header>
-      <div className="py-4 sm:py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="px-6 lg:px-8 py-12 ">
-            <div className="m-auto max-w-3xl py-16">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-500 via-purple-500 to-white text-transparent bg-clip-text h-20">
-                  <div>{hackathon.title}</div>
-                </h1>
-               
-                <p className="my-6 text-2xl leading-8 text-gray-200">
-    From {formattedStartDate} to {formattedEndDate}
-</p>
-                <p className="my-6 text-lg leading-8 text-gray-200">
-                  {hackathon.description}
-                </p>
-
-                <div className="mt-2 flex items-center justify-center gap-x-6">
-                  {!signedUp || !submit ? (
-                    formattedCurrentDate <= hackathon.endDate ? (
-                      <ButtonPrimary
-                        buttonText={"Register"}
-                        buttonLink={`/hackathons/${id}/register`}
-                      />
-                    ) : (
-                      <></>
-                    )
-                  ) : !edit ? (
-                    formattedCurrentDate <= hackathon.endDate && (
-                      <ButtonPrimary
-                        buttonText={"Submit Project"}
-                        buttonLink={`/hackathons/${id}/submit`}
-                      />
-                    )
-                  ) : (
-                    formattedCurrentDate <= hackathon.endDate && (
-                      <ButtonPrimary
-                        buttonText={"Edit Project Submission"}
-                        buttonLink={`/hackathons/${id}/submit`}
-                      />
-                    )
-                  )}
-                  {/* <ButtonPrimary
-                    buttonText={"Register"}
-                    buttonLink={`/hackathons/${id}/register`}
-                  />
-                  <ButtonPrimary
-                    buttonText={"Submit Project"}
-                    buttonLink={`/hackathons/${id}/submit`}
-                  /> */}
-                </div>
-              </div>
-            </div>
+      <div className="w-full">
+        <div className="text-center bg-gradient-to-b from-slate-950 to-purple-900">
+          <h1 className="mx-auto  font-display text-5xl font-bold tracking-normal text-gray-300 sm:text-7xl items-center justify-center">
+            Ideate. Design. <br />
+            Build. Ship.
+            <br />
+            <span className="relative whitespace">
+              <span className="relative">{hackathon.title}</span>
+            </span>
+          </h1>
+          <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
+            {hackathon.description}
+          </h2>
+          <h1 className="mx-auto max-w-3xl font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
+            From {formattedStartDate} to {formattedEndDate}
+          </h1>
+          <h1 className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+            $5K+ in prizes 🏆
+          </h1>
+          <div className="grid gap-2 grid-cols-2">
+            {/* <Link
+                href="/signup/"
+                className="bg-neon-green hover:bg-green-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Sign-Up
+              </Link>
+              <Link
+                href="/signup/nostr"
+                className="border border-neon-green text-white hover:text-black hover:bg-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Nostr Sign-Up
+              </Link> */}
+            {!signedUp || !submit ? (
+              formattedCurrentDate <= hackathon.endDate ? (
+                <ButtonPrimary
+                  buttonText={"Register"}
+                  buttonLink={`/hackathons/${id}/register`}
+                />
+              ) : (
+                <></>
+              )
+            ) : !edit ? (
+              formattedCurrentDate <= hackathon.endDate && (
+                <ButtonPrimary
+                  buttonText={"Submit Project"}
+                  buttonLink={`/hackathons/${id}/submit`}
+                />
+              )
+            ) : (
+              formattedCurrentDate <= hackathon.endDate && (
+                <ButtonPrimary
+                  buttonText={"Edit Project Submission"}
+                  buttonLink={`/hackathons/${id}/submit`}
+                />
+              )
+            )}
           </div>
+        </div>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
           <div className="my-2 mb-4"></div>
           <div className="mx-auto max-w-4xl gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none">
             <div className="lg:pr-8 lg:pt-4">
@@ -455,8 +465,13 @@ function formatDate(date) {
                                         </p>
                                         <br></br>
                                         <div class="mb-8">
-                                          <h1 className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
-                                           style={{ backgroundColor: detail.colorAvatar}}>
+                                          <h1
+                                            className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
+                                            style={{
+                                              backgroundColor:
+                                                detail.colorAvatar,
+                                            }}
+                                          >
                                             {detail.teamAvatar}
                                           </h1>
                                         </div>
@@ -526,8 +541,13 @@ function formatDate(date) {
                                         </p>
                                         <br></br>
                                         <div class="mb-8">
-                                        <h1 className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
-                                           style={{ backgroundColor: detail.colorAvatar}}>
+                                          <h1
+                                            className="text-6xl py-5 px-2  inline-block rounded-3xl border-solid border-2 border-purple-500"
+                                            style={{
+                                              backgroundColor:
+                                                detail.colorAvatar,
+                                            }}
+                                          >
                                             {detail.teamAvatar}
                                           </h1>
                                         </div>
