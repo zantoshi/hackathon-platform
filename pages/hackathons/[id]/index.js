@@ -325,7 +325,7 @@ export default function HackathonDetail() {
             Build. Ship.
             <br />
             <span className="relative whitespace">
-              <span className="relative text-3xl">{hackathon.title}</span>
+              <span className="relative text-xl">{hackathon.title}</span>
             </span>
           </h1>
           <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
@@ -333,10 +333,11 @@ export default function HackathonDetail() {
           </h2>
           <h1 className="mx-auto max-w-3xl font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
             From {formattedStartDate} to {formattedEndDate}
+            <br />
             {!signedUp || !submit ? (
               formattedCurrentDate <= hackathon.endDate ? (
                 <ButtonPrimary
-                  buttonText={"Register"}
+                  buttonText={"Register Team"}
                   buttonLink={`/hackathons/${id}/register`}
                 />
               ) : (
