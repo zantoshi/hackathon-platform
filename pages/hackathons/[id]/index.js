@@ -333,49 +333,36 @@ export default function HackathonDetail() {
           </h2>
           <h1 className="mx-auto max-w-3xl font-display text-md font-bold tracking-normal text-gray-300 sm:text-3xl my-10">
             From {formattedStartDate} to {formattedEndDate}
-            <br />
-            {!signedUp || !submit ? (
-              formattedCurrentDate <= hackathon.endDate ? (
-                <ButtonPrimary
-                  buttonText={"Register Team"}
-                  buttonLink={`/hackathons/${id}/register`}
-                />
+            <div className="py-6">
+              {!signedUp || !submit ? (
+                formattedCurrentDate <= hackathon.endDate ? (
+                  <ButtonPrimary
+                    buttonText={"Register Team"}
+                    buttonLink={`/hackathons/${id}/register`}
+                  />
+                ) : (
+                  <></>
+                )
+              ) : !edit ? (
+                formattedCurrentDate <= hackathon.endDate && (
+                  <ButtonPrimary
+                    buttonText={"Submit Project"}
+                    buttonLink={`/hackathons/${id}/submit`}
+                  />
+                )
               ) : (
-                <></>
-              )
-            ) : !edit ? (
-              formattedCurrentDate <= hackathon.endDate && (
-                <ButtonPrimary
-                  buttonText={"Submit Project"}
-                  buttonLink={`/hackathons/${id}/submit`}
-                />
-              )
-            ) : (
-              formattedCurrentDate <= hackathon.endDate && (
-                <ButtonPrimary
-                  buttonText={"Edit Project Submission"}
-                  buttonLink={`/hackathons/${id}/submit`}
-                />
-              )
-            )}
+                formattedCurrentDate <= hackathon.endDate && (
+                  <ButtonPrimary
+                    buttonText={"Edit Project Submission"}
+                    buttonLink={`/hackathons/${id}/submit`}
+                  />
+                )
+              )}
+            </div>
           </h1>
-          <h1 className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
+          <h1 className="mx-auto max-w-3xl py-6 font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
             $5K+ in prizes 🏆
           </h1>
-          <div className="mx-auto max-w-3xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-5xl my-10">
-            {/* <Link
-                href="/signup/"
-                className="bg-neon-green hover:bg-green-800 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Sign-Up
-              </Link>
-              <Link
-                href="/signup/nostr"
-                className="border border-neon-green text-white hover:text-black hover:bg-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Nostr Sign-Up
-              </Link> */}
-          </div>
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
           <div className="my-2 mb-4"></div>
